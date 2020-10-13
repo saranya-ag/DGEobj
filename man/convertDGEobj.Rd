@@ -7,27 +7,29 @@
 convertDGEobj(dgeObj, Class)
 }
 \arguments{
-\item{dgeObj}{A class dgeObj created by function initDGEobj}
+\item{dgeObj}{A class DGEobj created by function initDGEobj()}
 
-\item{Class}{one of "RangedSummarizedExperiment", "RSE", "ExpressionSet", "ES"
+\item{Class}{One of "RangedSummarizedExperiment", "RSE", "ExpressionSet", "ES"
 (case insensitive)}
 }
 \value{
-A object of the specified class
+An object of the specified class
 }
 \description{
 Casts a DGEobj class object as the specified data class.
-Supports conversion to RangedSummarizedExperiment, Expression Set
+Supports conversion to RangedSummarizedExperiment, Expression Set,
 or simple list.
 }
 \examples{
-   MyRSE <- convertDGEobj(dgeObj, "RSE")
-   MyES <- convertDGEobj(dgeObj, "ES")
-   MyList <- convertDGEobj(dgeObj, "list")
+\dontrun{
+   MyRSE  <- convertDGEobj(DGEobj, "RSE")
+   MyES   <- convertDGEobj(DGEobj, "ES")
+   MyList <- convertDGEobj(DGEobj, "list")
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj,}
 \keyword{ExpressionSet}

@@ -7,36 +7,38 @@
 mergeDGEobj(d1, d2, join = "inner", orig = TRUE)
 }
 \arguments{
-\item{d1}{The first DGEobj (required)}
+\item{d1}{The first DGEobj (Required)}
 
-\item{d2}{The second DGEobj (required)}
+\item{d2}{The second DGEobj (Required)}
 
-\item{join}{The join type to use (default = "inner"). Values of inner and
-left are supported.}
+\item{join}{The join type to use (default = "inner"). Values of "inner" and
+"left" are supported.}
 
-\item{orig}{A DGEobj is typically filtered to remove non-expressed genes.  However,
+\item{orig}{Default = TRUE. A DGEobj is typically filtered to remove non-expressed genes. However,
 a copy of the original (unfiltered) data is still stored.  By default,
-this function will merge the **original unfiltered** data for these two DGEobjs. Set orig=FALSE
+this function will merge the **original unfiltered** data for these two DGEobjs. Set orig = FALSE
 to disable this behavior and thus attempt to merge the already filtered data.}
 }
 \value{
 A DGEobj class object with the merged data.
 }
 \description{
-Merge two DGEobj.  This will effectively cbind the counts from expt2 onto
-expt1.  You can choose between inner join and left join when combining the
+Merge two DGEobjs together.  This will effectively cbind the counts from d2 onto
+d1.  You can choose between an inner join and left join when combining the
 data.  This will **NOT** try to capture the workflows from both objects.  Rather,
-it will capture just the counts, row and col annotation and merge those items
-into a new combined DGEobj.  Row (gene) annotation will be taken from the 1st
-DGEobj.  Sample annotation must have at least one common colname to merged.
+it will capture just the counts, row, and col annotations and merge those items
+into a new, combined DGEobj.  Row (gene) annotation will be taken from the 1st
+DGEobj.  Sample annotation must have at least one common column name to be merged.
 Only columns present in both datasets will be kept.
 }
 \examples{
-   MyCombinedDGEobj <- mergeDGEobj(dgeObj1, dgeObj2, join="inner", orig=TRUE)
+\dontrun{
+   MyCombinedDGEobj <- mergeDGEobj(DGEobj1, DGEobj2, join = "inner", orig = TRUE)
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj}
 \keyword{RNA-Seq,}

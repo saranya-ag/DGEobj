@@ -17,46 +17,45 @@ initDGEobj(
 \arguments{
 \item{counts}{A count matrix or dataframe with row and colnames.}
 
-\item{rowData}{Gene, isoform or exon level annotation. rownames must match
+\item{rowData}{Gene, isoform or exon level annotation. Rownames must match
 rownames in count matrix.}
 
-\item{colData}{A dataframe describing the experiment design.  Rownames much match
+\item{colData}{A dataframe describing the experiment design. Rownames much match
 colnames(counts).}
 
-\item{level}{One of "gene", "isoform" or "exon"}
+\item{level}{One of "gene", "isoform", or "exon".}
 
 \item{customAttr}{An optional (but highly recommended) named list of attributes
 to assign to the DGEobj.}
 
-\item{allowShortSampleIDs}{Using sequential integers rownames (even if typed as character)
-is discouraged and by default will abort the DGEobj creation.  If you have a legitimate
-need to have short samplenames composed of numeric characters, you can set this argument to TRUE.
-(default = FALSE)}
+\item{allowShortSampleIDs}{Using sequential integer rownames (even if typed as character)
+is discouraged and by default will abort the DGEobj creation. If you have a legitimate
+need to have short sample names composed of numeric characters, you can set this argument to TRUE.
+(Default = FALSE)}
 
-\item{DGEobjDef}{An object definition. Defaults to the global DGE object definition
+\item{DGEobjDef}{An object definition. Defaults to the global DGEobj definition
 (.DGEobjDef) and you usually shouldn't change this unless you're customizing
 the object for new data types.}
 }
 \value{
-A DGEobj object
+A class DGEobj object
 }
 \description{
 Initializes DGEobj with base data (counts, gene annotation and sample annotation).
 }
 \examples{
-   # initialize a DGEobj
+\dontrun{
+   # Initialize a DGEobj
    myDgeObj <- initDGEobj(counts = MyCounts,
-                            rowData = MyGeneAnnotation,
-                            colData = MyDesign,
-                            level = "gene",
-                            customAttr = list (PID = "20171025-0001",
-                                               XpressID = "12345",
-                                               Genome = "Mouse.B38",
-                                               GeneModel = "Ensembl.R84")
-                           )
+                          rowData = MyGeneAnnotation,
+                          colData = MyDesign,
+                          level = "gene",
+                          customAttr = list (Genome = "Mouse.B38",
+                                             GeneModel = "Ensembl.R84"))
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{RNA-Seq}

@@ -7,27 +7,29 @@
 convertRSE(RSE, Class, countsName = "Counts")
 }
 \arguments{
-\item{RSE}{A class RangedSummarizedExperiment}
+\item{RSE}{An object of class RangedSummarizedExperiment}
 
-\item{Class}{Destination class (one of "DGEobj", "ES", "ExpressionSet")}
+\item{Class}{Destination class (one of "DGEobj", "ES", or "ExpressionSet")}
 
 \item{countsName}{If the name of the counts object is not "Counts", use
 this argument to tell the function the actual name of the counts assay in the RSE.}
 }
 \value{
-A obejct of the specified class
+An object of the specified class
 }
 \description{
-Casts an RSE class object as a DGEobj.  Only captures count
-data and the associated row and col annotation
+Casts a RSE class object as a DGEobj.  Only captures count
+data and the associated row and col annotation.
 }
 \examples{
+\dontrun{
    MyDGEobj <- convertRSE(MyRSE, "DGEobj")
-   MyES <- convertRSE(MyRSE, "ES")
+   MyES     <- convertRSE(MyRSE, "ES")
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj,}
 \keyword{ExpressionSet}

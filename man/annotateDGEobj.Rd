@@ -4,30 +4,15 @@
 \alias{annotateDGEobj}
 \title{Function annotateDGEobj}
 \usage{
-annotateDGEobj(
-  dgeObj,
-  regfile,
-  keys = list("ID", "BMS_PID", "Title", "Description", "Keywords", "Business Unit",
-    "BusinessUnit", "Functional Area", "FunctionalArea", "Disease", "Vendor",
-    "PlatformType", "Technology", "LibraryPrep", "Organism", "Tissue",
-    "AlignmentReference", "GeneModel", "TBio_Owner", "TA_Owner", "LoadDate", "ReadLength",
-    "ReadType", "Pipeline", "AlignmentAlgorithm", "ScriptID", "BioGitURL", "source",
-    "XpressID", "repo")
-)
+annotateDGEobj(dgeObj, regfile, keys = NULL)
 }
 \arguments{
-\item{dgeObj}{A class dgeObj created by function initDGEobj}
+\item{dgeObj}{A class DGEobj created by function initDGEobj()}
 
-\item{regfile}{An omicsoft registration file (text not Excel!)}
+\item{regfile}{An Omicsoft registration file (in text format, not Excel)}
 
 \item{keys}{A list of keys to look for in the regfile and transfer to the DGEobj.
-Use keys=NULL to accept all keys in a regfile file.  The following keys
-from our Omicsoft registration files are used by default: "ID",
-"BMS_PID", "Title", "Description", "Keywords", "Business Unit", "Functional
-Area", "Disease", "Vendor", "PlatformType", "Technology", "LibraryPrep",
-"Organism", "Tissue", "AlignmentReference", "GeneModel", "TBio_Owner",
-"TA_Owner", "LoadDate", "ReadLength", "ReadType", "Pipeline",
-"AlignmentAlgorithm", "ScriptID"}
+Use keys = NULL to accept all keys in a regfile (Default)}
 }
 \value{
 A DGEobj annotated with attributes.
@@ -45,11 +30,13 @@ This function should work as long as you provide a text file with key/value
 pairs separated by equals sign.
 }
 \examples{
+\dontrun{
    MyDgeObj <- annotateDGEobj(DGEobj, regfile)
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj,}
 \keyword{RNA-Seq,}

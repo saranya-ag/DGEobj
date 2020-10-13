@@ -7,23 +7,25 @@
 showMeta(obj)
 }
 \arguments{
-\item{obj}{A object with attributes to examine created by function initDGEobj}
+\item{obj}{An object with attributes to examine (often a DGEobj created by function initDGEobj())}
 }
 \value{
 A data frame with the key value pairs from the object's attributes.
 }
 \description{
-Prints the attributes associated with a object with a limit on the length of
-the values stored in the attributes.  Use this to examine the key=value meta
-data associated with a DGEobj.  Written for use with DGEobjs but
+Prints the attributes associated with an object with a limit on the length of
+the values stored in the attributes.  Use this to examine the key/value metadata
+associated with a DGEobj.  Written for use with a DGEobj, but
 should function generically on any object with key/value pair attributes.
 }
 \examples{
-   df <- showMeta(MydgeObj)
+\dontrun{
+   df <- showMeta(MyDGEobj)
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj}
 \keyword{RNA-Seq,}

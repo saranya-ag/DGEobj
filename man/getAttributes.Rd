@@ -10,29 +10,31 @@ getAttributes(
 )
 }
 \arguments{
-\item{item}{a DGEobj structure (or any object with attributes)}
+\item{item}{A DGEobj (or any object with attributes)}
 
 \item{excludeList}{A list of attribute names to exclude from the output
 (default = list("dim", "dimnames", "names", "row.names"))}
 }
 \value{
-a named list of attribute values for the items
+A named list of attribute values for the items
 }
 \description{
-get all attributes from an item except for ones listed on the excludeList.
+Get all attributes from an item except for any listed in the excludeList argument.
 This is intended to capture user-defined attributes by excluding a few standard
 attributes like class and dim.
 }
 \examples{
-   #get attributes from a DGEobj
-   MyAttr <- getAttributes(dgeObj)
+\dontrun{
+   # Get attributes from a DGEobj
+   MyAttr <- getAttributes(DGEobj)
 
-   #get the formula attribute from the designMatrix
-   MyAttr <- attr(dgeObj$designMatrixName, "formula")
+   # Get the formula attribute from the designMatrix
+   MyAttr <- attr(DGEobj$designMatrixName, "formula")
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj}
 \keyword{RNA-Seq,}

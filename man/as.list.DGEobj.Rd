@@ -2,26 +2,29 @@
 % Please edit documentation in R/as.R
 \name{as.list.DGEobj}
 \alias{as.list.DGEobj}
-\title{### Function as.list.DGEobj ###
-Function as.list.DGEobj}
+\title{Function as.list.DGEobj}
 \usage{
-\method{as.list}{DGEobj}(dgeObj)
+\method{as.list}{DGEobj}(x, ...)
 }
 \arguments{
-\item{dgeObj}{A class dgeObj created by function initDGEobj}
+\item{x}{A class DGEobj created by function initDGEobj()}
+
+\item{...}{Additional parameters}
 }
 \value{
-A simple list version of the DGEobj
+A simple list version of the DGEobj.
 }
 \description{
 Casts a DGEobj class object as a simple list.
 }
 \examples{
-   MyDGElist <- as.list(dgeObj)
+\dontrun{
+   MyDGElist <- as.list(DGEobj)
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj}
 \keyword{RNA-Seq,}

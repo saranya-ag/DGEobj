@@ -6,13 +6,13 @@
 \usage{
 showAttributes(
   dgeObj,
-  skip = c("dim", "dimnames", "rownames", "colnames", "listData", "objDef")
+  skipList = c("dim", "dimnames", "rownames", "colnames", "listData", "objDef")
 )
 }
 \arguments{
-\item{dgeObj}{A DGEobj created by function initDGEobj}
+\item{dgeObj}{A DGEobj created by function initDGEobj()}
 
-\item{skip}{A character vector of attributes to skip. Use this to avoid
+\item{skipList}{A character vector of attributes to skip. Use this to avoid
 printing certain lengthy attributes like rownames.  Defaults to c("dim",
 dimnames", "rownames", "colnames", "listData", "objDef")}
 }
@@ -22,15 +22,17 @@ Prints a list of attributes and values.
 \description{
 Prints the attributes associated with a DEGobj.  This prints
 all attributes regardless of the class of the attribute value.
-Use showMeta if you are only interested in attributes that are
+Use showMeta() if you are only interested in attributes that are
 key/value pairs.
 }
 \examples{
-   showAttributes(MydgeObj)
+\dontrun{
+   showAttributes(myDGEobj)
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj}
 \keyword{RNA-Seq,}

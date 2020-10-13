@@ -18,14 +18,14 @@ addItem(
 )
 }
 \arguments{
-\item{dgeObj}{A class dgeObj created by function initDGEobj}
+\item{dgeObj}{A class DGEobj created by function initDGEobj()}
 
-\item{item}{Required. The data item to be deposited in the DGEobj}
+\item{item}{The data item to be deposited in the DGEobj (Required)}
 
-\item{itemName}{Required.  A user assigned name for this data item}
+\item{itemName}{A user assigned name for this data item. (Required)}
 
-\item{itemType}{Required.  A type attribute.  See showTypes to see the
-pre-defined types. Types are extensible with the newType function.}
+\item{itemType}{A type attribute.  See showTypes() to see the
+pre-defined types. Types are extensible with the newType() function. (Required)}
 
 \item{overwrite}{Default = FALSE.  Set to TRUE to overwrite the data object
 stored in the itemName slot}
@@ -39,7 +39,7 @@ name and arguments used in the current function (optional)}
 \item{parent}{ItemName of the parent of this item (optional, but your DGEobj
 won't be well annotated if you don't use this wherever appropriate)}
 
-\item{init}{Default = FALSE. Used internally by the initDGEobj function.}
+\item{init}{Default = FALSE. Used internally by the initDGEobj() function.}
 
 \item{debug}{Default = FALSE; TRUE trigger browser mode.}
 }
@@ -50,16 +50,18 @@ A DGEobj class object with a new data item added.
 Add a data item to a class DGEobj
 }
 \examples{
-   myFunArgs <- match.call() #capture calling function and arguments
-   showTypes()  #See what predefined types are available
-   myDgeObj <- addItem(myDgeObj, item = MyCounts,
+\dontrun{
+   myFunArgs <- match.call() # Capture calling function and arguments
+   showTypes()  # See what predefined types are available
+   myDGEobj <- addItem(myDGEobj, item = MyCounts,
                                  itemName = "counts",
                                  itemType = "counts",
                                  funArgs = myFunArgs)
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj}
 \keyword{RNA-Seq,}

@@ -7,31 +7,32 @@
 resetDGEobj(dgeObj, platformType)
 }
 \arguments{
-\item{dgeObj}{A DGEobj that we wish to extract original un-filtered data from.}
+\item{dgeObj}{A DGEobj that we wish to extract original, un-filtered data from.}
 
-\item{platformType}{One of "RNA-Seq", "Affymetrix" or "Somalogic".  Only
-required if the PlatformType attribute is missing from the DGEobj.}
+\item{platformType}{One of "RNA-Seq" or "Affymetrix". Only required if the
+PlatformType attribute is missing from the DGEobj.}
 }
 \value{
 A DGEobj containing the original (unfiltered) data.
 }
 \description{
 During a workflow, a DGEobj typically gets filtered down to remove samples
-that fail qc or non-expressed genes.  The resetDGEobj function produces a new DGEobj with
+that fail QC or non-expressed genes.  The resetDGEobj() function produces a new DGEobj with
 the original un-filtered data.
 }
 \details{
-We can restore the original data, because a copy of the original data was stored on the "meta"
-layer and the meta layer is not subject to row or column filters.
+We can restore the original data because a copy of the original data was stored on the "meta"
+layer and the "meta" layer is not subject to row or column filters.
 }
 \examples{
-
-  #get back the original data e.g. to start a different analysis
-  unfilteredDGEobj <- resetDGEobj(MyHeavilyFilteredDGEobj)
+\dontrun{
+    # Get back the original data, e.g. to start a different analysis
+    unfilteredDGEobj <- resetDGEobj(MyHeavilyFilteredDGEobj)
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{RNA-Seq;}
 \keyword{counts;}

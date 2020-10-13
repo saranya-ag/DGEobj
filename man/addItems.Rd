@@ -7,33 +7,35 @@
 addItems(dgeObj, itemList, itemTypes, parents, overwrite = FALSE, itemAttr)
 }
 \arguments{
-\item{dgeObj}{A DGEobj that items will be added to (required)}
+\item{dgeObj}{A DGEobj that items will be added to. (Required)}
 
-\item{itemList}{A list of data items to add to dgeObj (required)}
+\item{itemList}{A list of data items to add to dgeObj (Required)}
 
-\item{itemTypes}{A list of type values for each item on itemList (required)}
+\item{itemTypes}{A list of type values for each item on itemList (Required)}
 
-\item{parents}{A list of parent values for each item on itemList (optional but highly recommended)}
+\item{parents}{A list of parent values for each item on itemList (Optional, but highly recommended)}
 
 \item{overwrite}{Default = FALSE.  Set to TRUE to overwrite the data object
 stored in the itemName slot}
 
-\item{itemAttr}{An named list of attributes to add to each item (optional). The
+\item{itemAttr}{An named list of attributes to add to each item (Optional). The
 same set of attributes will be added to each item.}
 }
 \value{
-A DGEobj class object with new items added.
+A class DGEobj object with new items added.
 }
 \description{
 Add a data item to a class DGEobj
 }
 \examples{
-   #replace a set of contrasts after adding something to each
-   myDgeObj <- addItems(myDgeObj, mycontrastList, overwrite=TRUE)
+\dontrun{
+   # Replace a set of contrasts after adding something to each
+   myDGEobj <- addItems(myDGEobj, myContrastList, overwrite= TRUE)
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj}
 \keyword{RNA-Seq,}

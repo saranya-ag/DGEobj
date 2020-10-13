@@ -7,27 +7,29 @@
 getAttribute(item, attrName)
 }
 \arguments{
-\item{item}{a DGEobj or item}
+\item{item}{A DGEobj or item}
 
 \item{attrName}{Name of the attribute to retrieve.}
 }
 \value{
-the specified attribute value (data type depends on the datatype
+The specified attribute value (data type depends on the data type
 stored in the attribute) or NULL if attribute doesn't exist
 }
 \description{
-get a specified attribute from an item
+Get a specified attribute from an item.
 }
 \examples{
-   #get an attribute from a DGEobj
-   MyAttr <- getAttribute(dgeObj, "type")
+\dontrun{
+   # Get an attribute from a DGEobj
+   MyAttr <- getAttribute(DGEobj, "type")
 
-   #get an attribute from a DGEobj item
-   MyAttr <- getAttribute(dgeObj$designMatrix, "formula")
+   # Get an attribute from a DGEobj item
+   MyAttr <- getAttribute(DGEobj$designMatrix, "formula")
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj}
 \keyword{RNA-Seq,}

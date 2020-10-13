@@ -1,64 +1,31 @@
 Package: DGEobj
 Type: Package
-Title: DGEobj provides a S3 data class to manage and annotate DGE analysis
-    results
-Version: 0.9.52
-Authors@R: person("John", "Thompson", email = "john.thompson@bms.com",
-                  role = c("aut", "cre"))
-Maintainer@R: person("John", "Thompson", email = "john.thompson@bms.com",
-    role = c("aut", "cre"))
-Description: Provides an S3 data class to manage and annotate DGE analysis
-    results.  Although authored with differential gene expression in mind,
-    the datatypes are customizable and extensible to accommodate nearly any
-    data analysis workflow that starts from a data matrix of assays (rows) 
-    by Samples (columns).
+Title: S3 data class used to store, manage, and annotate differential gene 
+    expression (DGE) analysis results
+Version: 1.0.0.9100
+Authors@R: c(
+    person("John", "Thompson", email = "john.thompson@bms.com", role = c("aut")),
+    person("Connie", "Brett", email = "connie@aggregate-genius.com", role = c("aut", "cre")),
+    person("Isaac", "Neuhaus", email = "isaac.neuhaus@bms.com", role = c("aut")))
+Description: Provides an S3 data class to manage and annotate differential gene 
+    expression (DGE) analysis results.  Although originally authored with DGE in mind, 
+    the datatype is customizable and extensible to accommodate nearly any data analysis 
+    workflow that starts from a data matrix of assays (rows) by samples (columns).
 Depends:
     R (>= 3.5.0)
-License: GPL3
+License: GPL-3
 Encoding: UTF-8
-LazyData: true
 Imports:
-    dplyr (>= 0.4.3),
-    magrittr (>= 1.5),
-    GenomicRanges,
-    IRanges,
-    SummarizedExperiment,
     assertthat,
-    testthat,
     knitr,
-    stringr,
-    S4Vectors,
-    lubridate,
+    magrittr,
     methods,
-    readat,
-    pathological, 
-    stats,
+    stringr,
     utils,
-    tibble
-Collate:
-    'DGEobj.R'
-    'addItem.R'
-    'rmItem.R'
-    'dimensionMatch.R'
-    'get.R'
-    'dim.R'
-    'newType.R'
-    'showTypes.R'
-    'print.R'
-    'dimnames.R'
-    'as.R'
-    'attributes.R'
-    'subset.R'
-    'index.R'
-    'mergeDGEobj.R'
-    'initSOMAobj.R'
-    'adatToDGEobj.R'
-    'resetDGEobj.R'
-    'textToDGEobj.R'
-    'initDGEobj.R'
-    'initDGEobj_Affy.R'
-    'initDGEobj_ptx.R'
-RoxygenNote: 7.0.2
+    S4Vectors,
+    SummarizedExperiment
+RoxygenNote: 7.1.1
 Suggests: 
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr

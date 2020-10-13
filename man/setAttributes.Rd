@@ -7,41 +7,43 @@
 setAttributes(item, attribs)
 }
 \arguments{
-\item{item}{Anything you want to attach attributes to}
+\item{item}{An object to attach attributes to}
 
 \item{attribs}{A named list of attribute/value pairs}
 }
 \value{
-the item with new attributes
+The item with new attributes added and no existing attributes removed
 }
 \description{
 Set one or more attributes on an object.  You can use this to add attribute
 annotation(s) to a DGEobj or to a specific item within a DGEobj.  Notably,
 using the base attributes function to add attributes strips existing
-attributes.  The setAttributes function adds the attributes passed to it in
+attributes.  The setAttributes() function adds the attributes passed to it in
 the attribs argument without deleting attributes already present.   However,
-A names attribute on the attribs argument list that already exists in the
+a names attribute on the attribs argument list that already exists in the
 object will be updated.  The function is generic in that it should work on
-other datatypes/classes, not just the DGEobj.
+other datatypes/classes, not just a DGEobj.
 }
 \examples{
-   #assign attributes to a DGEobj
-   MyAttributes <- list(Platform = "RNA-Seq",
-           Instrument = "HiSeq",
-           Vendor = "BMS",
-           readType = "PE",
-           readLength = 75,
-           strandSpecific = TRUE)
-   MyDGEobj <- setAttributes(MyDGEObj, MyAttributes)
+\dontrun{
+   # Assign attributes to a DGEobj
+   MyAttributes <- list(Platform       = "RNA-Seq",
+                        Instrument     = "HiSeq",
+                        Vendor         = "Unknown",
+                        readType       = "PE",
+                        readLength     = 75,
+                        strandSpecific = TRUE)
+   MyDGEobj <- setAttributes(MyDGEobj, MyAttributes)
 
-   #set attributes on an item inside a DGEobj
-   MyAttributes <- list(normalized = FALSE,
-                        LowIntFilter = "FPK >5 in >= 1 group"),
+   # Set attributes on an item inside a DGEobj
+   MyAttributes <- list(normalized   = FALSE,
+                        LowIntFilter = "FPK >5 in >= 1 group")
    MyDGEObj[["counts"]] <- setAttributes(MyDGEObj[["counts"]], MyAttributes)
+}
 
 }
 \author{
-John Thompson, \email{john.thompson@bms.com}
+John Thompson
 }
 \keyword{DGEobj}
 \keyword{RNA-Seq,}
