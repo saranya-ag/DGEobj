@@ -6,7 +6,7 @@ r:
   - release
   - devel
 cache: packages
-bioc_packages: limma
+bioc_packages: S4Vectors SummarizedExperiment
 r_packages:
   - covr
   - canvasXpress.data
