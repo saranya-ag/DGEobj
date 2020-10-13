@@ -6,10 +6,11 @@ r:
   - release
   - devel
 cache: packages
-bioc_packages: S4Vectors SummarizedExperiment
+bioc_packages:
+  - S4Vectors
+  - SummarizedExperiment
 r_packages:
   - covr
-  - canvasXpress.data
 after_success:
   - Rscript -e 'library(covr); codecov(quiet = FALSE)'
 latex: false
