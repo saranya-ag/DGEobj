@@ -18,7 +18,7 @@ context("DGEobj - tests for conversions.R functions")
 }
 
 
-test_that('as.list successfully converts a DGEobj to a simple list', {
+test_that('conversions.R: as.list()', {
     list_DGEobj <- as.list(DGEobj)
     expect_true(is.list(list_DGEobj))
 
@@ -26,30 +26,24 @@ test_that('as.list successfully converts a DGEobj to a simple list', {
     # requires levels on the object
 })
 
-test_that('DGEobj to RangedSummarizedExperiment, RSE', {
+test_that('conversions.R: convertDGEobj() to RangedSummarizedExperiment, RSE', {
     # rse_DGEobj <- convertDGEobj(DGEobj, 'RangedSummarizedExperiment')
     # requires levels on the object
 })
 
-test_that('DGEobj to ExpressionSet, ES', {
+test_that('conversions.R: convertDGEobj() to ExpressionSet, ES', {
     # rse_DGEobj <- convertDGEobj(DGEobj, 'ExpressionSet')
     # requires levels on the object
 })
 
-test_that('bad conversions of DGEobj', {
-    expect_error(convertDGEobj(DGEobj, 'Bob'))
-    expect_error(convertDGEobj(NULL, "ES"))
-    expect_error(convertDGEobj(list(), "list"))
-})
-
-test_that('convert RSE to ES', {
+test_that('conversions.R: convertRSE() to ExpressionSet, ES', {
     rse <- .get_rse()
 
     es <- convertRSE(rse, Class = "ES")
     expect_s4_class(es, 'ExpressionSet')
 })
 
-test_that('convert RSE to DGEobj', {
+test_that('conversions.R: convertRSE() to DGEobj', {
     rse <- .get_rse()
 
     # rsa_DGEobj <- convertRSE(rse, Class = "DGEobj")
@@ -57,7 +51,11 @@ test_that('convert RSE to DGEobj', {
     # requirements not yet met in RSE object, need to setup more fully
 })
 
-test_that('bad conversions of RSE', {
+test_that('conversions.R: incorrect usage', {
+    expect_error(convertDGEobj(DGEobj, 'Bob'))
+    expect_error(convertDGEobj(NULL, "ES"))
+    expect_error(convertDGEobj(list(), "list"))
+
     rse <- .get_rse()
 
     expect_null(convertRSE(rse, Class = "Bob"))

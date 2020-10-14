@@ -1,7 +1,7 @@
 context("DGEobj - tests for addItem.R functions")
 
 
-test_that('add an item', {
+test_that('addItem.R: addItem()', {
     #meta
     add <- addItem(DGEobj, item = 'Fred Flintstone',
                    itemName = 'Cartoon',
@@ -31,7 +31,7 @@ test_that('add an item', {
     expect_equal(dim(add$MyMatrixCol), c(dims[2], 1))
 })
 
-test_that('add items', {
+test_that('addItem.R: addItems()', {
     #meta
     add <- addItems(DGEobj,
                     itemList = list("Cartoon"  = "Fred Flintstone",
@@ -60,7 +60,7 @@ test_that('add items', {
 
 })
 
-test_that('bad uses of addItem', {
+test_that('addItem.R: incorrect usage', {
     expect_error(addItem(NULL))
     expect_error(addItem(DGEobj))
     expect_error(addItem(DGEobj, item = 'fred', itemName = 'fred', itemType = 'fred'))
