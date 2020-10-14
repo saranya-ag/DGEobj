@@ -26,7 +26,8 @@ Imports:
     SummarizedExperiment
 RoxygenNote: 7.1.1
 Suggests: 
+    covr,
     rmarkdown,
     testthat,
-    covr
+    GenomicRanges
 VignetteBuilder: knitr

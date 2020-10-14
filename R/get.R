@@ -109,8 +109,9 @@ getType <- function(dgeObj, type, parent){
 
     if (sum(idx) < length(type))
         warning("Some types were not found")
+
     if (sum(idx) == 0) {
-        tsmsg("Warning: no items of specified type are found.")
+        .tsmsg("Warning: no items of specified type are found.")
         return(NULL)
     } else {
         if (sum(idx) < length(type))
@@ -157,65 +158,4 @@ getBaseType <- function(dgeObj, baseType){
 
     result <- unclass(dgeObj)[idx]
     return(result)
-}
-
-
-#' Function BaseType
-#'
-#' Return the baseType for a given item type in a DGEobj.
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param dgeObj A class DGEobj created by function initDGEobj()
-#' @param type  An item type for which you want the baseType
-#'
-#' @return A baseType value (character string)
-#'
-#' @examples
-#' \dontrun{
-#'    MyBaseType <- baseType(dgeObj, type = "DGEList")
-#' }
-#'
-#' @importFrom assertthat assert_that
-#'
-#' @export
-baseType <- function(dgeObj, type){
-
-    assert_that(!missing(dgeObj),
-                !missing(type),
-                class(dgeObj)[[1]] == "DGEobj",
-                class(type)[[1]] == "character")
-
-    objDef <- attr(dgeObj, "objDef")
-    return(objDef$type[[type]])
-}
-
-
-#' Function baseTypes
-#'
-#' Return a list of the available baseTypes in a DGEobj.
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param dgeObj  A class DGEobj object
-#'
-#' @return A list of baseTypes
-#'
-#' @examples
-#' \dontrun{
-#'    # Global definition of baseTypes
-#'    myBaseTypes <- baseTypes()
-#'
-#'    # Basetypes from a specific DGEobj
-#'    myBaseTypes <- baseTypes(myDGEobj)
-#' }
-#'
-#' @export
-baseTypes <- function(dgeObj){
-    if (missing(dgeObj))
-        return(unique(.DGEobjDef$type))
-    else
-        return(unique(attr(dgeObj, "objDef")$type))
 }

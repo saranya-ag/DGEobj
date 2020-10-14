@@ -44,8 +44,8 @@ mergeDGEobj <- function(d1, d2, join="inner", orig=TRUE){
         suffix <- "_orig"
 
     if (attr(d1, "level") != attr(d2, "level")) {
-        tsmsg(paste("d1 level =", attr(d1, "level")))
-        tsmsg(paste("d2 level =", attr(d2, "level")))
+        .tsmsg(paste("d1 level =", attr(d1, "level")))
+        .tsmsg(paste("d2 level =", attr(d2, "level")))
         stop("d1 and d2 are not the same level.")
     } else {
         level <- attr(d1, "level")

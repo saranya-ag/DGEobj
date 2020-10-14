@@ -83,23 +83,6 @@ test_that('rmItem and rmItems successfully remove named items from a DGEobj', {
 
 })
 
-test_that('showTypes successfully shows the types defined in a DGEobj', {
-    # show the types for our obj (with default pretty = TRUE)
-    showTypes_DGEobj <- DGEobj::showTypes(DGEobj)
-    expect_s3_class(showTypes_DGEobj, "knitr_kable")
-    expect_equal(length(showTypes_DGEobj), 50)
-
-    # show types for our obj with pretty = FALSE
-    showTypes_notPretty_DGEobj <- DGEobj::showTypes(DGEobj, pretty = FALSE)
-    expect_null(showTypes_notPretty_DGEobj) # investigate this behavior
-
-    # ask for types on an object that doesn't exist
-    expect_error(DGEobj::showTypes(DGeobj))
-
-    # forget object (some functions in this package behave this way, so a reasonable error to make)
-    expect_error(DGEobj::showTypes())
-})
-
 test_that('subset correctly subsets a DGEobj', {
 
     # subset a few DGEobj

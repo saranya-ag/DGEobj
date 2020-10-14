@@ -1,4 +1,4 @@
-context("DGEobj - tests for getItem.R functions")
+context("DGEobj - tests for get.R functions")
 
 
 test_that('getItem function works successfully on a DGE obj', {
@@ -70,27 +70,4 @@ test_that('getBaseType succesfully retrieves data from a DGEobj of the specified
 
     # ask for a baseType that isn't allowed
     expect_error(DGEobj::getBaseType(DGEobj, "counts"))
-})
-
-test_that('baseType succesfully reveals the base types of a DGEobj', {
-
-    # check for baseType of a few item types that do exist in the DGEobj
-    expect_equal(DGEobj::baseType(DGEobj, "intensity"), "assay")
-    expect_equal(DGEobj::baseType(DGEobj, "design"), "col")
-    expect_equal(DGEobj::baseType(DGEobj, "intensity_orig"), "meta")
-
-    # check for baseType of an item type that isn't in our DGEobj but could be
-    expect_equivalent(DGEobj::baseType(DGEobj, "counts"), "assay")
-
-    # check for baseType of an item type that isn't real
-    expect_error(DGEobj::baseType(DGEobj, "dog"))
-})
-
-test_that('baseTypes returns a list of base types and also the base types of a DGE obj', {
-
-    # return the general base types
-    expect_setequal(baseTypes(), c("row", "col", "assay", "meta" ))
-
-    # return the base types of our DGEobj
-    expect_setequal(baseTypes(DGEobj), c("row", "col", "assay", "meta"))
 })
