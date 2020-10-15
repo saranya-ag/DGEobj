@@ -1,3 +1,27 @@
+#' Function as.list.DGEobj
+#'
+#' Casts a DGEobj class object as a simple list.
+#'
+#' @author John Thompson
+#' @keywords RNA-Seq, DGEobj
+#'
+#' @param x    A class DGEobj created by function initDGEobj()
+#' @param ...  Additional parameters
+#'
+#' @return A simple list version of the DGEobj.
+#'
+#' @examples
+#' \dontrun{
+#'    MyDGElist <- as.list(DGEobj)
+#' }
+#'
+#' @export
+as.list.DGEobj <- function(x, ...){
+    x2 <- unclass(x)
+    return(x2)
+}
+
+
 #' Function convertDGEobj
 #'
 #' Casts a DGEobj class object as the specified data class.
@@ -109,7 +133,7 @@ convertDGEobj <- function(dgeObj, Class) {
 #' @export
 convertRSE <- function(RSE,
                        Class,
-                       countsName = "Counts"){
+                       countsName = "counts"){
 
     .toDGEobj <- function(RSE){
         counts <- SummarizedExperiment::assay(RSE, countsName)
@@ -137,28 +161,4 @@ convertRSE <- function(RSE,
     )
 
     return(result)
-}
-
-
-#' Function as.list.DGEobj
-#'
-#' Casts a DGEobj class object as a simple list.
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param x    A class DGEobj created by function initDGEobj()
-#' @param ...  Additional parameters
-#'
-#' @return A simple list version of the DGEobj.
-#'
-#' @examples
-#' \dontrun{
-#'    MyDGElist <- as.list(DGEobj)
-#' }
-#'
-#' @export
-as.list.DGEobj <- function(x, ...){
-    unclass(x)
-    return(x)
 }

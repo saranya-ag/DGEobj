@@ -157,6 +157,7 @@ getAttributes <- function(item,
 #'
 #' @importFrom assertthat assert_that
 #'
+#' @export
 getAttribute <- function(item, attrName){
     assert_that(!missing(item),
                 !missing(attrName))

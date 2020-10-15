@@ -7,6 +7,7 @@ r:
   - devel
 cache: packages
 bioc_packages:
+  - GenomicRanges
   - S4Vectors
   - SummarizedExperiment
 r_packages:
