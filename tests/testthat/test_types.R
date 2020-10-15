@@ -40,10 +40,10 @@ test_that('types.R: newType()', {
 })
 
 test_that('types.R: incorrect usage', {
-    expect_error(DGEobj::showTypes())
+    expect_error(showTypes())
 
-    expect_error(DGEobj::newType())
-    expect_error(DGEobj::newType(DGEobj))
-    expect_error(DGEobj::newType(DGEobj, "MyType", "badType"))
+    expect_error(newType())
+    expect_error(newType(DGEobj))
+    expect_error(newType(DGEobj, "MyType", "badType"))
 })
 

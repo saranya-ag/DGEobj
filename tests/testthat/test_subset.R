@@ -30,7 +30,7 @@ test_that('subset.R: subset()', {
     expect_equal(dim(subsetDGEobj_4), c(2, 2))
 
     expect_equal(DGEobj, DGEobj[])
-    expect_equal(DGEobj, subset(DGE))
+    expect_equal(DGEobj, subset(DGEobj))
 })
 
 test_that('subset.R: incorrect usage', {
