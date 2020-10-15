@@ -135,7 +135,6 @@ subset.DGEobj <- function(x, ..., row, col, drop = FALSE, debug = FALSE){
         if ("col" %in% names(dot.args)) {
             col <- eval(dot.args$col)
         }
-
     } else {
         if (length(dot.args) >= 2 && (dot.args[[2]] != "") && is.null(names(dot.args[[2]]))) {
             row <- eval(dot.args[[2]])

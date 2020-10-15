@@ -36,24 +36,6 @@ test_that('utils.R: print()', {
     expect_output(print(DGEobj), "ItemName")
 })
 
-test_that('utils.R: rmItem()/rmItems()', {
-    rmItem_design_DGEobj <- DGEobj::rmItem(DGEobj, "design")
-    expect_s3_class(rmItem_design_DGEobj, "DGEobj")
-    expect_equal(length(rmItem_design_DGEobj), 4)
-
-    rmItems_DGEobj <- DGEobj::rmItems(DGEobj, c("design", "intensity"))
-    expect_s3_class(rmItems_DGEobj, "DGEobj")
-    expect_equal(length(rmItems_DGEobj), 3)
-
-    rmItems_byindex_DGEobj <- DGEobj::rmItems(DGEobj, c(1, 2, 3))
-    expect_s3_class(rmItems_byindex_DGEobj, "DGEobj")
-    expect_equal(length(rmItems_byindex_DGEobj), 2)
-
-    expect_error(DGEobj::rmItem(DGEobj, c("design", "intensity")))
-    expect_error(DGEobj::rmItem(DGEobj, "counts"))
-    expect_error(DGEobj::rmItems(DGEobj, c("counts", "genes")))
-})
-
 test_that('utils.R: incorrect usage', {
 
 })
