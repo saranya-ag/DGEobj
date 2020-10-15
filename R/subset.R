@@ -58,7 +58,6 @@ subset.DGEobj <- function(x, ..., row, col, drop = FALSE, debug = FALSE){
     }
 
     basetypes <- attr(x, "basetype")
-
     dropClasses <- c("data.frame", "matrix")
 
     if (class(row)[[1]] == "character")
@@ -75,7 +74,6 @@ subset.DGEobj <- function(x, ..., row, col, drop = FALSE, debug = FALSE){
         }
 
         objectClass <- class(x[[i]])[[1]]
-
         userAttribs <- getAttributes(x[[i]])
 
         switch(basetypes[[i]],
@@ -116,25 +114,47 @@ subset.DGEobj <- function(x, ..., row, col, drop = FALSE, debug = FALSE){
 
 
 #' Shortcut function for subsetting a DGE object with square brackets.
-#' Drop is supported for compatibility, but has no effect in this context.
 #'
-#' @param dgeObj A class DGEobj created by initDGEobj()
-#' @param row Row index for the subset
-#' @param col Col index for the subset
-#' @param drop Included for compatibility but has no real meaning in the context
-#'    of subsetting a DGEobj. So drop = FALSE is the default and changing this
-#'    has no effect.
-#' @param debug Default = FALSE. Set to TRUE to get more information if subsetting a
-#'    DGEobj fails with a dimension error.
+#' @param x A class DGEobj created by initDGEobj()
+#' @param ...  Additional parameters
 #'
 #' @return A subsetted DGEobj class object
 #'
 #' @export
-`[.DGEobj` <- function(dgeObj,
-                       row,
-                       col,
-                       drop = FALSE,
-                       debug = FALSE){
-    dgeObj <- subset(dgeObj, row, col, drop, debug)
-}
+`[.DGEobj` <- function(x, ...){
+    row <- NULL
+    col <- NULL
 
+    dot.args <- as.list(substitute(list(...)))
+
+    if (("row" %in% names(dot.args)) || ("col" %in% names(dot.args))) {
+        # using named arguments, ignore unnamed arguments
+        if ("row" %in% names(dot.args)) {
+            row <- eval(dot.args$row)
+        }
+        if ("col" %in% names(dot.args)) {
+            col <- eval(dot.args$col)
+        }
+    } else {
+        if (length(dot.args) >= 2 && (dot.args[[2]] != "") && is.null(names(dot.args[[2]]))) {
+            row <- eval(dot.args[[2]])
+        }
+        if (length(dot.args) >= 3 && (dot.args[[3]] != "") && is.null(names(dot.args[[3]]))) {
+            col <- eval(dot.args[[3]])
+        }
+    }
+
+    if (!is.null(row)) {
+        if (!is.null(col)) {
+            subset(x, row = row, col = col)
+        } else {
+            subset(x, row = row)
+        }
+    } else {
+        if (!is.null(col)) {
+            subset(x, col = col)
+        } else {
+            subset(x)
+        }
+    }
+}

@@ -1,18 +1,12 @@
 context("DGEobj - tests for utils.R functions")
 
 
-test_that('dim and dimnames successfully show their respective info about a DGEobj', {
-
-    # dim correctly
+test_that('utils.R: dim()/dimnames()', {
     dim_DGEobj <- dim(DGEobj)
 
     expect_equal(dim_DGEobj[1], 5900)
     expect_equal(dim_DGEobj[2], 165)
 
-    # dim incorrect
-    expect_error(dim(DGeobj))
-
-    # dimnames correctly
     dimnames_DGEobj <- dimnames(DGEobj)
 
     expect_type(dimnames_DGEobj, 'list')
@@ -20,77 +14,28 @@ test_that('dim and dimnames successfully show their respective info about a DGEo
     expect_setequal(names(dimnames_DGEobj), c("rownames", "colnames"))
     expect_equal(length(dimnames_DGEobj[[1]]), 5900)
     expect_equal(length(dimnames_DGEobj[[2]]), 165)
-
-    # dimnames incorrect
-    expect_error(dimnames(DGeobj))
 })
 
-test_that('inventory correctly displays the contents of a DGEobj', {
-
-    # without verbose argument
-    inventory_DGEobj <- DGEobj::inventory(DGEobj)
+test_that('utils.R: inventory()', {
+    inventory_DGEobj <- inventory(DGEobj)
 
     expect_true(is.data.frame(inventory_DGEobj))
     expect_equal(nrow(inventory_DGEobj), 5)
     expect_equal(ncol(inventory_DGEobj), 8)
     expect_setequal(names(inventory_DGEobj), c("ItemName", "ItemType", "BaseType", "Parent", "Class", "Row", "Col", "DateCreated"))
 
-    # with verbose argument
-    inventory_DGEobj_verbose <- DGEobj::inventory(DGEobj, verbose = TRUE)
+    inventory_DGEobj_verbose <- inventory(DGEobj, verbose = TRUE)
+
     expect_true(is.data.frame(inventory_DGEobj_verbose))
     expect_equal(nrow(inventory_DGEobj_verbose), 5)
     expect_equal(ncol(inventory_DGEobj_verbose), 9)
     expect_setequal(names(inventory_DGEobj), c("ItemName", "ItemType", "BaseType", "Parent", "Class", "Row", "Col", "DateCreated"))
-
-    # let's break it (object that doesn't exist)
-    expect_error(DGEobj::inventory(DGeobj))
 })
 
-test_that('print succesfully prints info about a DGE obj', {
-
-    # does the print function work on a DGEobj?
+test_that('utils.R: print()', {
     expect_output(print(DGEobj), "ItemName")
-
-    # try to print an object that doesn't exist
-    expect_error(print(DGeobj))
 })
 
-test_that('rmItem and rmItems successfully remove named items from a DGEobj', {
-
-    # remove design
-    rmItem_design_DGEobj <- DGEobj::rmItem(DGEobj, "design")
-    expect_s3_class(rmItem_design_DGEobj, "DGEobj")
-    expect_equal(length(rmItem_design_DGEobj), 4)
-
-    # try to remove two at the same time, error
-    expect_error(DGEobj::rmItem(DGEobj, c("design", "intensity")))
-
-    # try to remove something that doesn't exist, error
-    expect_error(DGEobj::rmItem(DGEobj, "counts"))
-
-    # remove design, intensity by name
-    rmItems_DGEobj <- DGEobj::rmItems(DGEobj, c("design", "intensity"))
-    expect_s3_class(rmItems_DGEobj, "DGEobj")
-    expect_equal(length(rmItems_DGEobj), 3)
-
-    # remove first three items by index
-    rmItems_byindex_DGEobj <- DGEobj::rmItems(DGEobj, c(1, 2, 3))
-    expect_s3_class(rmItems_byindex_DGEobj, "DGEobj")
-    expect_equal(length(rmItems_byindex_DGEobj), 2)
-
-    # try to remove things that don't exist
-    expect_error(DGEobj::rmItems(DGEobj, c("counts", "genes")))
-
-})
-
-test_that('subset correctly subsets a DGEobj', {
-
-    # subset a few DGEobj
-    subsetDGEobj_1 <- subset(DGEobj, 1, 2)
-    subsetDGEobj_2 <- DGEobj[1, 2]
-
-    # are the things that are supposed to be subset actually so?
-    # expect_true(class(subsetDGEobj_1) == "DGEobj" && all(dim(subsetDGEobj_1$intensity) == c(1, 1)) )
-    # expect_true(class(subsetDGEobj_2) == "DGEobj" && all(dim(subsetDGEobj_2$intensity) == c(1, 1)) && all(dim(subsetDGEobj_2$design) == c(1, 13)))
+test_that('utils.R: incorrect usage', {
 
 })

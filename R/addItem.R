@@ -135,11 +135,7 @@ addItem <- function(dgeObj,
     if (init == FALSE) {
         if (.dimensionMatch(dgeObj, item, itemType) == FALSE)
             stop(stringr::str_c("item doesn't match dimension of DGEobj [", itemName, "]"))
-    }
 
-
-
-    if (init == FALSE) {
         if (!.checkDimnames(dgeObj, item = item, basetype = basetype))
             stop("item row and/or column names out of order with DGEobj")
     }

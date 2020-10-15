@@ -2,29 +2,18 @@
 % Please edit documentation in R/subset.R
 \name{[.DGEobj}
 \alias{[.DGEobj}
-\title{Shortcut function for subsetting a DGE object with square brackets.
-Drop is supported for compatibility, but has no effect in this context.}
+\title{Shortcut function for subsetting a DGE object with square brackets.}
 \usage{
-\method{[}{DGEobj}(dgeObj, row, col, drop = FALSE, debug = FALSE)
+\method{[}{DGEobj}(x, ...)
 }
 \arguments{
-\item{dgeObj}{A class DGEobj created by initDGEobj()}
+\item{x}{A class DGEobj created by initDGEobj()}
 
-\item{row}{Row index for the subset}
-
-\item{col}{Col index for the subset}
-
-\item{drop}{Included for compatibility but has no real meaning in the context
-of subsetting a DGEobj. So drop = FALSE is the default and changing this
-has no effect.}
-
-\item{debug}{Default = FALSE. Set to TRUE to get more information if subsetting a
-DGEobj fails with a dimension error.}
+\item{...}{Additional parameters}
 }
 \value{
 A subsetted DGEobj class object
 }
 \description{
 Shortcut function for subsetting a DGE object with square brackets.
-Drop is supported for compatibility, but has no effect in this context.
 }
