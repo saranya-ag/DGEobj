@@ -17,14 +17,14 @@ test_that('utils.R: dim()/dimnames()', {
 })
 
 test_that('utils.R: inventory()', {
-    inventory_DGEobj <- DGEobj::inventory(DGEobj)
+    inventory_DGEobj <- inventory(DGEobj)
 
     expect_true(is.data.frame(inventory_DGEobj))
     expect_equal(nrow(inventory_DGEobj), 5)
     expect_equal(ncol(inventory_DGEobj), 8)
     expect_setequal(names(inventory_DGEobj), c("ItemName", "ItemType", "BaseType", "Parent", "Class", "Row", "Col", "DateCreated"))
 
-    inventory_DGEobj_verbose <- DGEobj::inventory(DGEobj, verbose = TRUE)
+    inventory_DGEobj_verbose <- inventory(DGEobj, verbose = TRUE)
 
     expect_true(is.data.frame(inventory_DGEobj_verbose))
     expect_equal(nrow(inventory_DGEobj_verbose), 5)

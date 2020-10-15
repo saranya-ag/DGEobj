@@ -26,7 +26,11 @@ test_that('subset.R: subset()', {
     expect_equal(subsetDGEobj_3.0, subsetDGEobj_3.2)
     expect_equal(dim(subsetDGEobj_3.0), c(5, 5))
 
+    subsetDGEobj_4 <- subset(DGEobj, row = c("A1BG", "A2M"), col = c("180122q05_jg40Q", "180122q05_jg54Q"))
+    expect_equal(dim(subsetDGEobj_4), c(2, 2))
+
     expect_equal(DGEobj, DGEobj[])
+    expect_equal(DGEobj, subset(DGE))
 })
 
 test_that('subset.R: incorrect usage', {

@@ -5,10 +5,12 @@ test_that('addItem.R: addItem()', {
     #meta
     add <- addItem(DGEobj, item = 'Fred Flintstone',
                    itemName = 'Cartoon',
-                   itemType = 'meta')
-    expect_equal(add$Cartoon, "Fred Flintstone")
+                   itemType = 'meta',
+                   itemAttr = list('MyAttribute' = 'testObject'))
+    expect_equivalent(add$Cartoon, "Fred Flintstone")
+    expect_equivalent(attributes(add$Cartoon), 'testObject')
 
-    #rows cols
+    #rows cols - matrix
     dims <- dim(DGEobj)
     data.r <- matrix(rep("rowval", dims[1]), nrow = dims[1])
     rownames(data.r) <- dimnames(DGEobj$intensity)[[1]]
@@ -22,6 +24,7 @@ test_that('addItem.R: addItem()', {
 
     expect_true('MyMatrixRow' %in% names(add))
     expect_equal(dim(add$MyMatrixRow), c(dims[1], 1))
+    expect_error(addItem(DGEobj, item = data.r[-1, -1], itemName = "MismatchedSize", itemType = "row"))
 
     add <- addItem(DGEobj, item = data.c,
                    itemName = 'MyMatrixCol',
@@ -29,6 +32,7 @@ test_that('addItem.R: addItem()', {
 
     expect_true('MyMatrixCol' %in% names(add))
     expect_equal(dim(add$MyMatrixCol), c(dims[2], 1))
+    expect_error(addItem(DGEobj, item = data.c[-1, -1], itemName = "MismatchedSize", itemType = "col"))
 
     #assay
     dims <- dim(DGEobj)
@@ -42,6 +46,7 @@ test_that('addItem.R: addItem()', {
 
     expect_true('MyAssay' %in% names(add))
     expect_equal(dim(add$MyAssay), c(dims[1], dims[2]))
+    expect_error(addItem(DGEobj, item = assay[-1, -1], itemName = "MismatchedSize", itemType = "assay"))
 })
 
 test_that('addItem.R: addItems()', {
@@ -87,7 +92,6 @@ test_that('addItem.R: incorrect usage', {
     expect_error(addItem(DGEobj, item = matrix(rep(0, 25), nrow = 5), itemName = 'testmatrix', itemType = 'col'))
     expect_error(addItem(DGEobj, item = matrix(rep(0, 25), nrow = 5), itemName = 'testmatrix', itemType = 'assay'))
 
-
     expect_error(addItems(NULL))
     expect_error(addItems(DGEobj))
     expect_error(addItems(DGEobj, itemList = list('teststring' = 'mystring'), itemTypes = list('badtype')))
@@ -97,5 +101,4 @@ test_that('addItem.R: incorrect usage', {
     expect_error(addItems(DGEobj, itemList = list('testmatrix' = matrix(rep(0, 25), nrow = 5)), itemTypes = list('row')))
     expect_error(addItems(DGEobj, itemList = list('testmatrix' = matrix(rep(0, 25), nrow = 5)), itemTypes = list('col')))
     expect_error(addItems(DGEobj, itemList = list('testmatrix' = matrix(rep(0, 25), nrow = 5)), itemTypes = list('assay')))
-
 })
