@@ -33,10 +33,14 @@ test_that('getItems function works succesfully on a DGE obj', {
     expect_setequal(names(getItems_DGEobj_two_test), c("intensity", "design"))
 
     # warning when ask for one / two things that doesn't exist
-    expect_warning(DGEobj::getItems(DGEobj, c('intensity', 'counts')))
+    expect_warning(DGEobj::getItems(DGEobj, c('intensity', 'counts')),
+                   regexp = "These item(s) not found: [counts]",
+                   fixed  = TRUE)
 
     # warning when both don't exist
-    expect_warning(DGEobj::getItems(DGEobj, c('levels', 'counts')))
+    expect_warning(DGEobj::getItems(DGEobj, c('levels', 'counts')),
+                   regexp = "These item(s) not found: [levels]These item(s) not found: [counts]",
+                   fixed  = TRUE)
 })
 
 test_that('getType retrieves data for items of specified types from a DGEobj', {
@@ -52,7 +56,9 @@ test_that('getType retrieves data for items of specified types from a DGEobj', {
     # TBD
 
     # get type that doesn't exist
-    expect_warning(DGEobj::getType(DGEobj, "counts"))
+    expect_message(getType_warning <- capture_warnings(DGEobj::getType(DGEobj, "counts")),
+                   regexp = "Warning: no items of specified type are found.")
+    expect_equal(getType_warning, "Some types were not found")
 })
 
 test_that('getBaseType succesfully retrieves data from a DGEobj of the specified base type', {
@@ -68,7 +74,9 @@ test_that('getBaseType succesfully retrieves data from a DGEobj of the specified
     # getBaseType_DGEobj_test_two <- DGEobj::getBaseType(DGEobj, c("col", "meta"))
 
     # ask for valid basetype that isn't found
-    expect_warning(DGEobj::getBaseType(DGEobj, "row"))
+    expect_warning(DGEobj::getBaseType(DGEobj, "row"),
+                   regexp = "In DGEobj::getBaseType(DGEobj, \"row\") : Some baseTypes were not found",
+                   fixed  = TRUE)
 
     # ask for a baseType that isn't allowed
     expect_error(DGEobj::getBaseType(DGEobj, "counts"),
