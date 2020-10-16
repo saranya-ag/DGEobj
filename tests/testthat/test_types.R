@@ -43,7 +43,8 @@ test_that('types.R: newType()', {
 
 test_that('types.R: incorrect usage', {
     expect_error(showTypes(),
-                 regexp = "subscript out of bounds")
+                 regexp = "argument \"dgeObj\" is missing, with no default",
+                 fixed  = TRUE)
 
     expect_error(newType(),
                  regexp = "!missing(dgeObj) is not TRUE",
