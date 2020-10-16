@@ -34,8 +34,13 @@ test_that('subset.R: subset()', {
 })
 
 test_that('subset.R: incorrect usage', {
-    expect_error(subset(DGEobj, row = c(50000:50005)))
-    expect_error(DGEobj[c(50000:50005)])
-    expect_error(subset(DGEobj, col = c(50000:50005)))
-    expect_error(DGEobj[, c(50000:50005)])
+    expect_error(subset(DGEobj, row = c(50000:50005)),
+                 regexp = "counts does not exist within DGEresult.",
+                 fixed  = TRUE)
+    expect_error(DGEobj[c(50000:50005)],
+                 regexp = "row coordinates out of range")
+    expect_error(subset(DGEobj, col = c(50000:50005)),
+                 regexp = "col coordinates out of range")
+    expect_error(DGEobj[, c(50000:50005)],
+                 regexp = "col coordinates out of range")
 })

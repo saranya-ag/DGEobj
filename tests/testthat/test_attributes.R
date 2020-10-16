@@ -51,9 +51,14 @@ test_that("attributes.R: showMeta()", {
 })
 
 test_that("attributes.R: incorrect usage", {
-    expect_error(setAttributes(DGEobj, attribs = NULL))
-    expect_error(setAttributes(DGEobj, attribs = list()))
-    expect_error(getAttribute(DGEobj, NULL))
+    expect_error(setAttributes(DGEobj, attribs = NULL),
+                 regexp = "class(attribs)[[1]] not equal to \"list\"",
+                 fixed  = TRUE)
+    expect_error(setAttributes(DGEobj, attribs = list()),
+                 regexp = "!is.null(names(attribs)) is not TRUE",
+                 fixed  = TRUE)
+    expect_error(getAttribute(DGEobj, NULL),
+                 regexp = "'which' must be of mode character")
 
     expect_null(getAttributes("fred"))
     expect_null(getAttributes(NULL))

@@ -8,7 +8,9 @@ test_that('types.R: baseType()', {
 
     expect_equivalent(baseType(DGEobj, "counts"), "assay")
 
-    expect_error(baseType(DGEobj, "dog"))
+    expect_error(baseType(DGEobj, "dog"),
+                 regexp = "subscript out of bounds",
+                 fixed  = TRUE)
 })
 
 test_that('types.R: baseTypes()', {
@@ -40,10 +42,17 @@ test_that('types.R: newType()', {
 })
 
 test_that('types.R: incorrect usage', {
-    expect_error(showTypes())
+    expect_error(showTypes(),
+                 regexp = "subscript out of bounds")
 
-    expect_error(newType())
-    expect_error(newType(DGEobj))
-    expect_error(newType(DGEobj, "MyType", "badType"))
+    expect_error(newType(),
+                 regexp = "!missing(dgeObj) is not TRUE",
+                 fixed  = TRUE)
+    expect_error(newType(DGEobj),
+                 regexp = "!missing(itemType) is not TRUE",
+                 fixed  = TRUE)
+    expect_error(newType(DGEobj, "MyType", "badType"),
+                 regexp = "`%in%`(x = baseType, table = baseTypes(dgeObj)) is not TRUE",
+                 fixed  = TRUE)
 })
 
