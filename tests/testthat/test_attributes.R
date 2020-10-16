@@ -6,22 +6,10 @@ test_that("attributes.R: showAttributes()", {
 
     expect_gt(length(output), 1000)
     expect_setequal(capture_output_lines(showAttributes(NULL)), c("[1] \"dataName:\"", "[1] \"atnames: \"", "[1] \"dataName:\"", "[1] \"atnames: \""))
-
-    # capture the console output for incorrect object
-    expect_error(showAttributes(DGeobj),
-                 regexp = "object 'DGeobj' not found",
-                 fixed  = TRUE)
 })
 
 test_that("attributes.R: setAttributes()/getAttributes()", {
     new_attributes <- list("attribute1" = runif(100, min = 0, max = 2), "attribute2" = LETTERS)
-
-    # set attributes in incorrect object
-    expect_error(showAttributes(DGeobj, new_attributes),
-                 regexp = "object 'DGeobj' not found",
-                 fixed  = TRUE)
-
-    # set/get attributes in correct object
     new_dgeobj     <- setAttributes(DGEobj, new_attributes)
 
     output         <- getAttributes(new_dgeobj)
@@ -66,13 +54,6 @@ test_that("attributes.R: showMeta()", {
 
     expect_s3_class(output, "data.frame")
     expect_equal(output$Value[output$Attribute == "class"], "DGEobj")
-
-    expect_null(showMeta(NULL))
-
-    # showMeta of incorrect object
-    expect_error(showMeta(DGeobj),
-                 regexp = "object 'DGeobj' not found",
-                 fixed  = TRUE)
 })
 
 test_that("attributes.R: incorrect usage", {
