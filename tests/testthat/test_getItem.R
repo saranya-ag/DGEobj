@@ -11,7 +11,9 @@ test_that('getItem function works successfully on a DGE obj', {
     expect_equal(ncol(getItem_DGEobj_test), 13)
 
     # should get an error when you try to access something that doesn't exist
-    expect_error(DGEobj::getItem(DGEobj, 'counts'))
+    expect_error(DGEobj::getItem(DGEobj, 'counts'),
+                 regexp = "`%in%`(x = itemName, table = names(dgeObj)) is not TRUE",
+                 fixed  = TRUE)
 })
 
 test_that('getItems function works succesfully on a DGE obj', {
@@ -69,7 +71,9 @@ test_that('getBaseType succesfully retrieves data from a DGEobj of the specified
     expect_warning(DGEobj::getBaseType(DGEobj, "row"))
 
     # ask for a baseType that isn't allowed
-    expect_error(DGEobj::getBaseType(DGEobj, "counts"))
+    expect_error(DGEobj::getBaseType(DGEobj, "counts"),
+                 regexp = "baseType must be one of: row, col, assay, meta",
+                 fixed  = TRUE)
 })
 
 test_that('baseType succesfully reveals the base types of a DGEobj', {
@@ -83,7 +87,9 @@ test_that('baseType succesfully reveals the base types of a DGEobj', {
     expect_equivalent(DGEobj::baseType(DGEobj, "counts"), "assay")
 
     # check for baseType of an item type that isn't real
-    expect_error(DGEobj::baseType(DGEobj, "dog"))
+    expect_error(object = DGEobj::baseType(DGEobj, "dog"),
+                 regexp = "subscript out of bounds",
+                 fixed  = TRUE)
 })
 
 test_that('baseTypes returns a list of base types and also the base types of a DGE obj', {
