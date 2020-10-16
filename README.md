@@ -1,8 +1,8 @@
 # DGEobj: An S3 data object to capture results from Differential Gene Expression analysis
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/cb4ds/DGEobj.svg?branch=develop)](https://travis-ci.org/cb4ds/DGEobj?branch=develop)
-[![Codecov test coverage](https://codecov.io/gh/cb4ds/DGEobj/branch/develop/graph/badge.svg)](https://codecov.io/gh/cb4ds/DGEobj?branch=develop)
+[![Travis build status](https://travis-ci.com/cb4ds/DGEobj.svg?branch=master)](https://travis-ci.com/cb4ds/DGEobj)
+[![Codecov test coverage](https://codecov.io/gh/cb4ds/DGEobj/branch/master/graph/badge.svg)](https://codecov.io/gh/cb4ds/DGEobj?branch=master)
 <!-- badges: end -->
 
 DGEobj is an S3 data class that provides a flexible container for DGE analysis results.  
