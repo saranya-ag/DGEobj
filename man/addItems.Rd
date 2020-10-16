@@ -9,7 +9,7 @@ addItems(dgeObj, itemList, itemTypes, parents, overwrite = FALSE, itemAttr)
 \arguments{
 \item{dgeObj}{A DGEobj that items will be added to. (Required)}
 
-\item{itemList}{A list of data items to add to dgeObj (Required)}
+\item{itemList}{A list of data items to add to DGEobj (Required)}
 
 \item{itemTypes}{A list of type values for each item on itemList (Required)}
 

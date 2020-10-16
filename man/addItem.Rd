@@ -25,7 +25,7 @@ addItem(
 \item{itemName}{A user assigned name for this data item. (Required)}
 
 \item{itemType}{A type attribute.  See showTypes() to see the
-pre-defined types. Types are extensible with the newType() function. (Required)}
+predefined types. Types are extensible with the newType() function. (Required)}
 
 \item{overwrite}{Default = FALSE.  Set to TRUE to overwrite the data object
 stored in the itemName slot}
@@ -36,7 +36,7 @@ name and arguments used in the current function (optional)}
 
 \item{itemAttr}{A named list of attributes to add directly to the item (optional)}
 
-\item{parent}{ItemName of the parent of this item (optional, but your DGEobj
+\item{parent}{itemName of the parent of this item (optional, but your DGEobj
 won't be well annotated if you don't use this wherever appropriate)}
 
 \item{init}{Default = FALSE. Used internally by the initDGEobj() function.}

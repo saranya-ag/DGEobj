@@ -46,10 +46,57 @@ addItem <- function(dgeObj,
                     init = FALSE,
                     debug = FALSE) {
 
+    # helper functions
+    .dimensionMatch <- function(dgeObj, item, itemType){
+        testrow <- function(dgeObj, item){
+            if (is.null(dim(item))) {
+                if (nrow(dgeObj) > 0 & nrow(dgeObj) != length(item))
+                    stop('New row object does not match row dimension of DGEobj object')
+            } else if (nrow(dgeObj) > 0 & nrow(dgeObj) != nrow(item))
+                stop('New row object does not match row dimension of DGEobj object')
+        }
+
+        testcol <- function(dgeObj, item){
+            if (is.null(dim(item))) {
+                if (ncol(dgeObj) > 0 & ncol(dgeObj) != length(item))
+                    stop('Rows in new col object must match col dimension of DGEobj object')
+            } else if (ncol(dgeObj) > 0 & ncol(dgeObj) != nrow(item))
+                stop('Rows in new col object must match col dimension of DGEobj object')
+        }
+
+        testassayrowcol <- function(dgeObj, item){
+            if (nrow(dgeObj) > 0 & nrow(dgeObj) != nrow(item))
+                stop('New assay object does not match row dimension of DGEobj object')
+            if (ncol(dgeObj) > 0 & ncol(dgeObj) != ncol(item))
+                stop('New assay object does not match col dimension of DGEobj object')
+        }
+
+        result <- FALSE
+        switch(attr(dgeObj, "objDef")$type[[itemType]],
+               "row" = testrow(dgeObj, item),
+               "col" = testcol(dgeObj, item),
+               "assay" = testassayrowcol(dgeObj, item))
+        result <- TRUE
+        return(result)
+    }
+
+    .checkDimnames <- function(dgeObj, item, basetype){
+        result <- TRUE
+        result <- switch(basetype,
+                         col = all(rownames(item) == colnames(dgeObj)),
+                         row = all(rownames(item) == rownames(dgeObj)),
+                         assay = all(rownames(item) == rownames(dgeObj)) &
+                             all(colnames(item) == colnames(dgeObj)),
+                         meta = TRUE
+        )
+        return(result)
+    }
+
     assert_that(!missing(dgeObj),
                 !missing(item),
                 !missing(itemName),
-                !missing(itemType))
+                !missing(itemType),
+                itemType %in% names(attr(dgeObj, "objDef")$type))
 
     if (debug == TRUE) browser()
 
@@ -85,59 +132,10 @@ addItem <- function(dgeObj,
                          paste(funArgs[2:length(funArgs)], collapse = ", "),
                          ")", sep = "")
 
-    # helper function
-    .dimensionMatch <- function(dgeObj, item, itemType){
-        testrow <- function(dgeObj, item){
-            if (is.null(dim(item))) {
-                if (nrow(dgeObj) > 0 & nrow(dgeObj) != length(item))
-                    stop('New row object does not match row dimension of DGEobj object')
-            } else if (nrow(dgeObj) > 0 & nrow(dgeObj) != nrow(item))
-                stop('New row object does not match row dimension of DGEobj object')
-        }
-
-        testcol <- function(dgeObj, item){
-            if (is.null(dim(item))) {
-                if (ncol(dgeObj) > 0 & ncol(dgeObj) != length(item))
-                    stop('Rows in new col object must match col dimension of DGEobj object')
-            } else if (ncol(dgeObj) > 0 & ncol(dgeObj) != nrow(item))
-                stop('Rows in new col object must match col dimension of DGEobj object')
-        }
-
-        testassayrowcol <- function(dgeObj, item){
-            if (nrow(dgeObj) > 0 & nrow(dgeObj) != nrow(item))
-                stop('New assay object does not match row dimension of DGEobj object')
-            if (ncol(dgeObj) > 0 & ncol(dgeObj) != ncol(item))
-                stop('New assay object does not match col dimension of DGEobj object')
-        }
-
-        result <- FALSE
-        switch(attr(dgeObj, "objDef")$type[[itemType]],
-               "row" = testrow(dgeObj, item),
-               "col" = testcol(dgeObj, item),
-               "assay" = testassayrowcol(dgeObj, item))
-        result <- TRUE
-        return(result)
-    }
-
     if (init == FALSE) {
         if (.dimensionMatch(dgeObj, item, itemType) == FALSE)
             stop(stringr::str_c("item doesn't match dimension of DGEobj [", itemName, "]"))
-    }
 
-    # helper function
-    .checkDimnames <- function(dgeObj, item, basetype){
-        result <- TRUE
-        result <- switch(basetype,
-                         col = all(rownames(item) == colnames(dgeObj)),
-                         row = all(rownames(item) == rownames(dgeObj)),
-                         assay = all(rownames(item) == rownames(dgeObj)) &
-                             all(colnames(item) == colnames(dgeObj)),
-                         meta = TRUE
-        )
-        return(result)
-    }
-
-    if (init == FALSE) {
         if (!.checkDimnames(dgeObj, item = item, basetype = basetype))
             stop("item row and/or column names out of order with DGEobj")
     }

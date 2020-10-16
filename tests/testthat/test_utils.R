@@ -1,9 +1,7 @@
 context("DGEobj - tests for utils.R functions")
 
 
-test_that('dim and dimnames successfully show their respective info about a DGEobj', {
-
-    # dim correctly
+test_that('utils.R: dim()/dimnames()', {
     dim_DGEobj <- dim(DGEobj)
 
     expect_equal(dim_DGEobj[1], 5900)
@@ -29,18 +27,16 @@ test_that('dim and dimnames successfully show their respective info about a DGEo
                  fixed  = TRUE)
 })
 
-test_that('inventory correctly displays the contents of a DGEobj', {
-
-    # without verbose argument
-    inventory_DGEobj <- DGEobj::inventory(DGEobj)
+test_that('utils.R: inventory()', {
+    inventory_DGEobj <- inventory(DGEobj)
 
     expect_true(is.data.frame(inventory_DGEobj))
     expect_equal(nrow(inventory_DGEobj), 5)
     expect_equal(ncol(inventory_DGEobj), 8)
     expect_setequal(names(inventory_DGEobj), c("ItemName", "ItemType", "BaseType", "Parent", "Class", "Row", "Col", "DateCreated"))
 
-    # with verbose argument
-    inventory_DGEobj_verbose <- DGEobj::inventory(DGEobj, verbose = TRUE)
+    inventory_DGEobj_verbose <- inventory(DGEobj, verbose = TRUE)
+
     expect_true(is.data.frame(inventory_DGEobj_verbose))
     expect_equal(nrow(inventory_DGEobj_verbose), 5)
     expect_equal(ncol(inventory_DGEobj_verbose), 9)
@@ -52,9 +48,7 @@ test_that('inventory correctly displays the contents of a DGEobj', {
                  fixed  = TRUE)
 })
 
-test_that('print succesfully prints info about a DGE obj', {
-
-    # does the print function work on a DGEobj?
+test_that('utils.R: print()', {
     expect_output(print(DGEobj), "ItemName")
 
     # try to print an object that doesn't exist
@@ -118,14 +112,6 @@ test_that('showTypes successfully shows the types defined in a DGEobj', {
                  fixed  = TRUE)
 })
 
-test_that('subset correctly subsets a DGEobj', {
-
-    # subset a few DGEobj
-    subsetDGEobj_1 <- subset(DGEobj, 1, 2)
-    subsetDGEobj_2 <- DGEobj[1, 2]
-
-    # are the things that are supposed to be subset actually so?
-    # expect_true(class(subsetDGEobj_1) == "DGEobj" && all(dim(subsetDGEobj_1$intensity) == c(1, 1)) )
-    # expect_true(class(subsetDGEobj_2) == "DGEobj" && all(dim(subsetDGEobj_2$intensity) == c(1, 1)) && all(dim(subsetDGEobj_2$design) == c(1, 13)))
+test_that('utils.R: incorrect usage', {
 
 })

@@ -22,7 +22,7 @@ attributes.  The setAttributes() function adds the attributes passed to it in
 the attribs argument without deleting attributes already present.   However,
 a names attribute on the attribs argument list that already exists in the
 object will be updated.  The function is generic in that it should work on
-other datatypes/classes, not just a DGEobj.
+other data types/classes, not just a DGEobj.
 }
 \examples{
 \dontrun{
