@@ -39,14 +39,6 @@ test_that("attributes.R: getAttributes() returns all", {
 
     expect_false(exists("type", where = output))
     expect_false(exists("basetype", where = output))
-
-    # does NULL object returns NULL object?
-    expect_null(getAttributes(NULL))
-
-    # get attributes from incorrect object
-    expect_error(getAttributes(DGeobj),
-                 regexp = "object 'DGeobj' not found",
-                 fixed  = TRUE)
 })
 
 test_that("attributes.R: showMeta()", {
@@ -54,6 +46,8 @@ test_that("attributes.R: showMeta()", {
 
     expect_s3_class(output, "data.frame")
     expect_equal(output$Value[output$Attribute == "class"], "DGEobj")
+
+    expect_null(showMeta(NULL))
 })
 
 test_that("attributes.R: incorrect usage", {
