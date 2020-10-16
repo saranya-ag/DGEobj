@@ -9,12 +9,24 @@ test_that("showAttributes prints the attributes associated with a DEGobj", {
 
     # capture the console output for NULL object
     expect_setequal(capture_output_lines(showAttributes(NULL)), c("[1] \"dataName:\"", "[1] \"atnames: \"", "[1] \"dataName:\"", "[1] \"atnames: \""))
+
+    # capture the console output for incorrect object
+    expect_error(showAttributes(DGeobj),
+                 regexp = "object 'DGeobj' not found",
+                 fixed  = TRUE)
 })
 
 test_that("setAttributes set one or more attributes on an object", {
 
     # create arbitrary input to set as attributes in DGEobj
     new_attributes <- list("attribute1" = runif(100, min = 0, max = 2), "attribute2" = LETTERS)
+
+    # set attributes in incorrect object
+    expect_error(showAttributes(DGeobj, new_attributes),
+                 regexp = "object 'DGeobj' not found",
+                 fixed  = TRUE)
+
+    # set/get attributes in correct object
     new_dgeobj     <- setAttributes(DGEobj, new_attributes)
     output         <- getAttributes(new_dgeobj)
 
@@ -47,6 +59,11 @@ test_that("getAttributes returns the all attributes", {
 
     # does NULL object returns NULL object?
     expect_null(getAttributes(NULL))
+
+    # get attributes from incorrect object
+    expect_error(getAttributes(DGeobj),
+                 regexp = "object 'DGeobj' not found",
+                 fixed  = TRUE)
 })
 
 test_that("showMeta returns the attributes associated with an object", {
@@ -60,4 +77,9 @@ test_that("showMeta returns the attributes associated with an object", {
 
     # does NULL object returns NULL object?
     expect_null(showMeta(NULL))
+
+    # showMeta of incorrect object
+    expect_error(showMeta(DGeobj),
+                 regexp = "object 'DGeobj' not found",
+                 fixed  = TRUE)
 })
