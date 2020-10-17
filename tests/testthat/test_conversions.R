@@ -52,13 +52,21 @@ test_that('conversions.R: convertRSE() to DGEobj', {
 })
 
 test_that('conversions.R: incorrect usage', {
-    expect_error(convertDGEobj(DGEobj, 'Bob'))
-    expect_error(convertDGEobj(NULL, "ES"))
-    expect_error(convertDGEobj(list(), "list"))
+    expect_error(convertDGEobj(DGEobj, 'Bob'),
+                 regexp = "`%in%`(x = toupper(Class), table = supportedClasses) is not TRUE",
+                 fixed  = TRUE)
+    expect_error(convertDGEobj(NULL, "ES"),
+                 regexp = "argument is of length zero")
+    expect_error(convertDGEobj(list(), "list"),
+                 regexp = "argument is of length zero")
 
     rse <- .get_rse()
 
     expect_null(convertRSE(rse, Class = "Bob"))
-    expect_error(convertRSE(rse))
-    expect_error(convertRSE(NULL, Class = "ES"))
+    expect_error(convertRSE(rse),
+                 regexp = "!missing(Class) is not TRUE",
+                 fixed  = TRUE)
+    expect_error(convertRSE(NULL, Class = "ES"),
+                 regexp = "class(RSE)[[1]] not equal to \"RangedSummarizedExperiment\"",
+                 fixed  = TRUE)
 })

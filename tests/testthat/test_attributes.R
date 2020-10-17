@@ -6,22 +6,10 @@ test_that("attributes.R: showAttributes()", {
 
     expect_gt(length(output), 1000)
     expect_setequal(capture_output_lines(showAttributes(NULL)), c("[1] \"dataName:\"", "[1] \"atnames: \"", "[1] \"dataName:\"", "[1] \"atnames: \""))
-
-    # capture the console output for incorrect object
-    expect_error(showAttributes(DGeobj),
-                 regexp = "object 'DGeobj' not found",
-                 fixed  = TRUE)
 })
 
 test_that("attributes.R: setAttributes()/getAttributes()", {
     new_attributes <- list("attribute1" = runif(100, min = 0, max = 2), "attribute2" = LETTERS)
-
-    # set attributes in incorrect object
-    expect_error(showAttributes(DGeobj, new_attributes),
-                 regexp = "object 'DGeobj' not found",
-                 fixed  = TRUE)
-
-    # set/get attributes in correct object
     new_dgeobj     <- setAttributes(DGEobj, new_attributes)
 
     output         <- getAttributes(new_dgeobj)
@@ -51,14 +39,6 @@ test_that("attributes.R: getAttributes() returns all", {
 
     expect_false(exists("type", where = output))
     expect_false(exists("basetype", where = output))
-
-    # does NULL object returns NULL object?
-    expect_null(getAttributes(NULL))
-
-    # get attributes from incorrect object
-    expect_error(getAttributes(DGeobj),
-                 regexp = "object 'DGeobj' not found",
-                 fixed  = TRUE)
 })
 
 test_that("attributes.R: showMeta()", {
@@ -68,17 +48,17 @@ test_that("attributes.R: showMeta()", {
     expect_equal(output$Value[output$Attribute == "class"], "DGEobj")
 
     expect_null(showMeta(NULL))
-
-    # showMeta of incorrect object
-    expect_error(showMeta(DGeobj),
-                 regexp = "object 'DGeobj' not found",
-                 fixed  = TRUE)
 })
 
 test_that("attributes.R: incorrect usage", {
-    expect_error(setAttributes(DGEobj, attribs = NULL))
-    expect_error(setAttributes(DGEobj, attribs = list()))
-    expect_error(getAttribute(DGEobj, NULL))
+    expect_error(setAttributes(DGEobj, attribs = NULL),
+                 regexp = "class(attribs)[[1]] not equal to \"list\"",
+                 fixed  = TRUE)
+    expect_error(setAttributes(DGEobj, attribs = list()),
+                 regexp = "!is.null(names(attribs)) is not TRUE",
+                 fixed  = TRUE)
+    expect_error(getAttribute(DGEobj, NULL),
+                 regexp = "'which' must be of mode character")
 
     expect_null(getAttributes("fred"))
     expect_null(getAttributes(NULL))
