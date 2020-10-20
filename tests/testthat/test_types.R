@@ -45,7 +45,6 @@ test_that('types.R: incorrect usage', {
     expect_error(showTypes(),
                  regexp = "argument \"dgeObj\" is missing, with no default",
                  fixed  = TRUE)
-
     expect_error(newType(),
                  regexp = "!missing(dgeObj) is not TRUE",
                  fixed  = TRUE)
@@ -56,4 +55,3 @@ test_that('types.R: incorrect usage', {
                  regexp = "`%in%`(x = baseType, table = baseTypes(dgeObj)) is not TRUE",
                  fixed  = TRUE)
 })
-
