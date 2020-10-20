@@ -86,7 +86,6 @@ test_that('addItem.R: incorrect usage', {
     expect_error(addItem(matrix(rep(0, 5), nrow = 5)),
                  regexp = "!missing(item) is not TRUE",
                  fixed  = TRUE)
-
     expect_error(addItem(NULL),
                  regexp = "!missing(item) is not TRUE",
                  fixed  = TRUE)
@@ -108,7 +107,6 @@ test_that('addItem.R: incorrect usage', {
                  regexp = "Col basetypes must have rownames")
     expect_error(addItem(DGEobj, item = matrix(rep(0, 25), nrow = 5), itemName = 'testmatrix', itemType = 'assay'),
                  regexp = "Assay basetypes must have row and column names")
-
     expect_error(addItems(NULL),
                  regexp = "!missing(itemList) is not TRUE",
                  fixed  = TRUE)
