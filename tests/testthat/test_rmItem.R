@@ -16,9 +16,15 @@ test_that('rmItem.R: rmItem()/rmItems()', {
 })
 
 test_that('rmItem.R: incorrect usage', {
-    expect_error(rmItem(DGEobj, c("design", "intensity")))
-    expect_error(rmItem(DGEobj, "counts"))
-    expect_error(rmItems(DGEobj, c("counts", "genes")))
+    expect_error(rmItem(DGEobj, c("design", "intensity")),
+                 regexp = "length(itemName) not equal to 1",
+                 fixed  = TRUE)
+    expect_error(rmItem(DGEobj, "counts"),
+                 regexp = "counts does not exist within DGEresult.",
+                 fixed  = TRUE)
+    expect_error(rmItems(DGEobj, c("counts", "genes")),
+                 regexp = "counts does not exist within DGEresult.",
+                 fixed  = TRUE)
     expect_error(rmItems(DGEobj, c(70000)),
                  regexp = "A value in items numeric index is gt items in dgeObj")
 })
