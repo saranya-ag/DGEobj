@@ -99,7 +99,7 @@ initDGEobj <- function(counts,
     funArgs <- match.call()
 
     result <- try(counts <- as.matrix(counts), silent = TRUE)
-    if (class(result) == "try-error")
+    if (any(class(result) == "try-error"))
         stop("Couldn't coerce counts to a numeric matrix!")
 
     # Initialize an empty DGEobj
