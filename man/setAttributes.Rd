@@ -16,13 +16,11 @@ The item with new attributes added and no existing attributes removed
 }
 \description{
 Set one or more attributes on an object.  You can use this to add attribute
-annotation(s) to a DGEobj or to a specific item within a DGEobj.  Notably,
-using the base attributes function to add attributes strips existing
-attributes.  The setAttributes() function adds the attributes passed to it in
-the attribs argument without deleting attributes already present.   However,
-a names attribute on the attribs argument list that already exists in the
-object will be updated.  The function is generic in that it should work on
-other data types/classes, not just a DGEobj.
+annotation(s) to a DGEobj or to a specific item within a DGEobj.
+The setAttributes() function adds the attributes passed to it in
+the attribs argument without deleting attributes already present. To remove an attribute,
+you can pass NULL as the value. Any named attribute on the attribs argument list
+that already exists in the object will be updated.
 }
 \examples{
 \dontrun{

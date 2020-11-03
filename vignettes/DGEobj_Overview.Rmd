@@ -213,7 +213,7 @@ You may also use boolean vectors to subset dimensions of a DGEobj.
 
 ## Inventory of a DGEobj
 
-The `inventory()` function prints a table of the data items present in a DGEobj.  The output includes the item name, type, basetype, parent, class, and date created.  If the `verbose = TRUE` argument is added, a `funArgs` column is also included.  
+The `inventory()` function prints a table of the data items present in a DGEobj.  The output includes the item name, type, baseType, parent, class, and date created.  If the `verbose = TRUE` argument is added, a `funArgs` column is also included.  
 
 ```
 inventory(DGEobj, verbose = TRUE)

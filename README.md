@@ -17,11 +17,11 @@ When multiple objects of one type are included in a DGEobj (e.g. two different f
 
 ## Structure of a DGEobj
 
-A DGE obj is fundamentally a list of data objects. Each data object deposited in a DGEobj is accompanied by attributes including a Type, a Basetype, a dateCreated and funArgs text field.  Example data objects that are useful to capture as documentation of an analysis include, design matrices, DGElists, fit objects, topTable output etc. 
+A DGE obj is fundamentally a list of data objects. Each data object deposited in a DGEobj is accompanied by attributes including a Type, a baseType, a dateCreated and funArgs text field.  Example data objects that are useful to capture as documentation of an analysis include, design matrices, DGElists, fit objects, topTable output etc. 
 
-There are 4 fundamental and immutable basetypes (row, col, assay, meta).  These are used under the hood to define how to subset each data element.  
+There are 4 fundamental and immutable baseTypes (row, col, assay, meta).  These are used under the hood to define how to subset each data element.  
 
-To provide flexibility there are number of predefined types (showTypes() to list) and a newType function provides extensibility to create new data types as needed.  Each type must be associated with a basetype. Except for the unique fields described above, you can have multiple instances of any Type as long as each instance is given a unique "itemName".  A data structure defining a DGEobj's customized structure is stored as the "objDef" attribute on the DGEobj (myObjDef <- attr(dgeObj, "objDef")).  
+To provide flexibility there are number of predefined types (showTypes() to list) and a newType function provides extensibility to create new data types as needed.  Each type must be associated with a baseType. Except for the unique fields described above, you can have multiple instances of any Type as long as each instance is given a unique "itemName".  A data structure defining a DGEobj's customized structure is stored as the "objDef" attribute on the DGEobj (myObjDef <- attr(DGEobj, "objDef")).  
 
 funArgs is a text field intended to hold details of creating the object.  Passing funArgs = match.call() is a convenient way to automate capture of the calling arguments of the current function when that best describes how an object was created.  The user can also supply a custom user-authored text comment for this purpose.
   

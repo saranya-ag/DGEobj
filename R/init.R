@@ -48,22 +48,25 @@ initDGEobj <- function(counts,
                        DGEobjDef = .DGEobjDef
 ) {
 
-    assert_that(!missing(counts),
-                !missing(colData),
-                !missing(rowData),
-                !missing(level),
-                is.matrix(counts) | is.data.frame(counts),
-                level %in% DGEobjDef$allowedLevels,
-                !is.null(rownames(counts)),
-                !is.null(colnames(counts)),
-                !is.null(rownames(rowData)),
-                !is.null(rownames(colData))
-    )
+    assertthat::assert_that(!missing(counts),
+                            !missing(colData),
+                            !missing(rowData),
+                            !missing(level),
+                            msg = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.")
+    assertthat::assert_that(is.matrix(counts) | is.data.frame(counts),
+                            msg = "counts must be specified as a matrix or a data.frame.")
+    assertthat::assert_that(level %in% DGEobjDef$allowedLevels,
+                            msg = 'The specified level must be one of: "gene", "isoform", "exon", "proteingroup", "peptide", "ptm", or "protein".')
+    assertthat::assert_that(!is.null(rownames(counts)),
+                            !is.null(colnames(counts)),
+                            !is.null(rownames(rowData)),
+                            !is.null(rownames(colData)),
+                            msg = "counts must have row and column names specified. rowData and colData must have rownames specified.")
+    assertthat::assert_that(nrow(counts) == nrow(rowData),
+                            ncol(counts) == nrow(colData),
+                            msg = "The number of rows in counts must match the number of rows in rowData. Similarly, the number of columns in counts must match the number of columns in colData.")
 
-    assert_that(nrow(counts) == nrow(rowData),
-                ncol(counts) == nrow(colData))
-
-    #Rows
+    # Rows
     if (!all(rownames(counts) == rownames(rowData))) {
         counts <- counts[order(rownames(counts)),]
         rowData <- rowData[order(rownames(rowData)),]
@@ -74,9 +77,10 @@ initDGEobj <- function(counts,
         colData <- colData[order(rownames(colData)),]
     }
 
-    assert_that(
+    assertthat::assert_that(
         all(rownames(counts) == rownames(rowData)),
-        all(colnames(counts) == rownames(colData))
+        all(colnames(counts) == rownames(colData)),
+        msg = "The rownames for counts must match the rownames of rowData. Similarly, the colnames of counts must match the rownames of colData."
     )
 
     if (!allowShortSampleIDs == TRUE) {
@@ -88,11 +92,11 @@ initDGEobj <- function(counts,
             sampleCount <- nrow(colData)
             minchar <- nchar(as.character(sampleCount))
             maxchar <- max(sapply(rownames(colData), nchar))
-            assert_that(maxchar > minchar,
-                        msg = str_c("It looks like you have numeric sample IDs (design rownames).",
-                                    "Please supply a more specific sample identifier. ",
-                                    "Use allowShortSampleIDs = TRUE to explicitily override this restriction",
-                                    sep = "\n"))
+            assertthat::assert_that(maxchar > minchar,
+                                    msg = paste("It looks like you have numeric sample IDs (design rownames).",
+                                                "Please supply a more specific sample identifier. ",
+                                                "Use allowShortSampleIDs = TRUE to explicitly override this restriction",
+                                                sep = "\n"))
         }
     }
 

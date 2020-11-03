@@ -47,13 +47,11 @@ showAttributes <- function(dgeObj,
 #' Function setAttributes
 #'
 #' Set one or more attributes on an object.  You can use this to add attribute
-#' annotation(s) to a DGEobj or to a specific item within a DGEobj.  Notably,
-#' using the base attributes function to add attributes strips existing
-#' attributes.  The setAttributes() function adds the attributes passed to it in
-#' the attribs argument without deleting attributes already present.   However,
-#' a names attribute on the attribs argument list that already exists in the
-#' object will be updated.  The function is generic in that it should work on
-#' other data types/classes, not just a DGEobj.
+#' annotation(s) to a DGEobj or to a specific item within a DGEobj.
+#' The setAttributes() function adds the attributes passed to it in
+#' the attribs argument without deleting attributes already present. To remove an attribute,
+#' you can pass NULL as the value. Any named attribute on the attribs argument list
+#' that already exists in the object will be updated.
 #'
 #' @author John Thompson
 #' @keywords RNA-Seq, DGEobj
@@ -86,18 +84,56 @@ showAttributes <- function(dgeObj,
 #' @export
 setAttributes <- function(item, attribs){
 
-    assert_that(!missing(item),
-                !missing(attribs),
-                class(attribs)[[1]] == "list",
-                !is.null(names(attribs))
-    )
+    assertthat::assert_that(!missing(item),
+                            !missing(attribs),
+                            msg = "Specify both an item and the attributes (attribs) to be attached to the item.")
+    assertthat::assert_that(class(attribs)[[1]] == "list",
+                            msg = "attribs must be of class 'list'.")
+    assertthat::assert_that(!is.null(names(attribs)),
+                            msg = "The attribs list should be a named list, specifying the attribute/value pairs. It must have names specified.")
 
     attribNames <- as.list(names(attribs))
     for (i in 1:length(attribs))
-        attr(item, attribNames[[i]]) <- attribs[[i]]
+        item <- setAttribute(item, attribs[[i]], attribNames[[i]])
     return(item)
 }
 
+
+#' Function setAttribute
+#'
+#' Set an attribute on an object.  You can use this to add attribute
+#' annotation(s) to a DGEobj or to a specific item within a DGEobj.
+#'
+#' @param item  An object to attach attributes to
+#' @param attrib An attribute value to add to the item
+#' @param attribName A name for the attribute
+#'
+#' @return The item with the new attribute added and no existing attributes removed
+#'
+#' @examples
+#' \dontrun{
+#'    # Assign attribute to a DGEobj
+#'    MyDGEobj <- setAttribute(MyDGEobj, "RNA-SEQ", "Platform")
+#'
+#'    # Set attributes on an item inside a DGEobj
+#'    MyDGEObj[["counts"]] <- setAttribute(MyDGEObj[["counts"]], FALSE, "normalized")
+#' }
+#'
+#' @importFrom assertthat assert_that
+#'
+#' @export
+setAttribute <- function(item, attrib, attribName) {
+
+    assertthat::assert_that(!missing(item),
+                            !missing(attrib),
+                            !missing(attribName),
+                            msg = "Specify an item, the attribute (attrib), and the name of the attribute (attribName) to be attached to the item.")
+    assertthat::assert_that(class(attribName) == "character",
+                            msg = "attribName must be of class 'character'.")
+
+    attr(item, attribName) <- attrib
+    return(item)
+}
 
 #' Function getAttributes
 #'
@@ -159,8 +195,9 @@ getAttributes <- function(item,
 #'
 #' @export
 getAttribute <- function(item, attrName){
-    assert_that(!missing(item),
-                !missing(attrName))
+    assertthat::assert_that(!missing(item),
+                            !missing(attrName),
+                            msg = "An item and an attribute name (attrName) are required.")
 
     x <- attr(item, attrName)
     return(x)

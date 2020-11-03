@@ -4,34 +4,29 @@
 \alias{annotateDGEobj}
 \title{Function annotateDGEobj}
 \usage{
-annotateDGEobj(dgeObj, regfile, keys = NULL)
+annotateDGEobj(dgeObj, annotations, keys = NULL)
 }
 \arguments{
 \item{dgeObj}{A class DGEobj created by function initDGEobj()}
 
-\item{regfile}{An Omicsoft registration file (in text format, not Excel)}
+\item{annotations}{A character string location to a text file with annotations given as key/value
+pairs separated by an equal sign, or a named list of key/value pairs.}
 
-\item{keys}{A list of keys to look for in the regfile and transfer to the DGEobj.
-Use keys = NULL to accept all keys in a regfile (Default)}
+\item{keys}{A list of keys to look for in the annotations and transfer to the DGEobj.
+Use keys = NULL to accept all keys in the annotations (Default)}
 }
 \value{
-A DGEobj annotated with attributes.
+A DGEobj annotated with attributes from the annotation file.
 }
 \description{
-Read an Omicsoft Registration file and attach attributes to the DGEobj.
-}
-\details{
-Omicsoft registration files contain a [SampleSet] section that contains
-metadata about a project.  These are key/value pairs separated by an equals
-sign.  The keys parameter specifies which key we want to capture as
-attributes on the DGEobj.
-
-This function should work as long as you provide a text file with key/value
-pairs separated by equals sign.
+Reads an annotation file of key/value pairs or a named list and attaches them attributes to a DGEobj.
+If a file is used, it should be a text file containing key/value pairs separated by an equals
+sign. The keys parameter specifies which key we want to capture as
+attributes on the DGEobj. The value will then be the value of that attribute.
 }
 \examples{
 \dontrun{
-   MyDgeObj <- annotateDGEobj(DGEobj, regfile)
+   MyDgeObj <- annotateDGEobj(DGEobj, annotations)
 }
 
 }

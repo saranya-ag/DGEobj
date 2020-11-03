@@ -30,14 +30,16 @@
 #' @importFrom assertthat assert_that
 #'
 #' @export
-mergeDGEobj <- function(d1, d2, join="inner", orig=TRUE){
+mergeDGEobj <- function(d1, d2, join = "inner", orig = TRUE) {
 
     assertthat::assert_that(!missing(d1),
                             !missing(d2),
-                            class(d1)[[1]] == "DGEobj",
+                            msg = "You must specify d1 and d2 (two DGEobjs to merge).")
+    assertthat::assert_that(class(d1)[[1]] == "DGEobj",
                             class(d2)[[1]] == "DGEobj",
-                            toupper(join) %in% c("INNER", "LEFT")
-    )
+                            msg = "Both d1 and d2 must be of class 'DGEobj'.")
+    assertthat::assert_that(toupper(join) %in% c("INNER", "LEFT"),
+                            msg = "Only inner and left joins are supported. Please choose one of 'inner' or 'left'.")
 
     suffix <- ""
     if (orig == TRUE)

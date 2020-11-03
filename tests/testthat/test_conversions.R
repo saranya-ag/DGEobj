@@ -53,7 +53,7 @@ test_that('conversions.R: convertRSE() to DGEobj', {
 
 test_that('conversions.R: incorrect usage', {
     expect_error(convertDGEobj(DGEobj, 'Bob'),
-                 regexp = "`%in%`(x = toupper(Class), table = supportedClasses) is not TRUE",
+                 regexp = "The specified class must be one of \"RangedSummarizedExperiment\", \"RSE\", \"ExpressionSet\", or \"ES\".",
                  fixed  = TRUE)
     expect_error(convertDGEobj(NULL, "ES"),
                  regexp = "argument is of length zero")
@@ -62,11 +62,13 @@ test_that('conversions.R: incorrect usage', {
 
     rse <- .get_rse()
 
-    expect_null(convertRSE(rse, Class = "Bob"))
+    expect_error(convertRSE(rse, Class = "Bob"),
+                 regexp = "The destination class must be one of \"DGEobj\", \"ES\", or \"ExpressionSet\".",
+                 fixed  = TRUE)
     expect_error(convertRSE(rse),
-                 regexp = "!missing(Class) is not TRUE",
+                 regexp = "Specify both a RSE and a desired Class to convert the RSE to.",
                  fixed  = TRUE)
     expect_error(convertRSE(NULL, Class = "ES"),
-                 regexp = "class(RSE)[[1]] not equal to \"RangedSummarizedExperiment\"",
+                 regexp = "The RSE must be of class 'RangedSummarizedExperiment'.",
                  fixed  = TRUE)
 })

@@ -22,7 +22,7 @@ test_that('init.R: initDGEobj()', {
                              colData    = colData,
                              level      = level,
                              customAttr = customAttr)},
-                 regexp = "Elements 1, 2, 3, 4, 5, ... of rownames(counts) == rownames(rowData) are not true",
+                 regexp = "The rownames for counts must match the rownames of rowData. Similarly, the colnames of counts must match the rownames of colData.",
                  fixed  = TRUE)
 
     expect_error({initDGEobj(counts     = counts,
@@ -30,7 +30,7 @@ test_that('init.R: initDGEobj()', {
                              colData    = colData1,
                              level      = level,
                              customAttr = customAttr)},
-                 regexp = "Elements 1, 2, 3, 4, 5, ... of colnames(counts) == rownames(colData) are not true",
+                 regexp = "The rownames for counts must match the rownames of rowData. Similarly, the colnames of counts must match the rownames of colData.",
                  fixed  = TRUE)
 
     # cheking for numeric sampleIds
@@ -45,7 +45,7 @@ test_that('init.R: initDGEobj()', {
                              customAttr = customAttr)},
                  regexp = paste0("It looks like you have numeric sample IDs (design rownames).",
                                  "\nPlease supply a more specific sample identifier.",
-                                 " \nUse allowShortSampleIDs = TRUE to explicitily override this restriction"),
+                                 " \nUse allowShortSampleIDs = TRUE to explicitly override this restriction"),
                  fixed  = TRUE)
 
     # checking warning as GRange object is not available.
@@ -70,15 +70,15 @@ test_that('init.R: initDGEobj()', {
 
     # verifying missing value errors
     expect_error(initDGEobj(rowData =  rowData, colData =  colData, level =  level, customAttr = customAttr),
-                 regexp = "!missing(counts) is not TRUE",
+                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.",
                  fixed  = TRUE)
     expect_error(initDGEobj(counts = counts, colData =  colData, level =  level, customAttr = customAttr),
-                 regexp = "!missing(rowData) is not TRUE",
+                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.",
                  fixed  = TRUE)
     expect_error(initDGEobj(counts = counts, rowData =  rowData, level =  level, customAttr = customAttr),
-                 regexp = "!missing(colData) is not TRUE",
+                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.",
                  fixed  = TRUE)
     expect_error(initDGEobj(counts = counts, rowData =  rowData, colData =  colData, customAttr = customAttr),
-                 regexp = "!missing(level) is not TRUE",
+                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.",
                  fixed  = TRUE)
 })

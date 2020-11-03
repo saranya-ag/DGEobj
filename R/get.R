@@ -6,13 +6,13 @@
 #' @keywords RNA-Seq, DGEobj
 #'
 #' @param dgeObj  A class DGEobj created by function initDGEobj()
-#' @param itemNames A list of itemNames to retrieve
+#' @param itemNames A character string, character vector, or list of itemNames to retrieve
 #'
 #' @return The requested data item or list of data items.
 #'
 #' @examples
 #' \dontrun{
-#'    MyCounts <- getItem(DGEobj, "counts")
+#'    MyCounts <- getItems(DGEobj, "counts")
 #' }
 #'
 #' @importFrom assertthat assert_that
@@ -20,11 +20,13 @@
 #' @export
 getItems <- function(dgeObj, itemNames){
 
-    assert_that(!missing(dgeObj),
-                !missing(itemNames),
-                "DGEobj" %in% class(dgeObj),
-                any(c("character", "list") %in% class(itemNames))
-    )
+    assertthat::assert_that(!missing(dgeObj),
+                            !missing(itemNames),
+                            msg = "Specify both a DGEobj and at least one itemName to retrieve.")
+    assertthat::assert_that("DGEobj" %in% class(dgeObj),
+                            msg = "The DGEobj must be of class 'DGEobj'.")
+    assertthat::assert_that(any(c("character", "list") %in% class(itemNames)),
+                            msg = "Pass the itemNames as a single character string, a character vector, or a list of string names to retrieve.")
 
     idx <- itemNames %in% names(dgeObj)
     result <- list()
@@ -66,11 +68,14 @@ getItems <- function(dgeObj, itemNames){
 getItem <- function(dgeObj, itemName){
     assertthat::assert_that(!missing(dgeObj),
                             !missing(itemName),
-                            "DGEobj" %in% class(dgeObj),
-                            class(itemName) == "character",
+                            msg = "Specify both a DGEobj and an itemName to retrieve.")
+    assertthat::assert_that("DGEobj" %in% class(dgeObj),
+                            msg = "The DGEobj must be of class 'DGEobj'.")
+    assertthat::assert_that(class(itemName) == "character",
                             length(itemName) == 1,
-                            itemName %in% names(dgeObj)
-    )
+                            msg = "The itemName should be a character string and contain the name of only one item to retrieve. To retrieve multiple items, use the getItems() function.")
+    assertthat::assert_that(itemName %in% names(dgeObj),
+                            msg = "The requested itemName should be in the DGEobj. Use names(dgeObj) to see the available items.")
     return(dgeObj[[itemName]])
 }
 

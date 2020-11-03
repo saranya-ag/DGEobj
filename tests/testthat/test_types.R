@@ -25,8 +25,10 @@ test_that('types.R: showTypes()', {
     expect_equal(length(showTypes_DGEobj), 50)
 
     warning('function does not appear to be working')
-    # showTypes_notPretty_DGEobj <- showTypes(DGEobj, pretty = FALSE)
-    # expect_equal(length(showTypes_notPretty_DGEobj), 50)
+    showTypes_notPretty_DGEobj <- showTypes(DGEobj, pretty = FALSE)
+    expect_s3_class(showTypes_notPretty_DGEobj, "data.frame")
+    expect_equal(nrow(showTypes_notPretty_DGEobj), 48)
+    expect_equal(ncol(showTypes_notPretty_DGEobj), 2)
 })
 
 test_that('types.R: newType()', {
@@ -46,12 +48,12 @@ test_that('types.R: incorrect usage', {
                  regexp = "argument \"dgeObj\" is missing, with no default",
                  fixed  = TRUE)
     expect_error(newType(),
-                 regexp = "!missing(dgeObj) is not TRUE",
+                 regexp = "Specify the DGEobj, itemType, and baseType. All three are required.",
                  fixed  = TRUE)
     expect_error(newType(DGEobj),
-                 regexp = "!missing(itemType) is not TRUE",
+                 regexp = "Specify the DGEobj, itemType, and baseType. All three are required.",
                  fixed  = TRUE)
     expect_error(newType(DGEobj, "MyType", "badType"),
-                 regexp = "`%in%`(x = baseType, table = baseTypes(dgeObj)) is not TRUE",
+                 regexp = "The baseType must be one of the baseTypes available in the DGEobj. Use baseTypes(DGEobj) to see which are available.",
                  fixed  = TRUE)
 })

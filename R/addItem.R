@@ -92,11 +92,13 @@ addItem <- function(dgeObj,
         return(result)
     }
 
-    assert_that(!missing(dgeObj),
-                !missing(item),
-                !missing(itemName),
-                !missing(itemType),
-                itemType %in% names(attr(dgeObj, "objDef")$type))
+    assertthat::assert_that(!missing(dgeObj),
+                            !missing(item),
+                            !missing(itemName),
+                            !missing(itemType),
+                            msg = "Specify the DGEobj, item, itemName, and itemType. All are required.")
+    assertthat::assert_that(itemType %in% names(attr(dgeObj, "objDef")$type),
+                            msg = "The itemType must be one of the possible types defined in the DGEobj object definition. You can access possible types using names(attr(DGEobj, 'objDef')$type).")
 
     if (debug == TRUE) browser()
 
@@ -196,18 +198,21 @@ addItems <- function(dgeObj,
                      overwrite = FALSE,
                      itemAttr) {
 
-    assert_that(!missing(dgeObj),
-                !missing(itemList),
-                !missing(itemTypes),
-                class(dgeObj)[[1]] == "DGEobj",
-                class(itemList)[[1]] == "list",
-                class(itemTypes)[[1]] == "list",
-                length(itemList) == length(itemTypes)
-    )
+    assertthat::assert_that(!missing(dgeObj),
+                            !missing(itemList),
+                            !missing(itemTypes),
+                            msg = "Specify the DGEobj, itemList, and itemTypes. All are required.")
+    assertthat::assert_that(class(dgeObj)[[1]] == "DGEobj",
+                            class(itemList)[[1]] == "list",
+                            class(itemTypes)[[1]] == "list",
+                            msg = "The DGEobj must be of class DGEobj, while the itemList and itemTypes must both be lists.")
+    assertthat::assert_that(length(itemList) == length(itemTypes),
+                            msg = "The length of the itemList must match the length of the itemTypes.")
 
     if (!missing(parents))
-        assert_that(class(parents)[[1]] == "list",
-                    length(parents) == length(itemList))
+        assertthat::assert_that(class(parents)[[1]] == "list",
+                                length(parents) == length(itemList),
+                                msg = "The parents list must be of class 'list' and of the same length as the itemList.")
 
     if (!missing(itemAttr)) {
         attrNames <- names(itemAttr)

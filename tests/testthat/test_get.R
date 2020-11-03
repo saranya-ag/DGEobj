@@ -9,7 +9,7 @@ test_that('get.R: getItem()', {
     expect_equal(ncol(getItem_DGEobj_test), 13)
 
     expect_error(getItem(DGEobj, 'counts'),
-                 regexp = "`%in%`(x = itemName, table = names(dgeObj)) is not TRUE",
+                 regexp = "The requested itemName should be in the DGEobj. Use names(dgeObj) to see the available items.",
                  fixed  = TRUE)
 })
 

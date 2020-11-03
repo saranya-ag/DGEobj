@@ -9,7 +9,7 @@ getItems(dgeObj, itemNames)
 \arguments{
 \item{dgeObj}{A class DGEobj created by function initDGEobj()}
 
-\item{itemNames}{A list of itemNames to retrieve}
+\item{itemNames}{A character string, character vector, or list of itemNames to retrieve}
 }
 \value{
 The requested data item or list of data items.
@@ -19,7 +19,7 @@ Retrieve items from a DGEobj by item name.
 }
 \examples{
 \dontrun{
-   MyCounts <- getItem(DGEobj, "counts")
+   MyCounts <- getItems(DGEobj, "counts")
 }
 
 }

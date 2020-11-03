@@ -17,7 +17,7 @@ test_that('rmItem.R: rmItem()/rmItems()', {
 
 test_that('rmItem.R: incorrect usage', {
     expect_error(rmItem(DGEobj, c("design", "intensity")),
-                 regexp = "length(itemName) not equal to 1",
+                 regexp = "Specify a singular itemName as a character string.",
                  fixed  = TRUE)
     expect_error(rmItem(DGEobj, "counts"),
                  regexp = "counts does not exist within DGEresult.",
