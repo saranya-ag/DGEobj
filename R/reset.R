@@ -11,8 +11,6 @@
 #' @keywords RNA-Seq; counts; low intensity
 #'
 #' @param dgeObj A DGEobj that we wish to extract original, un-filtered data from.
-#' @param platformType One of "RNA-Seq" or "Affymetrix". Only required if the
-#' platformType attribute is missing from the DGEobj.
 #'
 #' @return A DGEobj containing the original (unfiltered) data.
 #'
@@ -26,25 +24,24 @@
 #' @importFrom stringr str_c
 #'
 #' @export
-resetDGEobj <- function(dgeObj, platformType){
+resetDGEobj <- function(dgeObj){
     platform.rnaseq <- c("rna-seq", "rnaseq")
 
     assertthat::assert_that("DGEobj" %in% class(dgeObj),
-                            "The DGEobj must be of class 'DGEobj'.")
+                            msg = "The DGEobj must be of class 'DGEobj'.")
     assertthat::assert_that(!is.null(attr(dgeObj, "level")),
-                            "The DGEobj must have a 'level' attribute specified.")
-    assertthat::assert_that(is.null(attr(dgeObj, "PlatformType")),
-                            msg = "Required attribute \"PlatformType\" is missing!  Must use platformType argument.")
+                            msg = "The DGEobj must have a 'level' attribute specified.")
+    assertthat::assert_that(!is.null(attr(dgeObj, "PlatformType")),
+                            msg = "Required attribute \"PlatformType\" is missing.")
 
-    metaList <- getBaseType(dgeObj, "meta")[1:3]
-
-    if (!is.null(attr(dgeObj, "PlatformType")))
+    if (!is.null(attr(dgeObj, "PlatformType"))) {
         platformType <- tolower(attr(dgeObj, "PlatformType"))
+    } else {
+        stop("Required attribute \"PlatformType\" is missing.")
+    }
 
-    if (tolower(platformType) %in% platform.rnaseq)
-        counts <- getItem(dgeObj, "counts_orig")
-
-    design <- getItem(dgeObj, "design_orig")
+    counts   <- getItem(dgeObj, "counts_orig")
+    design   <- getItem(dgeObj, "design_orig")
 
     if ("geneData_orig" %in% names(dgeObj)) {
         rowData <- getItem(dgeObj, "geneData_orig")
@@ -59,12 +56,11 @@ resetDGEobj <- function(dgeObj, platformType){
     }
 
     if (tolower(platformType) %in% platform.rnaseq) {
-        newObj <- initDGEobj(counts = dgeObj$counts_orig,
-                             rowData = rowData,
-                             colData = design,
-                             level = attr(dgeObj, "level"),
-                             DGEobjDef = attr(dgeObj, "objDef")
-        )
+        newObj <- initDGEobj(counts    = counts,
+                             rowData   = rowData,
+                             colData   = design,
+                             level     = attr(dgeObj, "level"),
+                             DGEobjDef = attr(dgeObj, "objDef"))
     } else {
         stop("The PlatformType attribute value was not recognized!")
     }
@@ -80,7 +76,6 @@ resetDGEobj <- function(dgeObj, platformType){
                           itemName = "effectiveLength",
                           itemType = "effectiveLength",
                           parent = "effectiveLength_orig")
-
     }
 
     excludeList <- list("names",

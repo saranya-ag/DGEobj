@@ -4,13 +4,10 @@
 \alias{resetDGEobj}
 \title{Function resetDGEobj}
 \usage{
-resetDGEobj(dgeObj, platformType)
+resetDGEobj(dgeObj)
 }
 \arguments{
 \item{dgeObj}{A DGEobj that we wish to extract original, un-filtered data from.}
-
-\item{platformType}{One of "RNA-Seq" or "Affymetrix". Only required if the
-platformType attribute is missing from the DGEobj.}
 }
 \value{
 A DGEobj containing the original (unfiltered) data.

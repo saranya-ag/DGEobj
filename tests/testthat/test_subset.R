@@ -31,6 +31,11 @@ test_that('subset.R: subset()', {
 
     expect_equal(DGEobj, DGEobj[])
     expect_equal(DGEobj, subset(DGEobj))
+
+    debug_messages <- capture_output(subset(DGEobj, row = c(1:5), debug = TRUE))
+    expect_match(debug_messages,
+                 regexp = "subsetting intensity_orig meta \nrow arg length 5 integer \ncol arg length 165 integer \nobject dim: 5900:165subsetting intensity assay \nrow arg length 5 integer \ncol arg length 165 integer \nobject dim: 5900:165subsetting design_orig meta \nrow arg length 5 integer \ncol arg length 165 integer \nobject dim: 165:13subsetting design col \nrow arg length 5 integer \ncol arg length 165 integer \nobject dim: 165:13subsetting peptideAnnotation_orig meta \nrow arg length 5 integer \ncol arg length 165 integer \nobject dim: 5900:6",
+                 fixed = TRUE)
 })
 
 test_that('subset.R: incorrect usage', {
@@ -42,4 +47,16 @@ test_that('subset.R: incorrect usage', {
                  regexp = "col coordinates out of range")
     expect_error(DGEobj[, c(50000:50005)],
                  regexp = "col coordinates out of range")
+    expect_warning(subset(DGEobj, row = LETTERS),
+                   regexp = "26 items in row index not found in rownames(x)",
+                   fixed = TRUE)
+    expect_warning(DGEobj[LETTERS],
+                   regexp = "26 items in row index not found in rownames(x)",
+                   fixed = TRUE)
+    expect_warning(subset(DGEobj, col = LETTERS),
+                   regexp = "26 items in col index not found in colnames(x)",
+                   fixed = TRUE)
+    expect_warning(DGEobj[, LETTERS],
+                   regexp = "26 items in col index not found in colnames(x)",
+                   fixed = TRUE)
 })

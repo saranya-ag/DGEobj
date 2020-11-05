@@ -70,16 +70,20 @@ test_that('addItem.R: addItems()', {
                                     "MyMatrixRow" = data.r,
                                     "MyMatrixCol" = data.c,
                                     "MyAssay" = assay),
-                    itemTypes = list("meta", "meta", "row", "col", "assay"))
+                    itemTypes = list("meta", "meta", "row", "col", "assay"),
+                    itemAttr  = list('MyAttribute1' = 'testObject1',
+                                     'MyAttribute2' = 'testObject2'))
 
-    expect_equal(add$Cartoon, "Fred Flintstone")
-    expect_equal(add$Historic, "Abe Lincoln")
+    expect_equal(add$Cartoon[1], "Fred Flintstone")
+    expect_equal(add$Historic[1], "Abe Lincoln")
     expect_true('MyMatrixCol' %in% names(add))
     expect_equal(dim(add$MyMatrixCol), c(dims[2], 1))
     expect_true('MyMatrixRow' %in% names(add))
     expect_equal(dim(add$MyMatrixRow), c(dims[1], 1))
     expect_true('MyAssay' %in% names(add))
     expect_equal(dim(add$MyAssay), c(dims[1], dims[2]))
+    expect_equal(attr(add$Cartoon,"MyAttribute1"), "testObject1")
+    expect_equal(attr(add$Cartoon,"MyAttribute2"), "testObject2")
 })
 
 test_that('addItem.R: incorrect usage', {
@@ -107,6 +111,9 @@ test_that('addItem.R: incorrect usage', {
                  regexp = "Col basetypes must have rownames")
     expect_error(addItem(DGEobj, item = matrix(rep(0, 25), nrow = 5), itemName = 'testmatrix', itemType = 'assay'),
                  regexp = "Assay basetypes must have row and column names")
+    expect_error(addItem(DGEobj, item = DGEobj$intensity_orig, itemName = 'intensity_orig', itemType = 'meta'),
+                 regexp = "itemName (intensity_orig) already exists in DGEobj!",
+                 fixed = TRUE)
     expect_error(addItems(NULL),
                  regexp = "Specify the DGEobj, itemList, and itemTypes. All are required.",
                  fixed  = TRUE)
@@ -128,4 +135,10 @@ test_that('addItem.R: incorrect usage', {
                  regexp = "Col basetypes must have rownames")
     expect_error(addItems(DGEobj, itemList = list('testmatrix' = matrix(rep(0, 25), nrow = 5)), itemTypes = list('assay')),
                  regexp = "Assay basetypes must have row and column names")
+    expect_error(addItems(DGEobj,
+                          itemList = list("Cartoon" = "Fred Flintstone", "Historic" = "Abe Lincoln"),
+                          itemTypes = list("meta", "meta"),
+                          parents = list("p1")),
+                 regexp = "The parents list must be of class 'list' and of the same length as the itemList.",
+                 fixed  = TRUE)
 })
