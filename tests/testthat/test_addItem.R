@@ -87,6 +87,8 @@ test_that('addItem.R: addItems()', {
 })
 
 test_that('addItem.R: incorrect usage', {
+    error_message_itemType <- "itemType must be one of: row, col, assay, meta, geneData, isoformData, exonData, proteinData, granges, fit, contrast_fit, topTable, design, designMatrix, counts, effectiveLength, Log2CPM, TPM, FPKM, zFPKM, AffyRMA, DGEList, Elist, isoformFrac, corFit, topTreat, geneList, pathway, URL, contrast_fit_treat, contrastMatrix, geneData_orig, isoformData_orig, exonData_orig, granges_orig, counts_orig, design_orig, effectiveLength_orig, svobj, intensities, intensities_orig, intensity, intensity_orig, AffyRMA_orig, peptideAnnotation, proteingroupAnnotation, peptideAnnotation_orig, proteingroupAnnotation_orig"
+
     expect_error(addItem(matrix(rep(0, 5), nrow = 5)),
                  regexp = "Specify the DGEobj, item, itemName, and itemType. All are required.",
                  fixed  = TRUE)
@@ -97,7 +99,7 @@ test_that('addItem.R: incorrect usage', {
                  regexp = "Specify the DGEobj, item, itemName, and itemType. All are required.",
                  fixed  = TRUE)
     expect_error(addItem(DGEobj, item = 'mystring', itemName = 'teststring', itemType = 'badtype'),
-                 regexp = "The itemType must be one of the possible types defined in the DGEobj object definition. You can access possible types using names(attr(DGEobj, 'objDef')$type).",
+                 regexp = error_message_itemType,
                  fixed  = TRUE)
     expect_error(addItem(DGEobj, item = 'mystring', itemName = 'teststring', itemType = 'row'),
                  regexp = "Row basetypes must have rownames")
@@ -121,7 +123,7 @@ test_that('addItem.R: incorrect usage', {
                  regexp = "Specify the DGEobj, itemList, and itemTypes. All are required.",
                  fixed  = TRUE)
     expect_error(addItems(DGEobj, itemList = list('teststring' = 'mystring'), itemTypes = list('badtype')),
-                 regexp = "The itemType must be one of the possible types defined in the DGEobj object definition. You can access possible types using names(attr(DGEobj, 'objDef')$type).",
+                 regexp = error_message_itemType,
                  fixed  = TRUE)
     expect_error(addItems(DGEobj, itemList = list('teststring' = 'mystring'), itemTypes = list('row')),
                  regexp = "Row basetypes must have rownames")

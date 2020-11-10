@@ -38,6 +38,12 @@ test_that('reset.R: ', {
         expect_s3_class(test_reset_DgeObj, "DGEobj")
     }
 
+    # testing DGEobj with bad platformType
+    test_DGEobj1 <- setAttributes(item = test_DGEobj, list("PlatformType" = "DNA-Seq"))
+    expect_error(resetDGEobj(test_DGEobj1),
+                 regexp = "The PlatformType attribute value was not recognized!",
+                 fixed  = TRUE)
+
     # testing DGEobj with effectiveLength_orig data
     test_DGEobj <- addItem(test_DGEobj,
                            item = test_DGEobj$proteinData_orig,

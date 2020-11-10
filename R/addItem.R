@@ -97,12 +97,16 @@ addItem <- function(dgeObj,
                             !missing(itemName),
                             !missing(itemType),
                             msg = "Specify the DGEobj, item, itemName, and itemType. All are required.")
-    assertthat::assert_that(itemType %in% names(attr(dgeObj, "objDef")$type),
-                            msg = "The itemType must be one of the possible types defined in the DGEobj object definition. You can access possible types using names(attr(DGEobj, 'objDef')$type).")
 
     if (debug == TRUE) browser()
 
-    basetype <- baseType(dgeObj, type = itemType)
+    allowedTypes <- names(attr(dgeObj, "objDef")$type)
+    if (!itemType %in% allowedTypes) {
+        stop(paste("itemType must be one of: ",
+                   paste(allowedTypes, collapse = ", "), sep = ""))
+    } else {
+        basetype <- baseType(dgeObj, type = itemType)
+    }
 
     switch(basetype,
            row = {if (!itemType == "granges" && is.null(rownames(item)))
@@ -112,11 +116,6 @@ addItem <- function(dgeObj,
            assay = {if (is.null(rownames(item)) || is.null(colnames(item)))
                stop("Assay basetypes must have row and column names")}
     )
-
-    allowedTypes <- names(attr(dgeObj, "objDef")$type)
-    if (!itemType %in% allowedTypes)
-        stop(paste("itemType must be one of: ",
-                   paste(allowedTypes, collapse = ", "), sep = ""))
 
     if (overwrite == FALSE & itemName %in% names(dgeObj))
         stop(stringr::str_c('itemName (', itemName, ') already exists in DGEobj!'))

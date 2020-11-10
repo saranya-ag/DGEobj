@@ -25,7 +25,7 @@
 #'
 #' @export
 resetDGEobj <- function(dgeObj){
-    platform.rnaseq <- c("rna-seq", "rnaseq")
+    platform.types <- c("rna-seq", "rnaseq", "affymetrix")
 
     assertthat::assert_that("DGEobj" %in% class(dgeObj),
                             msg = "The DGEobj must be of class 'DGEobj'.")
@@ -34,14 +34,9 @@ resetDGEobj <- function(dgeObj){
     assertthat::assert_that(!is.null(attr(dgeObj, "PlatformType")),
                             msg = "Required attribute \"PlatformType\" is missing.")
 
-    if (!is.null(attr(dgeObj, "PlatformType"))) {
-        platformType <- tolower(attr(dgeObj, "PlatformType"))
-    } else {
-        stop("Required attribute \"PlatformType\" is missing.")
-    }
-
-    counts   <- getItem(dgeObj, "counts_orig")
-    design   <- getItem(dgeObj, "design_orig")
+    platformType <- tolower(attr(dgeObj, "PlatformType"))
+    counts       <- getItem(dgeObj, "counts_orig")
+    design       <- getItem(dgeObj, "design_orig")
 
     if ("geneData_orig" %in% names(dgeObj)) {
         rowData <- getItem(dgeObj, "geneData_orig")
@@ -55,7 +50,7 @@ resetDGEobj <- function(dgeObj){
         stop("Gene/isoform/exon/protein data not found")
     }
 
-    if (tolower(platformType) %in% platform.rnaseq) {
+    if (tolower(platformType) %in% platform.types) {
         newObj <- initDGEobj(counts    = counts,
                              rowData   = rowData,
                              colData   = design,
