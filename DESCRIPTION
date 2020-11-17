@@ -25,7 +25,7 @@ Imports:
 RoxygenNote: 7.1.1
 Suggests: 
     rmarkdown,
-    knitr,
     testthat,
-    GenomicRanges
+    GenomicRanges,
+    edgeR
 VignetteBuilder: knitr

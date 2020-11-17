@@ -22,9 +22,8 @@
 #' }
 #'
 #' @import magrittr
-#' @importFrom stringr str_detect str_remove_all str_locate
+#' @importFrom stringr str_remove_all str_locate
 #' @importFrom utils read.delim
-#' @importFrom stats setNames
 #'
 #' @export
 annotateDGEobj <- function(dgeObj, annotations, keys = NULL) {
@@ -50,7 +49,7 @@ annotateDGEobj <- function(dgeObj, annotations, keys = NULL) {
         regdat$key <- ""
         regdat$value <- ""
         for (i in 1:nrow(regdat)) {
-            splitpos <- str_locate(regdat[i,1], "=")[1]  # Pos of 1st = sign
+            splitpos <- stringr::str_locate(regdat[i,1], "=")[1]  # Pos of 1st = sign
             regdat$key[i] <- substr(regdat[i,1], 1, (splitpos - 1))
             regdat$value[i] <- substr(regdat[i,1], (splitpos + 1), nchar(regdat[i,1]))
         }
@@ -69,6 +68,9 @@ annotateDGEobj <- function(dgeObj, annotations, keys = NULL) {
                                 msg = "annotations should be a named list of key/value pairs.")
 
         # if list, turn into a df
+        regdat <- data.frame(matrix(ncol = 2, nrow = length(annotations)))
+        colnames(regdat) <- c("key", "value")
+
         regdat <- stats::setNames(data.frame(matrix(ncol = 2, nrow = length(annotations))), c("key", "value"))
         for (i in 1:length(annotations)) {
             regdat$key[i] <- names(annotations)[i]

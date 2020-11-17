@@ -1,4 +1,6 @@
 require(testthat)
+require(stringr)
+
 require(DGEobj)
 require(GenomicRanges)
 
