@@ -110,22 +110,6 @@ The keys argument is optional unless you want to change the default list of keys
 
 Operationally, this function reads a set of key/value pairs from a text file and attaches them to the DGEobj.  Although designed to capture annotation from an Omicsoft registration file, the format is simple enough that you can easily create such an annotation file.  Each key/value pair should be on a line by itself with the key and value separated by an equals sign.  Lines without key value pairs will be ignored (it looks for an = sign).  
 
-### Converting to/from RSE or ES data formats
-
-You may receive data in ES or RSE format or need to reformat data into one of those formats for use with other functions.  We therefore provide a function to facilitate the conversion to/from RSE format.  The SummarizedExperiment package already provides a method to convert from ES to RSE.
-
-```
-#convert ES to RSE
-library(SummarizedExperiment)
-MyRSE <- as(MyES, "RangeSummarizedExperiment")
-
-#convert RSE to DGEobj
-MyDgeObj <- convertRSE(MyRSE, "DGEobj")
-
-#convert RSE to either RSE or ES
-MyRSE <- convertDGEobj(MyDgeObj, "RSE")
-MyES  <- convertDGEobj(MyDgeObj, "ES")
-```
 
 ## Adding Items to a DGEobj
 

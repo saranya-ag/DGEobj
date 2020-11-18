@@ -21,7 +21,6 @@
 #' }
 #'
 #' @importFrom assertthat assert_that
-#' @importFrom stringr str_c
 #'
 #' @export
 resetDGEobj <- function(dgeObj){

@@ -54,10 +54,6 @@ funArgs is a text field intended to hold details of creating the object.  Passin
 ### Conversion
 
 * as.list:  unclass a DGEobj to simple list
-* convertDGEobj:  convert base data (counts, gene and sample annotation) 
-from DGEobj to RangedSummarizedExperiment or ExpressionSet
-* convertRSE:    convert base data (counts, gene and sample annotation) 
-from RSE to DGEobj or ExpressionSet
 
 ### GRanges Data
 
