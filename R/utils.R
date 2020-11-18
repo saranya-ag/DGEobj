@@ -128,3 +128,26 @@ inventory <- function(dgeObj, verbose = FALSE)  {
 
     return(df)
 }
+
+#' Function as.list.DGEobj
+#'
+#' Casts a DGEobj class object as a simple list.
+#'
+#' @author John Thompson
+#' @keywords RNA-Seq, DGEobj
+#'
+#' @param x    A class DGEobj created by function initDGEobj()
+#' @param ...  Additional parameters
+#'
+#' @return A simple list version of the DGEobj.
+#'
+#' @examples
+#' \dontrun{
+#'    MyDGElist <- as.list(DGEobj)
+#' }
+#'
+#' @export
+as.list.DGEobj <- function(x, ...){
+    x2 <- unclass(x)
+    return(x2)
+}

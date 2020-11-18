@@ -16,6 +16,7 @@
 #' }
 #'
 #' @importFrom assertthat assert_that
+#' @importFrom stringr str_c
 #'
 #' @export
 getItems <- function(dgeObj, itemNames){
