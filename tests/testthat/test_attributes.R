@@ -4,7 +4,7 @@ context("DGEobj - tests for attributes.R functions")
 test_that("attributes.R: showAttributes()", {
     output <- capture_output_lines(showAttributes(DGEobj))
 
-    expect_gt(length(output), 1000)
+    expect_gt(length(output), 500)
     expect_setequal(capture_output_lines(showAttributes(NULL)), c("[1] \"dataName:\"", "[1] \"atnames: \"", "[1] \"dataName:\"", "[1] \"atnames: \""))
 })
 
@@ -55,11 +55,9 @@ test_that("attributes.R: showMeta()", {
 
 test_that("attributes.R: incorrect usage", {
     expect_error(setAttributes(DGEobj, attribs = NULL),
-                 regexp = "attribs must be of class 'list'.",
-                 fixed  = TRUE)
+                 regexp = "attribs must be of class 'list'.")
     expect_error(setAttributes(DGEobj, attribs = list()),
-                 regexp = "The attribs list should be a named list, specifying the attribute/value pairs. It must have names specified.",
-                 fixed  = TRUE)
+                 regexp = "The attribs list should be a named list, specifying the attribute/value pairs. It must have names specified.")
     expect_error(getAttribute(DGEobj, NULL),
                  regexp = "'which' must be of mode character")
 

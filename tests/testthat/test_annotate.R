@@ -27,8 +27,7 @@ test_that('annotate.R: annotateDGEobj()', {
 
 test_that('annotate.R: incorrect usage', {
     expect_error(annotateDGEobj(DGEobj),
-                 regexp = "argument \"annotations\" is missing, with no default",
-                 fixed  = TRUE)
+                 regexp = "argument \"annotations\" is missing, with no default")
     expect_error(annotateDGEobj(DGEobj, NULL),
                  regexp = "When annotations is NULL, no attribute gets added to the dgeObj.")
     expect_error(annotateDGEobj(DGEobj, "nonexistantfile.txt"),

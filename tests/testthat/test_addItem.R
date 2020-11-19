@@ -13,10 +13,10 @@ test_that('addItem.R: addItem()', {
     #rows cols - matrix
     dims <- dim(DGEobj)
     data.r <- matrix(rep("rowval", dims[1]), nrow = dims[1])
-    rownames(data.r) <- dimnames(DGEobj$intensity)[[1]]
+    rownames(data.r) <- dimnames(DGEobj$counts)[[1]]
 
     data.c <- matrix(rep("colval", dims[2], nrow = dims[2]))
-    rownames(data.c) <- dimnames(DGEobj$intensity)[[2]]
+    rownames(data.c) <- dimnames(DGEobj$counts)[[2]]
 
     add <- addItem(DGEobj, item = data.r,
                    itemName = 'MyMatrixRow',
@@ -39,8 +39,8 @@ test_that('addItem.R: addItem()', {
     #assay
     dims <- dim(DGEobj)
     assay <- matrix(runif(dims[1]*dims[2]), nrow = dims[1])
-    rownames(assay) <- dimnames(DGEobj$intensity)[[1]]
-    colnames(assay) <- dimnames(DGEobj$intensity)[[2]]
+    rownames(assay) <- dimnames(DGEobj$counts)[[1]]
+    colnames(assay) <- dimnames(DGEobj$counts)[[2]]
 
     add <- addItem(DGEobj, item = assay,
                    itemName = 'MyAssay',
@@ -55,14 +55,14 @@ test_that('addItem.R: addItem()', {
 test_that('addItem.R: addItems()', {
     dims <- dim(DGEobj)
     data.r <- matrix(rep("rowval", dims[1]), nrow = dims[1])
-    rownames(data.r) <- dimnames(DGEobj$intensity)[[1]]
+    rownames(data.r) <- dimnames(DGEobj$counts)[[1]]
 
     data.c <- matrix(rep("colval", dims[2], nrow = dims[2]))
-    rownames(data.c) <- dimnames(DGEobj$intensity)[[2]]
+    rownames(data.c) <- dimnames(DGEobj$counts)[[2]]
 
     assay <- matrix(runif(dims[1]*dims[2]), nrow = dims[1])
-    rownames(assay) <- dimnames(DGEobj$intensity)[[1]]
-    colnames(assay) <- dimnames(DGEobj$intensity)[[2]]
+    rownames(assay) <- dimnames(DGEobj$counts)[[1]]
+    colnames(assay) <- dimnames(DGEobj$counts)[[2]]
 
     add <- addItems(DGEobj,
                     itemList = list("Cartoon" = "Fred Flintstone",
@@ -87,20 +87,16 @@ test_that('addItem.R: addItems()', {
 })
 
 test_that('addItem.R: incorrect usage', {
-    error_message_itemType <- "itemType must be one of: row, col, assay, meta, geneData, isoformData, exonData, proteinData, granges, fit, contrast_fit, topTable, design, designMatrix, counts, effectiveLength, Log2CPM, TPM, FPKM, zFPKM, AffyRMA, DGEList, Elist, isoformFrac, corFit, topTreat, geneList, pathway, URL, contrast_fit_treat, contrastMatrix, geneData_orig, isoformData_orig, exonData_orig, granges_orig, counts_orig, design_orig, effectiveLength_orig, svobj, intensities, intensities_orig, intensity, intensity_orig, AffyRMA_orig, peptideAnnotation, proteingroupAnnotation, peptideAnnotation_orig, proteingroupAnnotation_orig"
+    error_message_itemType <- "itemType must be one of: row, col, assay, meta, *"
 
     expect_error(addItem(matrix(rep(0, 5), nrow = 5)),
-                 regexp = "Specify the DGEobj, item, itemName, and itemType. All are required.",
-                 fixed  = TRUE)
+                 regexp = "Specify the DGEobj, item, itemName, and itemType. All are required.")
     expect_error(addItem(NULL),
-                 regexp = "Specify the DGEobj, item, itemName, and itemType. All are required.",
-                 fixed  = TRUE)
+                 regexp = "Specify the DGEobj, item, itemName, and itemType. All are required.")
     expect_error(addItem(DGEobj),
-                 regexp = "Specify the DGEobj, item, itemName, and itemType. All are required.",
-                 fixed  = TRUE)
+                 regexp = "Specify the DGEobj, item, itemName, and itemType. All are required.")
     expect_error(addItem(DGEobj, item = 'mystring', itemName = 'teststring', itemType = 'badtype'),
-                 regexp = error_message_itemType,
-                 fixed  = TRUE)
+                 regexp = error_message_itemType)
     expect_error(addItem(DGEobj, item = 'mystring', itemName = 'teststring', itemType = 'row'),
                  regexp = "Row basetypes must have rownames")
     expect_error(addItem(DGEobj, item = 'mystring', itemName = 'teststring', itemType = 'col'),
@@ -113,18 +109,15 @@ test_that('addItem.R: incorrect usage', {
                  regexp = "Col basetypes must have rownames")
     expect_error(addItem(DGEobj, item = matrix(rep(0, 25), nrow = 5), itemName = 'testmatrix', itemType = 'assay'),
                  regexp = "Assay basetypes must have row and column names")
-    expect_error(addItem(DGEobj, item = DGEobj$intensity_orig, itemName = 'intensity_orig', itemType = 'meta'),
-                 regexp = "itemName (intensity_orig) already exists in DGEobj!",
+    expect_error(addItem(DGEobj, item = DGEobj$counts_orig, itemName = 'counts_orig', itemType = 'meta'),
+                 regexp = "itemName (counts_orig) already exists in DGEobj!",
                  fixed = TRUE)
     expect_error(addItems(NULL),
-                 regexp = "Specify the DGEobj, itemList, and itemTypes. All are required.",
-                 fixed  = TRUE)
+                 regexp = "Specify the DGEobj, itemList, and itemTypes. All are required.")
     expect_error(addItems(DGEobj),
-                 regexp = "Specify the DGEobj, itemList, and itemTypes. All are required.",
-                 fixed  = TRUE)
+                 regexp = "Specify the DGEobj, itemList, and itemTypes. All are required.")
     expect_error(addItems(DGEobj, itemList = list('teststring' = 'mystring'), itemTypes = list('badtype')),
-                 regexp = error_message_itemType,
-                 fixed  = TRUE)
+                 regexp = error_message_itemType)
     expect_error(addItems(DGEobj, itemList = list('teststring' = 'mystring'), itemTypes = list('row')),
                  regexp = "Row basetypes must have rownames")
     expect_error(addItems(DGEobj, itemList = list('teststring' = 'mystring'), itemTypes = list('col')),
@@ -141,6 +134,5 @@ test_that('addItem.R: incorrect usage', {
                           itemList = list("Cartoon" = "Fred Flintstone", "Historic" = "Abe Lincoln"),
                           itemTypes = list("meta", "meta"),
                           parents = list("p1")),
-                 regexp = "The parents list must be of class 'list' and of the same length as the itemList.",
-                 fixed  = TRUE)
+                 regexp = "The parents list must be of class 'list' and of the same length as the itemList.")
 })

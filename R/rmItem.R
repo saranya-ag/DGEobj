@@ -75,7 +75,7 @@ rmItems <- function(dgeObj, items){
     if ("list" %in% class(items)) items <- unlist(items)
 
     if (any(c("numeric", "integer") %in% class(items)) & max(items) > length(dgeObj))
-        stop("A value in items numeric index is gt items in dgeObj" )
+        stop("A value in the numeric index is larger than the number of items in dgeObj" )
 
     if (any(c("numeric", "integer") %in% class(items))) items <- names(dgeObj)[items]
 

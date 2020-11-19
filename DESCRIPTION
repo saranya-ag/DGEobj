@@ -2,7 +2,7 @@ Package: DGEobj
 Type: Package
 Title: S3 data class used to store, manage, and annotate differential gene 
     expression (DGE) analysis results
-Version: 1.0.0.9111
+Version: 1.0.0.9112
 Authors@R: c(
     person("John", "Thompson", email = "john.thompson@bms.com", role = c("aut")),
     person("Connie", "Brett", email = "connie@aggregate-genius.com", role = c("aut", "cre")),
