@@ -35,8 +35,8 @@
 #' }
 #'
 #' @import magrittr
+#' @importFrom GenomicRanges GRanges
 #' @importFrom assertthat assert_that
-#' @importFrom methods as
 #'
 #' @export
 initDGEobj <- function(counts,
@@ -181,7 +181,8 @@ initDGEobj <- function(counts,
     # Annotate the level
     dgeObj %<>% setAttributes(list(level = level))
 
-    result <- try({gr <- as(rowData, "GRanges")}, silent = TRUE)
+    result <- try({gr <- GenomicRanges::GRanges(rowData)}, silent = TRUE)
+
     if (class(result) == "try-error") {
         warning("Couldn't build a GRanges object!")
     } else {
