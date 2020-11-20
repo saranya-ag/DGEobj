@@ -47,11 +47,17 @@ gene.data <- left_join(data.frame(ensembl_gene_id = rownames(counts), stringsAsF
                               TRUE         ~ "*"))
 rownames(gene.data) <- gene.data$ensembl_gene_id
 
-# Create Initial DGEobj
+# Create Full DGEobj
 my.dge <- initDGEobj(counts, gene.data, design, level = "gene")
 my.dge <- annotateDGEobj(my.dge, annotations = "data/GSE120804_metadata.txt")
-
 saveRDS(my.dge, 'testObj1.RDS')
+
+# Create a small DGEobj for package inclusion
+sm.counts <- counts[sample(1:NROW(counts), size = 1000), ]
+sm.genes  <- gene.data[rownames(sm.counts), ]
+sm.dge    <- initDGEobj(sm.counts, sm.genes, design, level = "gene")
+sm.dge    <- annotateDGEobj(sm.dge, annotations = "data/GSE120804_metadata.txt")
+saveRDS(sm.dge, 'exObj.RDS')
 
 # # Low intensity Filtering
 #
