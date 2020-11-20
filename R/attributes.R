@@ -38,8 +38,10 @@ showAttributes <- function(dgeObj,
         atnames <- atnames[!(atnames %in% skipList)]
         print(paste("atnames:", paste(atnames, collapse = ", "), sep = " "))
 
-        for (j in atnames)
-            print(paste("[", j, "] = ", attr(dgeObj[[i]], j)))
+        for (j in atnames) {
+            cat(paste("[", j, "] = "))
+            print(attr(dgeObj[[i]], j))
+        }
     }
 }
 

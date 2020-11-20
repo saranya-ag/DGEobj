@@ -1,41 +1,41 @@
-context("DGEobj - tests for get.R functions")
+context("get.R functions")
 
 
 test_that('get.R: getItem()', {
-    getItem_DGEobj_test <- getItem(DGEobj, 'design')
+    getItem_DGEobj_test <- getItem(t_obj, 'design')
 
     expect_true(is.data.frame(getItem_DGEobj_test))
-    expect_equal(nrow(getItem_DGEobj_test), 165)
-    expect_equal(ncol(getItem_DGEobj_test), 13)
+    expect_equal(nrow(getItem_DGEobj_test), 48)
+    expect_equal(ncol(getItem_DGEobj_test), 8)
 
-    expect_error(getItem(DGEobj, 'counts'),
+    expect_error(getItem(t_obj, 'fred'),
                  regexp = "The requested itemName should be in the DGEobj. Use names(dgeObj) to see the available items.",
-                 fixed  = TRUE)
+                 fixed = TRUE)
 })
 
 test_that('get.R: getItems()', {
-    getItems_DGEobj_one_test <- getItems(DGEobj, 'intensity')
+    getItems_DGEobj_one_test <- getItems(t_obj, 'counts')
 
     expect_true(is.matrix(getItems_DGEobj_one_test))
-    expect_equal(nrow(getItems_DGEobj_one_test), 5900) &&
-    expect_equal(ncol(getItems_DGEobj_one_test), 165)
+    expect_equal(nrow(getItems_DGEobj_one_test), t_dim[1]) &&
+    expect_equal(ncol(getItems_DGEobj_one_test), t_dim[2])
 
-    getItems_DGEobj_two_test <- getItems(DGEobj, c('intensity', 'design'))
+    getItems_DGEobj_two_test <- getItems(t_obj, c('counts', 'design'))
 
     expect_type(getItems_DGEobj_two_test, 'list')
     expect_equal(length(getItems_DGEobj_two_test), 2)
-    expect_setequal(names(getItems_DGEobj_two_test), c("intensity", "design"))
+    expect_setequal(names(getItems_DGEobj_two_test), c("counts", "design"))
 
-    expect_warning(getItems(DGEobj, c('intensity', 'counts')),
-                   regexp = "These item(s) not found: [counts]",
+    expect_warning(getItems(t_obj, c('fred', 'counts')),
+                   regexp = "These item(s) not found: [fred]",
                    fixed  = TRUE)
-    expect_warning(getItems(DGEobj, c('levels', 'counts')),
-                   regexp = "These item(s) not found: [levels]These item(s) not found: [counts]",
+    expect_warning(getItems(t_obj, c('fred', 'bob')),
+                   regexp = "These item(s) not found: [fred]These item(s) not found: [bob]",
                    fixed  = TRUE)
 })
 
 test_that('get.R: getType()', {
-    getType_DGEobj_test <- getType(DGEobj, "design")
+    getType_DGEobj_test <- getType(t_obj, "design")
 
     expect_type(getType_DGEobj_test, 'list')
     expect_equal(length(getType_DGEobj_test), 1)
@@ -44,21 +44,18 @@ test_that('get.R: getType()', {
     # test with parent arg (TBD when we have different DGEobj to work with)
     # TBD
 
-    expect_message(getType_warning <- capture_warnings(DGEobj::getType(DGEobj, "counts")),
+    expect_message(getType_warning <- capture_warnings(DGEobj::getType(t_obj, "fred")),
                    regexp = "Warning: no items of specified type are found.")
     expect_equal(getType_warning, "Some types were not found")
 })
 
 test_that('get.R: getBaseType()', {
-    getBaseType_DGEobj_test <- getBaseType(DGEobj, "col")
+    getBaseType_DGEobj_test <- getBaseType(t_obj, "col")
 
     expect_type(getBaseType_DGEobj_test, 'list')
     expect_equal(length(getBaseType_DGEobj_test), 1)
     expect_setequal(names(getBaseType_DGEobj_test), c("design"))
 
-    expect_warning(getBaseType(DGEobj, "row"),
-                   regexp = "Some baseTypes were not found")
-    expect_error(getBaseType(DGEobj, "counts"),
-                 regexp = "baseType must be one of: row, col, assay, meta",
-                 fixed  = TRUE)
+    expect_error(getBaseType(t_obj, "counts"),
+                 regexp = "baseType must be one of: row, col, assay, meta")
 })

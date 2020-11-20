@@ -2,7 +2,7 @@ Package: DGEobj
 Type: Package
 Title: S3 data class used to store, manage, and annotate differential gene 
     expression (DGE) analysis results
-Version: 1.0.0.9110
+Version: 1.0.0.9112
 Authors@R: c(
     person("John", "Thompson", email = "john.thompson@bms.com", role = c("aut")),
     person("Connie", "Brett", email = "connie@aggregate-genius.com", role = c("aut", "cre")),
@@ -19,13 +19,12 @@ Imports:
     assertthat,
     knitr,
     magrittr,
-    methods,
     stringr,
-    utils
+    utils,
+    GenomicRanges
 RoxygenNote: 7.1.1
 Suggests: 
     rmarkdown,
     testthat,
-    GenomicRanges,
     edgeR
 VignetteBuilder: knitr
