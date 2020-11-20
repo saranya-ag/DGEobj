@@ -1,12 +1,12 @@
-context("DGEobj - tests for init.R functions")
+context("init.R functions")
 
 
 test_that('init.R: initDGEobj()', {
 
     # collect data from test object to initialize new DGEobj
-    counts     <- getItem(DGEobj, "counts_orig")
-    rowData    <- getItem(DGEobj, "geneData_orig")
-    colData    <- getItem(DGEobj, "design_orig")
+    counts     <- getItem(t_obj, "counts_orig")
+    rowData    <- getItem(t_obj, "geneData_orig")
+    colData    <- getItem(t_obj, "design_orig")
     level      <- "gene"
     customAttr <- list(Genome    = "Mouse.B38",
                        GeneModel = "Ensembl.R84")
@@ -47,12 +47,12 @@ test_that('init.R: initDGEobj()', {
                  fixed  = TRUE)
 
     # verifying class
-    expect_s3_class(DGEobj, "DGEobj")
-    expect_type(attributes(DGEobj), "list")
+    expect_s3_class(t_obj, "DGEobj")
+    expect_type(attributes(t_obj), "list")
 
     # checking names and dimensions
-    expect_setequal(names(DGEobj), c("counts_orig", "counts", "design_orig", "design", "geneData_orig", "geneData", "granges_orig", "granges"))
-    expect_equal(dim(DGEobj), g_dim)
+    expect_setequal(names(t_obj), c("counts_orig", "counts", "design_orig", "design", "geneData_orig", "geneData", "granges_orig", "granges"))
+    expect_equal(dim(t_obj), t_dim)
 
     # verifying missing value errors
     expect_error(initDGEobj(rowData =  rowData, colData =  colData, level =  level, customAttr = customAttr),

@@ -23,14 +23,14 @@
 rmItem <- function(dgeObj, itemName){
 
     assertthat::assert_that(class(dgeObj)[[1]] == "DGEobj",
-                            msg = "The DGEobj must be of class 'DGEobj'.")
+                            msg = "The dgeObj parameter must be of class 'DGEobj'.")
     assertthat::assert_that(!missing(itemName),
                             length(itemName) == 1,
                             class(itemName)[[1]] == "character",
                             msg = "Specify a singular itemName as a character string.")
 
     if (!itemName %in% names(dgeObj))
-        stop(paste(itemName, " does not exist within DGEresult.", sep = ""))
+        stop(paste(itemName, " does not exist within dgeObj", sep = ""))
 
     dgeObj[itemName] <- NULL
 
