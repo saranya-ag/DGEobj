@@ -20,13 +20,10 @@ the row column reports the length.  This method is also invoked by applying
 print() to a DGEobj.
 }
 \examples{
-\dontrun{
-  # Capture in a dataframe
-  Mydf <- inventory(myDGEobj)
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 
-  # Capture dataframe with verbose output
-  Mydf <- inventory(myDGEobj, verbose=TRUE)
-}
+    inventory(exObj)
 
 }
 \author{

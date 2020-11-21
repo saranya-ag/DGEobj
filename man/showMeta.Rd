@@ -19,9 +19,10 @@ associated with a DGEobj.  Written for use with a DGEobj, but
 should function generically on any object with key/value pair attributes.
 }
 \examples{
-\dontrun{
-   df <- showMeta(MyDGEobj)
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    showMeta(exObj)
 
 }
 \author{

@@ -13,9 +13,10 @@
 #' @return An updated DGEobj
 #'
 #' @examples
-#' \dontrun{
-#'    MyDgeObj <- rmItem(MyDgeObj, "design")
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     exObj <- rmItem(exObj, "design")
 #'
 #' @importFrom assertthat assert_that
 #'
@@ -58,9 +59,11 @@ rmItem <- function(dgeObj, itemName){
 #' @return An updated DGEobj
 #'
 #' @examples
-#' \dontrun{
-#'    MyDgeObj <- rmItems(MyDgeObj, c("designMatrix", "designMatrix_Elist"))
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     exObj <- rmItems(exObj, c("design", "design_orig"))
+#'     exObj <- rmItems(exObj, c(1:2))
 #'
 #' @importFrom assertthat assert_that
 #'

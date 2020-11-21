@@ -57,7 +57,7 @@ sm.counts <- counts[sample(1:NROW(counts), size = 1000), ]
 sm.genes  <- gene.data[rownames(sm.counts), ]
 sm.dge    <- initDGEobj(sm.counts, sm.genes, design, level = "gene")
 sm.dge    <- annotateDGEobj(sm.dge, annotations = "data/GSE120804_metadata.txt")
-saveRDS(sm.dge, 'exObj.RDS')
+saveRDS(sm.dge, 'exampleObj.RDS')
 
 # # Low intensity Filtering
 #

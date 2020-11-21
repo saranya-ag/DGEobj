@@ -23,21 +23,22 @@ you can pass NULL as the value. Any named attribute on the attribs argument list
 that already exists in the object will be updated.
 }
 \examples{
-\dontrun{
-   # Assign attributes to a DGEobj
-   MyAttributes <- list(Platform       = "RNA-Seq",
-                        Instrument     = "HiSeq",
-                        Vendor         = "Unknown",
-                        readType       = "PE",
-                        readLength     = 75,
-                        strandSpecific = TRUE)
-   MyDGEobj <- setAttributes(MyDGEobj, MyAttributes)
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 
-   # Set attributes on an item inside a DGEobj
-   MyAttributes <- list(normalized   = FALSE,
-                        LowIntFilter = "FPK >5 in >= 1 group")
-   MyDGEObj[["counts"]] <- setAttributes(MyDGEObj[["counts"]], MyAttributes)
-}
+    # Assign attributes to a DGEobj
+    MyAttributes <- list(Platform       = "RNA-Seq",
+                         Instrument     = "HiSeq",
+                         Vendor         = "Unknown",
+                         readType       = "PE",
+                         readLength     = 75,
+                         strandSpecific = TRUE)
+    exObj <- setAttributes(exObj, MyAttributes)
+
+    # Set attributes on an item inside a DGEobj
+    MyAttributes <- list(normalized   = FALSE,
+                         LowIntFilter = "FPK >5 in >= 1 group")
+    exObj[["counts"]] <- setAttributes(exObj[["counts"]], MyAttributes)
 
 }
 \author{

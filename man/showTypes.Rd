@@ -19,9 +19,10 @@ Prints a list of defined "types"
 Show the list of all Types defined in the DGEobj.
 }
 \examples{
-\dontrun{
-   showTypes(MyDGEobj)
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    showTypes(exObj)
 
 }
 \author{

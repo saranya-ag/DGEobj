@@ -23,10 +23,11 @@ A list of requested data items
 Retrieve one or more data items from a DGEobj by type.
 }
 \examples{
-\dontrun{
-   MyContrastList <- getType(DGEobj, type = "topTable")
-   MyRawData      <- getType(DGEobj, type = list("counts", "design", "geneData"))
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    MyContrastList <- getType(exObj, type = "topTable")
+    MyRawData      <- getType(exObj, type = list("counts", "design", "geneData"))
 
 }
 \author{

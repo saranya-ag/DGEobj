@@ -19,10 +19,11 @@ Accessor function for DGEobj class objects.  Retrieves all data items of a
 given baseType or list of baseTypes.
 }
 \examples{
-\dontrun{
-   Assays                  <- getBaseType(DGEobj, baseType = "assay")
-   AssaysAndGeneAnnotation <- getBaseType(DGEobj, c("assay", "row"))
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    Assays <- getBaseType(exObj, baseType = "assay")
+    AssaysAndMeta <- getBaseType(exObj, c("assay", "meta"))
 
 }
 \author{

@@ -24,12 +24,13 @@ Used to customize a DGEobj definition by adding new types.  A baseType
 is also declared and whether more than a single instance is allowed.
 }
 \examples{
-\dontrun{
-    MyDgeObj <- newType(MyDgeObj,
-                        itemType   = "AffyRMA",
-                        baseType   = "assay",
-                        uniqueItem = TRUE)
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    exObj <- newType(exObj,
+                     itemType   = "AffyRMA",
+                     baseType   = "assay",
+                     uniqueItem = TRUE)
 
 }
 \author{

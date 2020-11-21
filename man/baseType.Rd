@@ -18,9 +18,10 @@ A baseType value (character string)
 Return the baseType for a given item type in a DGEobj.
 }
 \examples{
-\dontrun{
-   MyBaseType <- baseType(dgeObj, type = "DGEList")
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    baseType(exObj, type = "DGEList")
 
 }
 \author{

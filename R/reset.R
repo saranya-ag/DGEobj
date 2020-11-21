@@ -15,10 +15,13 @@
 #' @return A DGEobj containing the original (unfiltered) data.
 #'
 #' @examples
-#' \dontrun{
-#'     # Get back the original data, e.g. to start a different analysis
-#'     unfilteredDGEobj <- resetDGEobj(MyHeavilyFilteredDGEobj)
-#' }
+#'     #example object
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     # subset to first 10 rows to show reset functionality
+#'     exObj <- exObj[c(1:10), ]
+#'
+#'     exObj <- resetDGEobj(exObj)
 #'
 #' @importFrom assertthat assert_that
 #'

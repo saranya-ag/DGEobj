@@ -11,9 +11,10 @@
 #' @return A baseType value (character string)
 #'
 #' @examples
-#' \dontrun{
-#'    MyBaseType <- baseType(dgeObj, type = "DGEList")
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     baseType(exObj, type = "DGEList")
 #'
 #' @importFrom assertthat assert_that
 #'
@@ -45,13 +46,14 @@ baseType <- function(dgeObj, type){
 #' @return A list of baseTypes
 #'
 #' @examples
-#' \dontrun{
-#'    # Global definition of baseTypes
-#'    myBaseTypes <- baseTypes()
+#'     # Global definition of baseTypes
+#'     baseTypes()
 #'
-#'    # Basetypes from a specific DGEobj
-#'    myBaseTypes <- baseTypes(myDGEobj)
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     # Basetypes from a specific DGEobj
+#'     baseTypes(exObj)
 #'
 #' @export
 baseTypes <- function(dgeObj){
@@ -76,9 +78,10 @@ baseTypes <- function(dgeObj){
 #' @return Prints a list of defined "types"
 #'
 #' @examples
-#' \dontrun{
-#'    showTypes(MyDGEobj)
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     showTypes(exObj)
 #'
 #' @import magrittr
 #' @importFrom assertthat assert_that
@@ -118,12 +121,13 @@ showTypes <- function(dgeObj, pretty = TRUE){
 #' @return A DGEobj with a new type definition embedded
 #'
 #' @examples
-#' \dontrun{
-#'     MyDgeObj <- newType(MyDgeObj,
-#'                         itemType   = "AffyRMA",
-#'                         baseType   = "assay",
-#'                         uniqueItem = TRUE)
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     exObj <- newType(exObj,
+#'                      itemType   = "AffyRMA",
+#'                      baseType   = "assay",
+#'                      uniqueItem = TRUE)
 #'
 #' @importFrom assertthat assert_that
 #'

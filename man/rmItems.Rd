@@ -19,9 +19,11 @@ An updated DGEobj
 Removes a vector or list of named data items from a DGEobj.
 }
 \examples{
-\dontrun{
-   MyDgeObj <- rmItems(MyDgeObj, c("designMatrix", "designMatrix_Elist"))
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    exObj <- rmItems(exObj, c("design", "design_orig"))
+    exObj <- rmItems(exObj, c(1:2))
 
 }
 \author{

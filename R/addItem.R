@@ -25,8 +25,8 @@
 #'
 #' @examples
 #' \dontrun{
-#'    myFunArgs <- match.call() # Capture calling function and arguments
-#'    showTypes()  # See what predefined types are available
+#'    myFunArgs <- match.call()  #  Capture calling function and arguments
+#'
 #'    myDGEobj <- addItem(myDGEobj, item = MyCounts,
 #'                                  itemName = "counts",
 #'                                  itemType = "counts",

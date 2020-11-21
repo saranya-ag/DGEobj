@@ -11,9 +11,10 @@
 #' @return The requested data item or list of data items.
 #'
 #' @examples
-#' \dontrun{
-#'    MyCounts <- getItems(DGEobj, "counts")
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     MyCounts <- getItems(exObj, "counts")
 #'
 #' @importFrom assertthat assert_that
 #' @importFrom stringr str_c
@@ -59,9 +60,10 @@ getItems <- function(dgeObj, itemNames){
 #' @return The requested data item
 #'
 #' @examples
-#' \dontrun{
-#'    MyCounts <- getItem(DGEobj, "counts")
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     MyCounts <- getItem(exObj, "counts")
 #'
 #' @importFrom assertthat assert_that
 #'
@@ -98,10 +100,12 @@ getItem <- function(dgeObj, itemName){
 #' @return A list of requested data items
 #'
 #' @examples
-#' \dontrun{
-#'    MyContrastList <- getType(DGEobj, type = "topTable")
-#'    MyRawData      <- getType(DGEobj, type = list("counts", "design", "geneData"))
-#'}
+#' @examples
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     MyContrastList <- getType(exObj, type = "topTable")
+#'     MyRawData      <- getType(exObj, type = list("counts", "design", "geneData"))
 #'
 #' @export
 getType <- function(dgeObj, type, parent){
@@ -141,10 +145,11 @@ getType <- function(dgeObj, type, parent){
 #' @return A simple list of data items
 #'
 #' @examples
-#' \dontrun{
-#'    Assays                  <- getBaseType(DGEobj, baseType = "assay")
-#'    AssaysAndGeneAnnotation <- getBaseType(DGEobj, c("assay", "row"))
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     Assays <- getBaseType(exObj, baseType = "assay")
+#'     AssaysAndMeta <- getBaseType(exObj, c("assay", "meta"))
 #'
 #' @export
 getBaseType <- function(dgeObj, baseType){
@@ -152,7 +157,7 @@ getBaseType <- function(dgeObj, baseType){
     if (missing(baseType))
         stop("baseType argument is required")
 
-    if (!baseType %in% baseTypes(dgeObj))
+    if (!all(baseType %in% baseTypes(dgeObj)))
         stop(paste("baseType must be one of: ",
                    paste(baseTypes(dgeObj), collapse = ", "),
                    sep = ""))

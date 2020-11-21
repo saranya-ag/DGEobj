@@ -16,9 +16,10 @@
 #' @return Prints a list of attributes and values.
 #'
 #' @examples
-#' \dontrun{
-#'    showAttributes(myDGEobj)
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'    showAttributes(exObj)
 #'
 #' @export
 showAttributes <- function(dgeObj,
@@ -64,21 +65,22 @@ showAttributes <- function(dgeObj,
 #' @return The item with new attributes added and no existing attributes removed
 #'
 #' @examples
-#' \dontrun{
-#'    # Assign attributes to a DGEobj
-#'    MyAttributes <- list(Platform       = "RNA-Seq",
-#'                         Instrument     = "HiSeq",
-#'                         Vendor         = "Unknown",
-#'                         readType       = "PE",
-#'                         readLength     = 75,
-#'                         strandSpecific = TRUE)
-#'    MyDGEobj <- setAttributes(MyDGEobj, MyAttributes)
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 #'
-#'    # Set attributes on an item inside a DGEobj
-#'    MyAttributes <- list(normalized   = FALSE,
-#'                         LowIntFilter = "FPK >5 in >= 1 group")
-#'    MyDGEObj[["counts"]] <- setAttributes(MyDGEObj[["counts"]], MyAttributes)
-#' }
+#'     # Assign attributes to a DGEobj
+#'     MyAttributes <- list(Platform       = "RNA-Seq",
+#'                          Instrument     = "HiSeq",
+#'                          Vendor         = "Unknown",
+#'                          readType       = "PE",
+#'                          readLength     = 75,
+#'                          strandSpecific = TRUE)
+#'     exObj <- setAttributes(exObj, MyAttributes)
+#'
+#'     # Set attributes on an item inside a DGEobj
+#'     MyAttributes <- list(normalized   = FALSE,
+#'                          LowIntFilter = "FPK >5 in >= 1 group")
+#'     exObj[["counts"]] <- setAttributes(exObj[["counts"]], MyAttributes)
 #'
 #' @import magrittr
 #' @importFrom assertthat assert_that
@@ -113,13 +115,14 @@ setAttributes <- function(item, attribs){
 #' @return The item with the new attribute added and no existing attributes removed
 #'
 #' @examples
-#' \dontrun{
-#'    # Assign attribute to a DGEobj
-#'    MyDGEobj <- setAttribute(MyDGEobj, "RNA-SEQ", "Platform")
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 #'
-#'    # Set attributes on an item inside a DGEobj
-#'    MyDGEObj[["counts"]] <- setAttribute(MyDGEObj[["counts"]], FALSE, "normalized")
-#' }
+#'     # Assign attribute to a DGEobj
+#'     exObj <- setAttribute(exObj, "RNA-SEQ", "Platform")
+#'
+#'     # Set attributes on an item inside a DGEobj
+#'     exObj[["counts"]] <- setAttribute(exObj[["counts"]], FALSE, "normalized")
 #'
 #' @importFrom assertthat assert_that
 #'
@@ -153,13 +156,13 @@ setAttribute <- function(item, attrib, attribName) {
 #' @return A named list of attribute values for the items
 #'
 #' @examples
-#' \dontrun{
-#'    # Get attributes from a DGEobj
-#'    MyAttr <- getAttributes(DGEobj)
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 #'
-#'    # Get the formula attribute from the designMatrix
-#'    MyAttr <- attr(DGEobj$designMatrixName, "formula")
-#' }
+#'     getAttributes(exObj)
+#'
+#'     # Get the formula attribute from the design (if set)
+#'     attr(exObj$design, "formula")
 #'
 #' @export
 getAttributes <- function(item,
@@ -185,13 +188,14 @@ getAttributes <- function(item,
 #' stored in the attribute) or NULL if attribute doesn't exist
 #'
 #' @examples
-#' \dontrun{
-#'    # Get an attribute from a DGEobj
-#'    MyAttr <- getAttribute(DGEobj, "type")
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 #'
-#'    # Get an attribute from a DGEobj item
-#'    MyAttr <- getAttribute(DGEobj$designMatrix, "formula")
-#' }
+#'     # Get an attribute from a DGEobj
+#'     getAttribute(exObj, "type")
+#'
+#'     # Get an attribute from a DGEobj item
+#'     getAttribute(exObj$designMatrix, "formula")
 #'
 #' @importFrom assertthat assert_that
 #'
@@ -221,9 +225,10 @@ getAttribute <- function(item, attrName){
 #' @return A data frame with the key value pairs from the object's attributes.
 #'
 #' @examples
-#' \dontrun{
-#'    df <- showMeta(MyDGEobj)
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     showMeta(exObj)
 #'
 #' @importFrom utils stack
 #'

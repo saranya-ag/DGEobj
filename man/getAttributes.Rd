@@ -24,13 +24,13 @@ This is intended to capture user-defined attributes by excluding a few standard
 attributes like class and dim.
 }
 \examples{
-\dontrun{
-   # Get attributes from a DGEobj
-   MyAttr <- getAttributes(DGEobj)
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 
-   # Get the formula attribute from the designMatrix
-   MyAttr <- attr(DGEobj$designMatrixName, "formula")
-}
+    getAttributes(exObj)
+
+    # Get the formula attribute from the design (if set)
+    attr(exObj$design, "formula")
 
 }
 \author{

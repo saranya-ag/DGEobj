@@ -19,13 +19,14 @@ stored in the attribute) or NULL if attribute doesn't exist
 Get a specified attribute from an item.
 }
 \examples{
-\dontrun{
-   # Get an attribute from a DGEobj
-   MyAttr <- getAttribute(DGEobj, "type")
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 
-   # Get an attribute from a DGEobj item
-   MyAttr <- getAttribute(DGEobj$designMatrix, "formula")
-}
+    # Get an attribute from a DGEobj
+    getAttribute(exObj, "type")
+
+    # Get an attribute from a DGEobj item
+    getAttribute(exObj$designMatrix, "formula")
 
 }
 \author{

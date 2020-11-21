@@ -26,9 +26,10 @@ Use showMeta() if you are only interested in attributes that are
 key/value pairs.
 }
 \examples{
-\dontrun{
-   showAttributes(myDGEobj)
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+   showAttributes(exObj)
 
 }
 \author{

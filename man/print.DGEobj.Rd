@@ -17,10 +17,11 @@
 Print a DGEobj object.
 }
 \examples{
-\dontrun{
-    print(myDGEobj)
-    print(myDGEobj, verbose = TRUE)
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    print(exObj)
+
 }
 \author{
 John Thompson

@@ -21,12 +21,13 @@ Set an attribute on an object.  You can use this to add attribute
 annotation(s) to a DGEobj or to a specific item within a DGEobj.
 }
 \examples{
-\dontrun{
-   # Assign attribute to a DGEobj
-   MyDGEobj <- setAttribute(MyDGEobj, "RNA-SEQ", "Platform")
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 
-   # Set attributes on an item inside a DGEobj
-   MyDGEObj[["counts"]] <- setAttribute(MyDGEObj[["counts"]], FALSE, "normalized")
-}
+    # Assign attribute to a DGEobj
+    exObj <- setAttribute(exObj, "RNA-SEQ", "Platform")
+
+    # Set attributes on an item inside a DGEobj
+    exObj[["counts"]] <- setAttribute(exObj[["counts"]], FALSE, "normalized")
 
 }

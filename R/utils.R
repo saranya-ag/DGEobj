@@ -55,10 +55,11 @@ dimnames.DGEobj <- function(x){
 #' @return NULL
 #'
 #' @examples
-#' \dontrun{
-#'     print(myDGEobj)
-#'     print(myDGEobj, verbose = TRUE)
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     print(exObj)
+#'
 #' @export
 print.DGEobj <- function(x, ..., verbose = FALSE) {
     df <- inventory(x, verbose = verbose)
@@ -82,13 +83,10 @@ print.DGEobj <- function(x, ..., verbose = FALSE) {
 #' @return A data.frame summarizing the data contained in the DGEobj
 #'
 #' @examples
-#' \dontrun{
-#'   # Capture in a dataframe
-#'   Mydf <- inventory(myDGEobj)
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 #'
-#'   # Capture dataframe with verbose output
-#'   Mydf <- inventory(myDGEobj, verbose=TRUE)
-#' }
+#'     inventory(exObj)
 #'
 #' @export
 inventory <- function(dgeObj, verbose = FALSE)  {
@@ -142,9 +140,10 @@ inventory <- function(dgeObj, verbose = FALSE)  {
 #' @return A simple list version of the DGEobj.
 #'
 #' @examples
-#' \dontrun{
-#'    MyDGElist <- as.list(DGEobj)
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     as.list(exObj)
 #'
 #' @export
 as.list.DGEobj <- function(x, ...){

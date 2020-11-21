@@ -18,9 +18,10 @@ The requested data item
 Retrieve an item from a DGEobj by item name.
 }
 \examples{
-\dontrun{
-   MyCounts <- getItem(DGEobj, "counts")
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    MyCounts <- getItem(exObj, "counts")
 
 }
 \author{

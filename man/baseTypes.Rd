@@ -16,13 +16,14 @@ A list of baseTypes
 Return a list of the available baseTypes in a DGEobj.
 }
 \examples{
-\dontrun{
-   # Global definition of baseTypes
-   myBaseTypes <- baseTypes()
+    # Global definition of baseTypes
+    baseTypes()
 
-   # Basetypes from a specific DGEobj
-   myBaseTypes <- baseTypes(myDGEobj)
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    # Basetypes from a specific DGEobj
+    baseTypes(exObj)
 
 }
 \author{

@@ -18,9 +18,10 @@ An updated DGEobj
 Removes a named data item from a DGEobj.
 }
 \examples{
-\dontrun{
-   MyDgeObj <- rmItem(MyDgeObj, "design")
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    exObj <- rmItem(exObj, "design")
 
 }
 \author{

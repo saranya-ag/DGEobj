@@ -18,9 +18,10 @@ A simple list version of the DGEobj.
 Casts a DGEobj class object as a simple list.
 }
 \examples{
-\dontrun{
-   MyDGElist <- as.list(DGEobj)
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    as.list(exObj)
 
 }
 \author{

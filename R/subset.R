@@ -19,9 +19,10 @@
 #' @return A subsetted DGEobj class object
 #'
 #' @examples
-#' \dontrun{
-#'    DGEobj <- subset(DGEobj, 1:10, 100:1000)
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     exObj <- subset(exObj, 1:10, 5:50)
 #'
 #' @importFrom assertthat assert_that
 #' @importFrom stringr str_c
