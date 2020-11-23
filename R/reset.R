@@ -1,18 +1,12 @@
-#' Function resetDGEobj
+#' Reset to original data
 #'
 #' During a workflow, a DGEobj typically gets filtered down to remove samples
 #' that fail QC or non-expressed genes.  The resetDGEobj() function produces a new DGEobj with
 #' the original unfiltered data.
 #'
-#' We can restore the original data because a copy of the original data was stored on the "meta"
-#' layer and the "meta" layer is not subject to row or column filters.
+#' @param dgeObj A DGEobj
 #'
-#' @author John Thompson
-#' @keywords RNA-Seq; counts; low intensity
-#'
-#' @param dgeObj A DGEobj that we wish to extract original, un-filtered data from.
-#'
-#' @return A DGEobj containing the original (unfiltered) data.
+#' @return A DGEobj
 #'
 #' @examples
 #'     #example object

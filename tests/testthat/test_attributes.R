@@ -45,7 +45,7 @@ test_that("attributes.R: getAttributes() returns all", {
 })
 
 test_that("attributes.R: showMeta()", {
-    output <- showMeta(t_obj)
+    output <- showMeta(t_obj, printed = FALSE)
 
     expect_s3_class(output, "data.frame")
     expect_equal(output$Value[output$Attribute == "class"], "DGEobj")

@@ -1,16 +1,9 @@
-
-
-#' Function rmItem
+#' Removes a named data item
 #'
-#' Removes a named data item from a DGEobj.
+#' @param dgeObj   A class DGEobj
+#' @param itemName Name of the item to remove
 #'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param dgeObj A class DGEobj created by initDGEobj()
-#' @param itemName Name of the item to remove from the DGEobj
-#'
-#' @return An updated DGEobj
+#' @return A DGEobj
 #'
 #' @examples
 #'     # example DGEobj
@@ -45,18 +38,12 @@ rmItem <- function(dgeObj, itemName){
 }
 
 
-#' Function rmItems
+#' Removes list of named data items
+
+#' @param dgeObj A DGEobj
+#' @param items  Either a character vector of names or numeric indexes of items to remove.  Use inventory(DGEobj) to view the indexes of items.
 #'
-#' Removes a vector or list of named data items from a DGEobj.
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param dgeObj A class DGEobj created by function initDGEobj()
-#' @param items Either a character vector of item names or a numeric index of items to
-#'   remove from the DGEobj Use inventory(DGEobj) to view the indexes of items.
-#'
-#' @return An updated DGEobj
+#' @return A DGEobj
 #'
 #' @examples
 #'     # example DGEobj

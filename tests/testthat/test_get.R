@@ -41,12 +41,7 @@ test_that('get.R: getType()', {
     expect_equal(length(getType_DGEobj_test), 1)
     expect_setequal(names(getType_DGEobj_test), c("design"))
 
-    # test with parent arg (TBD when we have different DGEobj to work with)
-    # TBD
-
-    expect_message(getType_warning <- capture_warnings(DGEobj::getType(t_obj, "fred")),
-                   regexp = "Warning: no items of specified type are found.")
-    expect_equal(getType_warning, "Some types were not found")
+    expect_warning(getType(t_obj, "fred"), "No items of specified type were found")
 })
 
 test_that('get.R: getBaseType()', {

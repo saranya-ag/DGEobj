@@ -2,21 +2,19 @@
 % Please edit documentation in R/annotate.R
 \name{annotateDGEobj}
 \alias{annotateDGEobj}
-\title{Function annotateDGEobj}
+\title{Add annotations}
 \usage{
 annotateDGEobj(dgeObj, annotations, keys = NULL)
 }
 \arguments{
 \item{dgeObj}{A class DGEobj created by function initDGEobj()}
 
-\item{annotations}{A character string location to a text file with annotations given as key/value
-pairs separated by an equal sign, or a named list of key/value pairs.}
+\item{annotations}{Either A character string path to a file with annotations given as key/value pairs separated by an equal sign, or a named list of key/value pairs}
 
-\item{keys}{A list of keys to look for in the annotations and transfer to the DGEobj.
-Use keys = NULL to accept all keys in the annotations (Default)}
+\item{keys}{A subset of keys to look for in the annotations and transfer to the DGEobj (default = NULL)}
 }
 \value{
-A DGEobj annotated with attributes from the annotation file.
+A DGEobj
 }
 \description{
 Reads an annotation file of key/value pairs or a named list and attaches them attributes to a DGEobj.
@@ -30,10 +28,3 @@ attributes on the DGEobj. The value will then be the value of that attribute.
 }
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj,}
-\keyword{RNA-Seq,}
-\keyword{annotation,}
-\keyword{attributes}

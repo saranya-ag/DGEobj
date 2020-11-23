@@ -2,25 +2,25 @@
 % Please edit documentation in R/attributes.R
 \name{setAttributes}
 \alias{setAttributes}
-\title{Function setAttributes}
+\title{Set attributes}
 \usage{
-setAttributes(item, attribs)
+setAttributes(dgeObj, attribs)
 }
 \arguments{
-\item{item}{An object to attach attributes to}
+\item{dgeObj}{A DGEobj}
 
 \item{attribs}{A named list of attribute/value pairs}
 }
 \value{
-The item with new attributes added and no existing attributes removed
+A DGEobj
 }
 \description{
-Set one or more attributes on an object.  You can use this to add attribute
-annotation(s) to a DGEobj or to a specific item within a DGEobj.
-The setAttributes() function adds the attributes passed to it in
-the attribs argument without deleting attributes already present. To remove an attribute,
-you can pass NULL as the value. Any named attribute on the attribs argument list
-that already exists in the object will be updated.
+Set one or more attributes on a DGEobj or on a specific item within a DGEobj.
+}
+\details{
+This function adds attributes without deleting the attributes that are already
+present. Any named attribute that already exists in the object will be updated.
+To remove an attribute from an object pass NULL as the attribute value.
 }
 \examples{
     # example DGEobj
@@ -41,8 +41,3 @@ that already exists in the object will be updated.
     exObj[["counts"]] <- setAttributes(exObj[["counts"]], MyAttributes)
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

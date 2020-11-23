@@ -3,7 +3,8 @@ context("addItem.R functions")
 
 test_that('addItem.R: addItem()', {
     #meta
-    add <- addItem(t_obj, item = 'Fred Flintstone',
+    add <- addItem(t_obj,
+                   item = 'Fred Flintstone',
                    itemName = 'Cartoon',
                    itemType = 'meta',
                    itemAttr = list('MyAttribute' = 'testObject'))
@@ -90,11 +91,11 @@ test_that('addItem.R: incorrect usage', {
     error_message_itemType <- "itemType must be one of: row, col, assay, meta, *"
 
     expect_error(addItem(matrix(rep(0, 5), nrow = 5)),
-                 regexp = "Specify the DGEobj, item, itemName, and itemType. All are required.")
+                 regexp = "Specify the DGEobj, item, itemName, and itemType")
     expect_error(addItem(NULL),
-                 regexp = "Specify the DGEobj, item, itemName, and itemType. All are required.")
+                 regexp = "Specify the DGEobj, item, itemName, and itemType")
     expect_error(addItem(t_obj),
-                 regexp = "Specify the DGEobj, item, itemName, and itemType. All are required.")
+                 regexp = "Specify the DGEobj, item, itemName, and itemType")
     expect_error(addItem(t_obj, item = 'mystring', itemName = 'teststring', itemType = 'badtype'),
                  regexp = error_message_itemType)
     expect_error(addItem(t_obj, item = 'mystring', itemName = 'teststring', itemType = 'row'),

@@ -2,7 +2,7 @@
 % Please edit documentation in R/init.R
 \name{initDGEobj}
 \alias{initDGEobj}
-\title{Function initDGEobj}
+\title{Initialize with base data (counts, gene annotations, sample annotations)}
 \usage{
 initDGEobj(
   counts,
@@ -15,33 +15,25 @@ initDGEobj(
 )
 }
 \arguments{
-\item{counts}{A count matrix or dataframe with row and colnames.}
+\item{counts}{A count matrix or dataframe with row and colnames}
 
-\item{rowData}{Gene, isoform or exon level annotation. Rownames must match
-rownames in count matrix.}
+\item{rowData}{Gene, isoform or exon level annotation. Rownames must match the rownames in count matrix}
 
-\item{colData}{A dataframe describing the experiment design. Rownames much match
-colnames(counts).}
+\item{colData}{A dataframe describing the experiment design. Rownames much match the colnames(counts)}
 
-\item{level}{One of "gene", "isoform", or "exon".}
+\item{level}{One of "gene", "isoform", or "exon"}
 
-\item{customAttr}{An optional (but highly recommended) named list of attributes
-to assign to the DGEobj.}
+\item{customAttr}{(optional) Named list of attributes}
 
-\item{allowShortSampleIDs}{Using sequential integer rownames (even if typed as character)
-is discouraged and by default will abort the DGEobj creation. If you have a legitimate
-need to have short sample names composed of numeric characters, you can set this argument to TRUE.
-(Default = FALSE)}
+\item{allowShortSampleIDs}{Using sequential integer rownames (even if typed as character) is discouraged and by default will abort the DGEobj creation. If you have a legitimate need to have short sample names composed of numeric characters, you can set this argument to TRUE (default = FALSE)}
 
-\item{DGEobjDef}{An object definition. Defaults to the global DGEobj definition
-(.DGEobjDef) and you usually shouldn't change this unless you're customizing
-the object for new data types.}
+\item{DGEobjDef}{An object definition. Defaults to the global DGEobj definition (.DGEobjDef) and you usually shouldn't change this unless you're customizing the object for new data types.}
 }
 \value{
-A class DGEobj object
+A DGEobj
 }
 \description{
-Initializes DGEobj with base data (counts, gene annotation and sample annotation).
+Initialize with base data (counts, gene annotations, sample annotations)
 }
 \examples{
 \dontrun{
@@ -55,7 +47,3 @@ Initializes DGEobj with base data (counts, gene annotation and sample annotation
 }
 
 }
-\author{
-John Thompson
-}
-\keyword{RNA-Seq}

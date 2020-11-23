@@ -1,22 +1,14 @@
 
-#' Function subset.DGEobj (DGEobj)
+#' Subset internal row or column data
 #'
-#' This is the subset.DGEobj function bound to square brackets.
+#' @param x     A DGEobj
+#' @param ...   Additional parameters
+#' @param row   Row index for the subset
+#' @param col   Col index for the subset
+#' @param drop  Included for compatibility only
+#' @param debug (default = FALSE) Set to TRUE to get additional information on the console if subsetting a DGEobj fails with a dimension error.
 #'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param x    A class DGEobj created by initDGEobj()
-#' @param ...  Additional parameters
-#' @param row  Row index for the subset
-#' @param col  Col index for the subset
-#' @param drop Included for compatibility but has no real meaning in the context
-#'    of subsetting a DGEobj. So drop = FALSE is the default and changing this
-#'    has no effect.
-#' @param debug Default = FALSE. Set to TRUE to get more information if subsetting a
-#'    DGEobj fails with a dimension error.
-#'
-#' @return A subsetted DGEobj class object
+#' @return A DGEobj
 #'
 #' @examples
 #'     # example DGEobj
@@ -115,12 +107,12 @@ subset.DGEobj <- function(x, ..., row, col, drop = FALSE, debug = FALSE){
 }
 
 
-#' Shortcut function for subsetting a DGE object with square brackets.
+#' Subset with square brackets
 #'
-#' @param x A class DGEobj created by initDGEobj()
+#' @param x    A DGEobj
 #' @param ...  Additional parameters
 #'
-#' @return A subsetted DGEobj class object
+#' @return A DGEobj
 #'
 #' @export
 `[.DGEobj` <- function(x, ...){

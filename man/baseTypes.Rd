@@ -2,18 +2,18 @@
 % Please edit documentation in R/types.R
 \name{baseTypes}
 \alias{baseTypes}
-\title{Function baseTypes}
+\title{Get a list of the available baseTypes}
 \usage{
 baseTypes(dgeObj)
 }
 \arguments{
-\item{dgeObj}{A class DGEobj object}
+\item{dgeObj}{(optional) A DGEobj}
 }
 \value{
-A list of baseTypes
+A character vector of baseTypes
 }
 \description{
-Return a list of the available baseTypes in a DGEobj.
+Get a list of the available baseTypes
 }
 \examples{
     # Global definition of baseTypes
@@ -26,8 +26,3 @@ Return a list of the available baseTypes in a DGEobj.
     baseTypes(exObj)
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

@@ -1,27 +1,14 @@
-#' Function initDGEobj
+#' Initialize with base data (counts, gene annotations, sample annotations)
 #'
-#' Initializes DGEobj with base data (counts, gene annotation and sample annotation).
+#' @param counts               A count matrix or dataframe with row and colnames
+#' @param rowData              Gene, isoform or exon level annotation. Rownames must match the rownames in count matrix
+#' @param colData              A dataframe describing the experiment design. Rownames much match the colnames(counts)
+#' @param level                One of "gene", "isoform", or "exon"
+#' @param customAttr           (optional) Named list of attributes
+#' @param allowShortSampleIDs  Using sequential integer rownames (even if typed as character) is discouraged and by default will abort the DGEobj creation. If you have a legitimate need to have short sample names composed of numeric characters, you can set this argument to TRUE (default = FALSE)
+#' @param DGEobjDef            An object definition. Defaults to the global DGEobj definition (.DGEobjDef) and you usually shouldn't change this unless you're customizing the object for new data types.
 #'
-#' @author John Thompson
-#' @keywords RNA-Seq
-#'
-#' @param counts A count matrix or dataframe with row and colnames.
-#' @param rowData  Gene, isoform or exon level annotation. Rownames must match
-#'    rownames in count matrix.
-#' @param colData A dataframe describing the experiment design. Rownames much match
-#'  colnames(counts).
-#' @param level One of "gene", "isoform", or "exon".
-#' @param customAttr An optional (but highly recommended) named list of attributes
-#'     to assign to the DGEobj.
-#' @param allowShortSampleIDs  Using sequential integer rownames (even if typed as character)
-#'   is discouraged and by default will abort the DGEobj creation. If you have a legitimate
-#'   need to have short sample names composed of numeric characters, you can set this argument to TRUE.
-#'   (Default = FALSE)
-#' @param DGEobjDef An object definition. Defaults to the global DGEobj definition
-#'     (.DGEobjDef) and you usually shouldn't change this unless you're customizing
-#'     the object for new data types.
-#'
-#' @return A class DGEobj object
+#' @return A DGEobj
 #'
 #' @examples
 #' \dontrun{

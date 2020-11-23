@@ -2,26 +2,24 @@
 % Please edit documentation in R/attributes.R
 \name{getAttributes}
 \alias{getAttributes}
-\title{Function getAttributes}
+\title{Get all attributes}
 \usage{
 getAttributes(
-  item,
+  dgeObj,
   excludeList = list("dim", "dimnames", "names", "row.names", "class")
 )
 }
 \arguments{
-\item{item}{A DGEobj (or any object with attributes)}
+\item{dgeObj}{A DGEobj}
 
-\item{excludeList}{A list of attribute names to exclude from the output
-(default = list("dim", "dimnames", "names", "row.names"))}
+\item{excludeList}{A list of attribute names to exclude from the output (default = list("dim", "dimnames", "names", "row.names"))}
 }
 \value{
-A named list of attribute values for the items
+A named list
 }
 \description{
-Get all attributes from an item except for any listed in the excludeList argument.
-This is intended to capture user-defined attributes by excluding a few standard
-attributes like class and dim.
+Get all user-defined attributes from a DGEobj except for any listed in the
+excludeList argument.
 }
 \examples{
     # example DGEobj
@@ -33,8 +31,3 @@ attributes like class and dim.
     attr(exObj$design, "formula")
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

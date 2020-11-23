@@ -2,21 +2,16 @@
 % Please edit documentation in R/utils.R
 \name{dim.DGEobj}
 \alias{dim.DGEobj}
-\title{DGEobj dimensions}
+\title{Get the "assay" dimensions (row/genes by col/samples)}
 \usage{
 \method{dim}{DGEobj}(x)
 }
 \arguments{
-\item{x}{A class DGEobj created by function initDGEobj()}
+\item{x}{A DGEobj}
 }
 \value{
 An integer vector [r,c] with a length of 2.
 }
 \description{
-Reports the dimensions of the assay slot (row = genes; col = samples) in a DGEobj.
+Returns the dimensions of the assay data (baseType)
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

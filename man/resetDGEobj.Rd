@@ -2,24 +2,20 @@
 % Please edit documentation in R/reset.R
 \name{resetDGEobj}
 \alias{resetDGEobj}
-\title{Function resetDGEobj}
+\title{Reset to original data}
 \usage{
 resetDGEobj(dgeObj)
 }
 \arguments{
-\item{dgeObj}{A DGEobj that we wish to extract original, un-filtered data from.}
+\item{dgeObj}{A DGEobj}
 }
 \value{
-A DGEobj containing the original (unfiltered) data.
+A DGEobj
 }
 \description{
 During a workflow, a DGEobj typically gets filtered down to remove samples
 that fail QC or non-expressed genes.  The resetDGEobj() function produces a new DGEobj with
 the original unfiltered data.
-}
-\details{
-We can restore the original data because a copy of the original data was stored on the "meta"
-layer and the "meta" layer is not subject to row or column filters.
 }
 \examples{
     #example object
@@ -31,10 +27,3 @@ layer and the "meta" layer is not subject to row or column filters.
     exObj <- resetDGEobj(exObj)
 
 }
-\author{
-John Thompson
-}
-\keyword{RNA-Seq;}
-\keyword{counts;}
-\keyword{intensity}
-\keyword{low}

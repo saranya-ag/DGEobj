@@ -2,20 +2,20 @@
 % Please edit documentation in R/types.R
 \name{baseType}
 \alias{baseType}
-\title{Function BaseType}
+\title{Get the baseType of an internal data item}
 \usage{
 baseType(dgeObj, type)
 }
 \arguments{
-\item{dgeObj}{A class DGEobj created by function initDGEobj()}
+\item{dgeObj}{A DGEobj}
 
 \item{type}{An item type for which you want the baseType}
 }
 \value{
-A baseType value (character string)
+character string
 }
 \description{
-Return the baseType for a given item type in a DGEobj.
+Get the baseType of an internal data item
 }
 \examples{
     # example DGEobj
@@ -24,8 +24,3 @@ Return the baseType for a given item type in a DGEobj.
     baseType(exObj, type = "DGEList")
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

@@ -2,22 +2,20 @@
 % Please edit documentation in R/utils.R
 \name{inventory}
 \alias{inventory}
-\title{Function inventory}
+\title{Retrieve the object inventory}
 \usage{
 inventory(dgeObj, verbose = FALSE)
 }
 \arguments{
 \item{dgeObj}{A DGEobj}
 
-\item{verbose}{Add funArgs to the output (Default = FALSE)}
+\item{verbose}{Add funArgs to the output (default = FALSE)}
 }
 \value{
 A data.frame summarizing the data contained in the DGEobj
 }
 \description{
-Show the contents of a DGEobj object.  Note if an item is one-dimensional,
-the row column reports the length.  This method is also invoked by applying
-print() to a DGEobj.
+Retrieve the object inventory
 }
 \examples{
     # example DGEobj
@@ -26,7 +24,3 @@ print() to a DGEobj.
     inventory(exObj)
 
 }
-\author{
-John Thompson
-}
-\keyword{RNA-Seq}

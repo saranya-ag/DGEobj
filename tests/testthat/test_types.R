@@ -18,14 +18,9 @@ test_that('types.R: baseTypes()', {
 })
 
 test_that('types.R: showTypes()', {
-    showTypes_t_obj <- showTypes(t_obj)
-    expect_s3_class(showTypes_t_obj, "knitr_kable")
-    expect_equal(length(showTypes_t_obj), 51)
-
-    showTypes_notPretty_t_obj <- showTypes(t_obj, pretty = FALSE)
-    expect_s3_class(showTypes_notPretty_t_obj, "data.frame")
-    expect_equal(nrow(showTypes_notPretty_t_obj), 49)
-    expect_equal(ncol(showTypes_notPretty_t_obj), 2)
+    showTypes_t_obj <- showTypes(t_obj, printed = FALSE)
+    expect_s3_class(showTypes_t_obj, "data.frame")
+    expect_equal(dim(showTypes_t_obj), c(49, 2))
 })
 
 test_that('types.R: newType()', {

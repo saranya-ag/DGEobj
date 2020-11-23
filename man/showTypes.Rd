@@ -2,21 +2,20 @@
 % Please edit documentation in R/types.R
 \name{showTypes}
 \alias{showTypes}
-\title{Function showTypes}
+\title{Returns and prints the list of all defined types}
 \usage{
-showTypes(dgeObj, pretty = TRUE)
+showTypes(dgeObj, printed = TRUE)
 }
 \arguments{
-\item{dgeObj}{A class DGEobj created by function initDGEobj()}
+\item{dgeObj}{A DGEobj}
 
-\item{pretty}{TRUE (the default) invokes knitr::kable() to print a
-nicely formatted table}
+\item{printed}{Whether to print the list (default = TRUE)}
 }
 \value{
-Prints a list of defined "types"
+data.frame
 }
 \description{
-Show the list of all Types defined in the DGEobj.
+Returns and prints the list of all defined types
 }
 \examples{
     # example DGEobj
@@ -25,8 +24,3 @@ Show the list of all Types defined in the DGEobj.
     showTypes(exObj)
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

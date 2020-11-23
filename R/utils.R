@@ -1,11 +1,8 @@
-#' DGEobj dimensions
+#' Get the "assay" dimensions (row/genes by col/samples)
 #'
-#' Reports the dimensions of the assay slot (row = genes; col = samples) in a DGEobj.
+#' Returns the dimensions of the assay data (baseType)
 #'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param x  A class DGEobj created by function initDGEobj()
+#' @param x  A DGEobj
 #'
 #' @return An integer vector [r,c] with a length of 2.
 #'
@@ -23,17 +20,14 @@ dim.DGEobj <- function(x) {
 }
 
 
-#' DGEobj dimnames
+#' Get the "assay" names (row/genes by col/samples)
 #'
-#' Returns the rownames and colnames in a list of length 2 for a DGEobj.
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
+#' Returns a list of length 2 containing the the assay data names (baseType)
 #'
 #' @param x  A class DGEobj created by function initDGEobj()
 #'
 #' @return A list of length 2 containing rownames and colnames of the DGEobj
-
+#'
 #' @export
 dimnames.DGEobj <- function(x){
     firstAssay <- getBaseType(x, "assay")[[1]]
@@ -41,16 +35,11 @@ dimnames.DGEobj <- function(x){
 }
 
 
-#' Function print.DGEobj
+#' Print the Inventory
 #'
-#' Print a DGEobj object.
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq
-#'
-#' @param x A DGEobj object
+#' @param x       A DGEobj
 #' @param ...     Additional parameters
-#' @param verbose Add funArgs to the output (Default = FALSE)
+#' @param verbose Add funArgs to the output (default = FALSE)
 #'
 #' @return NULL
 #'
@@ -68,17 +57,10 @@ print.DGEobj <- function(x, ..., verbose = FALSE) {
 }
 
 
-#' Function inventory
-#'
-#' Show the contents of a DGEobj object.  Note if an item is one-dimensional,
-#' the row column reports the length.  This method is also invoked by applying
-#' print() to a DGEobj.
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq
+#' Retrieve the object inventory
 #'
 #' @param dgeObj A DGEobj
-#' @param verbose Add funArgs to the output (Default = FALSE)
+#' @param verbose Add funArgs to the output (default = FALSE)
 #'
 #' @return A data.frame summarizing the data contained in the DGEobj
 #'
@@ -127,17 +109,12 @@ inventory <- function(dgeObj, verbose = FALSE)  {
     return(df)
 }
 
-#' Function as.list.DGEobj
+#' Cast as a simple list
 #'
-#' Casts a DGEobj class object as a simple list.
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param x    A class DGEobj created by function initDGEobj()
+#' @param x    A DGEobj
 #' @param ...  Additional parameters
 #'
-#' @return A simple list version of the DGEobj.
+#' @return A simple list representation
 #'
 #' @examples
 #'     # example DGEobj
