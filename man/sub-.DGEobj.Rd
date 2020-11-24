@@ -2,18 +2,18 @@
 % Please edit documentation in R/subset.R
 \name{[.DGEobj}
 \alias{[.DGEobj}
-\title{Shortcut function for subsetting a DGE object with square brackets.}
+\title{Subset with square brackets}
 \usage{
 \method{[}{DGEobj}(x, ...)
 }
 \arguments{
-\item{x}{A class DGEobj created by initDGEobj()}
+\item{x}{A DGEobj}
 
 \item{...}{Additional parameters}
 }
 \value{
-A subsetted DGEobj class object
+A DGEobj
 }
 \description{
-Shortcut function for subsetting a DGE object with square brackets.
+Subset with square brackets
 }

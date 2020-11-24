@@ -2,12 +2,12 @@
 % Please edit documentation in R/get.R
 \name{getItem}
 \alias{getItem}
-\title{Function getItem}
+\title{Retrieve a data item by name}
 \usage{
 getItem(dgeObj, itemName)
 }
 \arguments{
-\item{dgeObj}{A class DGEobj created by function initDGEobj()}
+\item{dgeObj}{A DGEobj}
 
 \item{itemName}{Name of item to retrieve}
 }
@@ -15,16 +15,12 @@ getItem(dgeObj, itemName)
 The requested data item
 }
 \description{
-Retrieve an item from a DGEobj by item name.
+Retrieve a data item by name
 }
 \examples{
-\dontrun{
-   MyCounts <- getItem(DGEobj, "counts")
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    MyCounts <- getItem(exObj, "counts")
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

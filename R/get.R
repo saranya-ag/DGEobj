@@ -1,19 +1,15 @@
-#' Function getItems
+#' Retrieve data items by name
 #'
-#' Retrieve items from a DGEobj by item name.
+#' @param dgeObj    A DGEobj
+#' @param itemNames A character string, character vector, or list names to retrieve
 #'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param dgeObj  A class DGEobj created by function initDGEobj()
-#' @param itemNames A character string, character vector, or list of itemNames to retrieve
-#'
-#' @return The requested data item or list of data items.
+#' @return A list
 #'
 #' @examples
-#' \dontrun{
-#'    MyCounts <- getItems(DGEobj, "counts")
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     MyCounts <- getItems(exObj, "counts")
 #'
 #' @importFrom assertthat assert_that
 #' @importFrom stringr str_c
@@ -46,22 +42,18 @@ getItems <- function(dgeObj, itemNames){
 }
 
 
-#' Function getItem
+#' Retrieve a data item by name
 #'
-#' Retrieve an item from a DGEobj by item name.
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param dgeObj  A class DGEobj created by function initDGEobj()
+#' @param dgeObj   A DGEobj
 #' @param itemName Name of item to retrieve
 #'
 #' @return The requested data item
 #'
 #' @examples
-#' \dontrun{
-#'    MyCounts <- getItem(DGEobj, "counts")
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     MyCounts <- getItem(exObj, "counts")
 #'
 #' @importFrom assertthat assert_that
 #'
@@ -81,27 +73,21 @@ getItem <- function(dgeObj, itemName){
 }
 
 
-#' Function getType
+#' Retrieve data items by type
 #'
-#' Retrieve one or more data items from a DGEobj by type.
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param dgeObj  A class DGEobj created by function initDGEobj()
-#' @param type A single type of list of types to retrieve.  Enter
-#'    showTypes(MyDGEobj) to see a list of allowed types.  See addType() function
-#'    to define new types.
-#' @param parent (Optional) Filter return list for common parent (e.g. useful
+#' @param dgeObj  A DGEobj
+#' @param type    A type or list of types to retrieve
+#' @param parent  (optional) Filter return list for common parent (e.g. useful
 #' to select one set of contrast results when multiple fits have been performed)
 #'
-#' @return A list of requested data items
+#' @return A list of data items
 #'
 #' @examples
-#' \dontrun{
-#'    MyContrastList <- getType(DGEobj, type = "topTable")
-#'    MyRawData      <- getType(DGEobj, type = list("counts", "design", "geneData"))
-#'}
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     MyContrastList <- getType(exObj, type = "topTable")
+#'     MyRawData      <- getType(exObj, type = list("counts", "design", "geneData"))
 #'
 #' @export
 getType <- function(dgeObj, type, parent){
@@ -113,11 +99,8 @@ getType <- function(dgeObj, type, parent){
     }
     result <- unclass(dgeObj)[idx]
 
-    if (sum(idx) < length(type))
-        warning("Some types were not found")
-
     if (sum(idx) == 0) {
-        .tsmsg("Warning: no items of specified type are found.")
+        warning("No items of specified type were found")
         return(NULL)
     } else {
         if (sum(idx) < length(type))
@@ -127,24 +110,19 @@ getType <- function(dgeObj, type, parent){
 }
 
 
-#' Function getBaseType
-#'
-#' Accessor function for DGEobj class objects.  Retrieves all data items of a
-#' given baseType or list of baseTypes.
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param dgeObj  A class DGEobj created by function initDGEobj()
+#' Retrieve data items by baseType
+
+#' @param dgeObj   A DGEobj
 #' @param baseType One or more of: ["row", "col", "assay", "meta"]
 #'
-#' @return A simple list of data items
+#' @return A list of data items
 #'
 #' @examples
-#' \dontrun{
-#'    Assays                  <- getBaseType(DGEobj, baseType = "assay")
-#'    AssaysAndGeneAnnotation <- getBaseType(DGEobj, c("assay", "row"))
-#' }
+#'     # example DGEobj
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     Assays <- getBaseType(exObj, baseType = "assay")
+#'     AssaysAndMeta <- getBaseType(exObj, c("assay", "meta"))
 #'
 #' @export
 getBaseType <- function(dgeObj, baseType){
@@ -152,7 +130,7 @@ getBaseType <- function(dgeObj, baseType){
     if (missing(baseType))
         stop("baseType argument is required")
 
-    if (!baseType %in% baseTypes(dgeObj))
+    if (!all(baseType %in% baseTypes(dgeObj)))
         stop(paste("baseType must be one of: ",
                    paste(baseTypes(dgeObj), collapse = ", "),
                    sep = ""))

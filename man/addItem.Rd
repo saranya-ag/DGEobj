@@ -2,57 +2,49 @@
 % Please edit documentation in R/addItem.R
 \name{addItem}
 \alias{addItem}
-\title{Function addItem (DGEobj)}
+\title{Add a data item}
 \usage{
 addItem(
   dgeObj,
   item,
   itemName,
   itemType,
-  overwrite = FALSE,
   funArgs = match.call(),
   itemAttr,
   parent = "",
-  init = FALSE,
-  debug = FALSE
+  overwrite = FALSE,
+  init = FALSE
 )
 }
 \arguments{
 \item{dgeObj}{A class DGEobj created by function initDGEobj()}
 
-\item{item}{The data item to be deposited in the DGEobj (Required)}
+\item{item}{The data item to be deposited in the DGEobj}
 
-\item{itemName}{A user assigned name for this data item. (Required)}
+\item{itemName}{The assigned name for this data item}
 
-\item{itemType}{A type attribute.  See showTypes() to see the
-predefined types. Types are extensible with the newType() function. (Required)}
+\item{itemType}{The type attribute.  See showTypes() to see the predefined types -- types are extensible with the newType() function.}
 
-\item{overwrite}{Default = FALSE.  Set to TRUE to overwrite the data object
-stored in the itemName slot}
+\item{funArgs}{(optional) A text field to annotate how the data object was created. If the result of match.call() is passed as this argument, the name and arguments used in the current function are captured}
 
-\item{funArgs}{A text field to annotate how the data object was created.
-If you pass the result of match.call() as this argument, it captures the
-name and arguments used in the current function (optional)}
+\item{itemAttr}{(optional) A named list of attributes to add directly to the item}
 
-\item{itemAttr}{A named list of attributes to add directly to the item (optional)}
+\item{parent}{(optional) itemName of the parent of this item}
 
-\item{parent}{itemName of the parent of this item (optional, but your DGEobj
-won't be well annotated if you don't use this wherever appropriate)}
+\item{overwrite}{Whether to overwrite a matching data object stored in the itemName slot (default = FALSE)}
 
-\item{init}{Default = FALSE. Used internally by the initDGEobj() function.}
-
-\item{debug}{Default = FALSE; TRUE trigger browser mode.}
+\item{init}{Internal Use (default = FALSE)}
 }
 \value{
-A DGEobj class object with a new data item added.
+A DGEobj
 }
 \description{
-Add a data item to a class DGEobj
+Add a data item
 }
 \examples{
 \dontrun{
-   myFunArgs <- match.call() # Capture calling function and arguments
-   showTypes()  # See what predefined types are available
+   myFunArgs <- match.call()  #  Capture calling function and arguments
+
    myDGEobj <- addItem(myDGEobj, item = MyCounts,
                                  itemName = "counts",
                                  itemType = "counts",
@@ -60,8 +52,3 @@ Add a data item to a class DGEobj
 }
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

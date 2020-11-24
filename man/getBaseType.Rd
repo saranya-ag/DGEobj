@@ -2,31 +2,26 @@
 % Please edit documentation in R/get.R
 \name{getBaseType}
 \alias{getBaseType}
-\title{Function getBaseType}
+\title{Retrieve data items by baseType}
 \usage{
 getBaseType(dgeObj, baseType)
 }
 \arguments{
-\item{dgeObj}{A class DGEobj created by function initDGEobj()}
+\item{dgeObj}{A DGEobj}
 
 \item{baseType}{One or more of: ["row", "col", "assay", "meta"]}
 }
 \value{
-A simple list of data items
+A list of data items
 }
 \description{
-Accessor function for DGEobj class objects.  Retrieves all data items of a
-given baseType or list of baseTypes.
+Retrieve data items by baseType
 }
 \examples{
-\dontrun{
-   Assays                  <- getBaseType(DGEobj, baseType = "assay")
-   AssaysAndGeneAnnotation <- getBaseType(DGEobj, c("assay", "row"))
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    Assays <- getBaseType(exObj, baseType = "assay")
+    AssaysAndMeta <- getBaseType(exObj, c("assay", "meta"))
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

@@ -1,17 +1,9 @@
-.tsmsg <- function(...) {
-    # works like message() but prepends a timestamp
-    message(date(), ": ", ...)
-}
-
-
 .DGEobjDef <- list(
-    # Define an extensible datatype
     # There are 4 immutable base type: row, col, assay, meta
     # Each type must be one of these four basetypes
     # Extensibility: Additional types can be added to .DGEobj$type as long as they are
     # assigned to one of the 4 basetypes.
 
-    # There are 4 basetypes that fundamentally define how to subset different items
     basetype = c(row = "row",
                  col = "col",
                  assay = "assay",

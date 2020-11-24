@@ -2,29 +2,25 @@
 % Please edit documentation in R/utils.R
 \name{as.list.DGEobj}
 \alias{as.list.DGEobj}
-\title{Function as.list.DGEobj}
+\title{Cast as a simple list}
 \usage{
 \method{as.list}{DGEobj}(x, ...)
 }
 \arguments{
-\item{x}{A class DGEobj created by function initDGEobj()}
+\item{x}{A DGEobj}
 
 \item{...}{Additional parameters}
 }
 \value{
-A simple list version of the DGEobj.
+A simple list representation
 }
 \description{
-Casts a DGEobj class object as a simple list.
+Cast as a simple list
 }
 \examples{
-\dontrun{
-   MyDGElist <- as.list(DGEobj)
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    as.list(exObj)
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

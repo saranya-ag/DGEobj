@@ -1,24 +1,21 @@
-#' Function resetDGEobj
+#' Reset to original data
 #'
 #' During a workflow, a DGEobj typically gets filtered down to remove samples
 #' that fail QC or non-expressed genes.  The resetDGEobj() function produces a new DGEobj with
 #' the original unfiltered data.
 #'
-#' We can restore the original data because a copy of the original data was stored on the "meta"
-#' layer and the "meta" layer is not subject to row or column filters.
+#' @param dgeObj A DGEobj
 #'
-#' @author John Thompson
-#' @keywords RNA-Seq; counts; low intensity
-#'
-#' @param dgeObj A DGEobj that we wish to extract original, un-filtered data from.
-#'
-#' @return A DGEobj containing the original (unfiltered) data.
+#' @return A DGEobj
 #'
 #' @examples
-#' \dontrun{
-#'     # Get back the original data, e.g. to start a different analysis
-#'     unfilteredDGEobj <- resetDGEobj(MyHeavilyFilteredDGEobj)
-#' }
+#'     #example object
+#'     exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'
+#'     # subset to first 10 rows to show reset functionality
+#'     exObj <- exObj[c(1:10), ]
+#'
+#'     exObj <- resetDGEobj(exObj)
 #'
 #' @importFrom assertthat assert_that
 #'

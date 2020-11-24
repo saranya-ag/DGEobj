@@ -2,12 +2,12 @@
 % Please edit documentation in R/subset.R
 \name{subset.DGEobj}
 \alias{subset.DGEobj}
-\title{Function subset.DGEobj (DGEobj)}
+\title{Subset internal row or column data}
 \usage{
 \method{subset}{DGEobj}(x, ..., row, col, drop = FALSE, debug = FALSE)
 }
 \arguments{
-\item{x}{A class DGEobj created by initDGEobj()}
+\item{x}{A DGEobj}
 
 \item{...}{Additional parameters}
 
@@ -15,27 +15,20 @@
 
 \item{col}{Col index for the subset}
 
-\item{drop}{Included for compatibility but has no real meaning in the context
-of subsetting a DGEobj. So drop = FALSE is the default and changing this
-has no effect.}
+\item{drop}{Included for compatibility only}
 
-\item{debug}{Default = FALSE. Set to TRUE to get more information if subsetting a
-DGEobj fails with a dimension error.}
+\item{debug}{(default = FALSE) Set to TRUE to get additional information on the console if subsetting a DGEobj fails with a dimension error.}
 }
 \value{
-A subsetted DGEobj class object
+A DGEobj
 }
 \description{
-This is the subset.DGEobj function bound to square brackets.
+Subset internal row or column data
 }
 \examples{
-\dontrun{
-   DGEobj <- subset(DGEobj, 1:10, 100:1000)
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    exObj <- subset(exObj, 1:10, 5:50)
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

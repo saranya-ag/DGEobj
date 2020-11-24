@@ -1,20 +1,15 @@
-#' Function annotateDGEobj
+#' Add annotations
 #'
 #' Reads an annotation file of key/value pairs or a named list and attaches them attributes to a DGEobj.
 #' If a file is used, it should be a text file containing key/value pairs separated by an equals
 #' sign. The keys parameter specifies which key we want to capture as
 #' attributes on the DGEobj. The value will then be the value of that attribute.
 #'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj, annotation, attributes
-#'
 #' @param dgeObj  A class DGEobj created by function initDGEobj()
-#' @param annotations A character string location to a text file with annotations given as key/value
-#'    pairs separated by an equal sign, or a named list of key/value pairs.
-#' @param keys A list of keys to look for in the annotations and transfer to the DGEobj.
-#'    Use keys = NULL to accept all keys in the annotations (Default)
+#' @param annotations Either A character string path to a file with annotations given as key/value pairs separated by an equal sign, or a named list of key/value pairs
+#' @param keys A subset of keys to look for in the annotations and transfer to the DGEobj (default = NULL)
 #'
-#' @return A DGEobj annotated with attributes from the annotation file.
+#' @return A DGEobj
 #'
 #' @examples
 #' \dontrun{

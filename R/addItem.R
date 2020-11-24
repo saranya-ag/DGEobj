@@ -1,32 +1,21 @@
-#' Function addItem (DGEobj)
+#' Add a data item
 #'
-#' Add a data item to a class DGEobj
-#'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param dgeObj  A class DGEobj created by function initDGEobj()
-#' @param item  The data item to be deposited in the DGEobj (Required)
-#' @param itemName A user assigned name for this data item. (Required)
-#' @param itemType A type attribute.  See showTypes() to see the
-#'     predefined types. Types are extensible with the newType() function. (Required)
-#' @param overwrite Default = FALSE.  Set to TRUE to overwrite the data object
-#'     stored in the itemName slot
-#' @param funArgs A text field to annotate how the data object was created.
-#'    If you pass the result of match.call() as this argument, it captures the
-#'    name and arguments used in the current function (optional)
-#' @param itemAttr A named list of attributes to add directly to the item (optional)
-#' @param parent itemName of the parent of this item (optional, but your DGEobj
-#'   won't be well annotated if you don't use this wherever appropriate)
-#' @param init Default = FALSE. Used internally by the initDGEobj() function.
-#' @param debug Default = FALSE; TRUE trigger browser mode.
-#'
-#' @return A DGEobj class object with a new data item added.
+#' @param dgeObj    A class DGEobj created by function initDGEobj()
+#' @param item      The data item to be deposited in the DGEobj
+#' @param itemName  The assigned name for this data item
+#' @param itemType  The type attribute.  See showTypes() to see the predefined types -- types are extensible with the newType() function.
+#' @param funArgs   (optional) A text field to annotate how the data object was created. If the result of match.call() is passed as this argument, the name and arguments used in the current function are captured
+#' @param itemAttr  (optional) A named list of attributes to add directly to the item
+#' @param parent    (optional) itemName of the parent of this item
+#' @param overwrite Whether to overwrite a matching data object stored in the itemName slot (default = FALSE)
+#' @param init      Internal Use (default = FALSE)
+
+#' @return A DGEobj
 #'
 #' @examples
 #' \dontrun{
-#'    myFunArgs <- match.call() # Capture calling function and arguments
-#'    showTypes()  # See what predefined types are available
+#'    myFunArgs <- match.call()  #  Capture calling function and arguments
+#'
 #'    myDGEobj <- addItem(myDGEobj, item = MyCounts,
 #'                                  itemName = "counts",
 #'                                  itemType = "counts",
@@ -38,13 +27,14 @@
 #'
 #' @export
 addItem <- function(dgeObj,
-                    item, itemName, itemType,
-                    overwrite = FALSE,
+                    item,
+                    itemName,
+                    itemType,
                     funArgs = match.call(),
                     itemAttr,
                     parent = "",
-                    init = FALSE,
-                    debug = FALSE) {
+                    overwrite = FALSE,
+                    init = FALSE) {
 
     # helper functions
     .dimensionMatch <- function(dgeObj, item, itemType){
@@ -96,9 +86,7 @@ addItem <- function(dgeObj,
                             !missing(item),
                             !missing(itemName),
                             !missing(itemType),
-                            msg = "Specify the DGEobj, item, itemName, and itemType. All are required.")
-
-    if (debug == TRUE) browser()
+                            msg = "Specify the DGEobj, item, itemName, and itemType")
 
     allowedTypes <- names(attr(dgeObj, "objDef")$type)
     if (!itemType %in% allowedTypes) {
@@ -164,23 +152,16 @@ addItem <- function(dgeObj,
 }
 
 
-#' Function addItems (DGEobj)
+#' Add multiple data items
 #'
-#' Add a data item to a class DGEobj
+#' @param dgeObj    A DGEobj
+#' @param itemList  A list of data items to add to DGEobj
+#' @param itemTypes A list of type values for each item on itemList
+#' @param parents   (optional) A list of parent values for each item on itemList (optional, but highly recommended)
+#' @param itemAttr  (optional) An named list of attributes to add to each item
+#' @param overwrite Whether to overwrite a matching data object stored in the itemName slot (default = FALSE)
 #'
-#' @author John Thompson
-#' @keywords RNA-Seq, DGEobj
-#'
-#' @param dgeObj  A DGEobj that items will be added to. (Required)
-#' @param itemList  A list of data items to add to DGEobj (Required)
-#' @param itemTypes A list of type values for each item on itemList (Required)
-#' @param parents A list of parent values for each item on itemList (Optional, but highly recommended)
-#' @param overwrite Default = FALSE.  Set to TRUE to overwrite the data object
-#'     stored in the itemName slot
-#' @param itemAttr An named list of attributes to add to each item (Optional). The
-#'    same set of attributes will be added to each item.
-#'
-#' @return A class DGEobj object with new items added.
+#' @return A DGEobj
 #'
 #' @examples
 #' \dontrun{
@@ -192,10 +173,11 @@ addItem <- function(dgeObj,
 #'
 #' @export
 addItems <- function(dgeObj,
-                     itemList, itemTypes,
+                     itemList,
+                     itemTypes,
                      parents,
-                     overwrite = FALSE,
-                     itemAttr) {
+                     itemAttr,
+                     overwrite = FALSE) {
 
     assertthat::assert_that(!missing(dgeObj),
                             !missing(itemList),

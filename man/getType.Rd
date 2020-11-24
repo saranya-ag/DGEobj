@@ -2,35 +2,29 @@
 % Please edit documentation in R/get.R
 \name{getType}
 \alias{getType}
-\title{Function getType}
+\title{Retrieve data items by type}
 \usage{
 getType(dgeObj, type, parent)
 }
 \arguments{
-\item{dgeObj}{A class DGEobj created by function initDGEobj()}
+\item{dgeObj}{A DGEobj}
 
-\item{type}{A single type of list of types to retrieve.  Enter
-showTypes(MyDGEobj) to see a list of allowed types.  See addType() function
-to define new types.}
+\item{type}{A type or list of types to retrieve}
 
-\item{parent}{(Optional) Filter return list for common parent (e.g. useful
+\item{parent}{(optional) Filter return list for common parent (e.g. useful
 to select one set of contrast results when multiple fits have been performed)}
 }
 \value{
-A list of requested data items
+A list of data items
 }
 \description{
-Retrieve one or more data items from a DGEobj by type.
+Retrieve data items by type
 }
 \examples{
-\dontrun{
-   MyContrastList <- getType(DGEobj, type = "topTable")
-   MyRawData      <- getType(DGEobj, type = list("counts", "design", "geneData"))
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    MyContrastList <- getType(exObj, type = "topTable")
+    MyRawData      <- getType(exObj, type = list("counts", "design", "geneData"))
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

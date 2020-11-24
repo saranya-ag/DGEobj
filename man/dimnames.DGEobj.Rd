@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{dimnames.DGEobj}
 \alias{dimnames.DGEobj}
-\title{DGEobj dimnames}
+\title{Get the "assay" names (row/genes by col/samples)}
 \usage{
 \method{dimnames}{DGEobj}(x)
 }
@@ -13,10 +13,5 @@
 A list of length 2 containing rownames and colnames of the DGEobj
 }
 \description{
-Returns the rownames and colnames in a list of length 2 for a DGEobj.
+Returns a list of length 2 containing the the assay data names (baseType)
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

@@ -2,29 +2,25 @@
 % Please edit documentation in R/get.R
 \name{getItems}
 \alias{getItems}
-\title{Function getItems}
+\title{Retrieve data items by name}
 \usage{
 getItems(dgeObj, itemNames)
 }
 \arguments{
-\item{dgeObj}{A class DGEobj created by function initDGEobj()}
+\item{dgeObj}{A DGEobj}
 
-\item{itemNames}{A character string, character vector, or list of itemNames to retrieve}
+\item{itemNames}{A character string, character vector, or list names to retrieve}
 }
 \value{
-The requested data item or list of data items.
+A list
 }
 \description{
-Retrieve items from a DGEobj by item name.
+Retrieve data items by name
 }
 \examples{
-\dontrun{
-   MyCounts <- getItems(DGEobj, "counts")
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    MyCounts <- getItems(exObj, "counts")
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

@@ -2,30 +2,28 @@
 % Please edit documentation in R/addItem.R
 \name{addItems}
 \alias{addItems}
-\title{Function addItems (DGEobj)}
+\title{Add multiple data items}
 \usage{
-addItems(dgeObj, itemList, itemTypes, parents, overwrite = FALSE, itemAttr)
+addItems(dgeObj, itemList, itemTypes, parents, itemAttr, overwrite = FALSE)
 }
 \arguments{
-\item{dgeObj}{A DGEobj that items will be added to. (Required)}
+\item{dgeObj}{A DGEobj}
 
-\item{itemList}{A list of data items to add to DGEobj (Required)}
+\item{itemList}{A list of data items to add to DGEobj}
 
-\item{itemTypes}{A list of type values for each item on itemList (Required)}
+\item{itemTypes}{A list of type values for each item on itemList}
 
-\item{parents}{A list of parent values for each item on itemList (Optional, but highly recommended)}
+\item{parents}{(optional) A list of parent values for each item on itemList (optional, but highly recommended)}
 
-\item{overwrite}{Default = FALSE.  Set to TRUE to overwrite the data object
-stored in the itemName slot}
+\item{itemAttr}{(optional) An named list of attributes to add to each item}
 
-\item{itemAttr}{An named list of attributes to add to each item (Optional). The
-same set of attributes will be added to each item.}
+\item{overwrite}{Whether to overwrite a matching data object stored in the itemName slot (default = FALSE)}
 }
 \value{
-A class DGEobj object with new items added.
+A DGEobj
 }
 \description{
-Add a data item to a class DGEobj
+Add multiple data items
 }
 \examples{
 \dontrun{
@@ -34,8 +32,3 @@ Add a data item to a class DGEobj
 }
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

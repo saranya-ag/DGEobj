@@ -2,7 +2,7 @@
 % Please edit documentation in R/attributes.R
 \name{showAttributes}
 \alias{showAttributes}
-\title{Function showAttributes}
+\title{Print attributes}
 \usage{
 showAttributes(
   dgeObj,
@@ -10,29 +10,20 @@ showAttributes(
 )
 }
 \arguments{
-\item{dgeObj}{A DGEobj created by function initDGEobj()}
+\item{dgeObj}{A DGEobj}
 
-\item{skipList}{A character vector of attributes to skip. Use this to avoid
-printing certain lengthy attributes like rownames.  Defaults to c("dim",
-dimnames", "rownames", "colnames", "listData", "objDef")}
-}
-\value{
-Prints a list of attributes and values.
+\item{skipList}{A character vector of attributes to skip. Use this to avoid printing certain lengthy attributes like rownames.  Defaults to c("dim", "dimnames", "rownames", "colnames", "listData", "objDef")}
 }
 \description{
-Prints the attributes associated with a DGEobj.  This prints
-all attributes regardless of the class of the attribute value.
-Use showMeta() if you are only interested in attributes that are
-key/value pairs.
+This function prints all attributes regardless of the class of the attribute value.
+}
+\details{
+*Note* Use showMeta() to only retrieve attributes that are key/value pairs.
 }
 \examples{
-\dontrun{
-   showAttributes(myDGEobj)
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+   showAttributes(exObj)
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

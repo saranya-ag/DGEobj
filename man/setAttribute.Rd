@@ -2,31 +2,35 @@
 % Please edit documentation in R/attributes.R
 \name{setAttribute}
 \alias{setAttribute}
-\title{Function setAttribute}
+\title{Set an attribute}
 \usage{
-setAttribute(item, attrib, attribName)
+setAttribute(dgeObj, attrib, attribName)
 }
 \arguments{
-\item{item}{An object to attach attributes to}
+\item{dgeObj}{A DGEobj}
 
-\item{attrib}{An attribute value to add to the item}
+\item{attrib}{An attribute value to add}
 
 \item{attribName}{A name for the attribute}
 }
 \value{
-The item with the new attribute added and no existing attributes removed
+A DGEobj
 }
 \description{
-Set an attribute on an object.  You can use this to add attribute
-annotation(s) to a DGEobj or to a specific item within a DGEobj.
+Set an attribute on a DGEobj or on a specific item within a DGEobj.
+}
+\details{
+The function adds or updates the attribute passed to it.  To remove an attribute,
+pass NULL as the attribute value.
 }
 \examples{
-\dontrun{
-   # Assign attribute to a DGEobj
-   MyDGEobj <- setAttribute(MyDGEobj, "RNA-SEQ", "Platform")
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 
-   # Set attributes on an item inside a DGEobj
-   MyDGEObj[["counts"]] <- setAttribute(MyDGEObj[["counts"]], FALSE, "normalized")
-}
+    # Assign attribute to a DGEobj
+    exObj <- setAttribute(exObj, "RNA-SEQ", "Platform")
+
+    # Set attributes on an item inside a DGEobj
+    exObj[["counts"]] <- setAttribute(exObj[["counts"]], FALSE, "normalized")
 
 }

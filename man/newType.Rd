@@ -2,38 +2,32 @@
 % Please edit documentation in R/types.R
 \name{newType}
 \alias{newType}
-\title{Function newType}
+\title{Add a new type definition to a DGEobj}
 \usage{
 newType(dgeObj, itemType, baseType, uniqueItem = FALSE)
 }
 \arguments{
-\item{dgeObj}{A class DGEobj created by initDGEobj()}
+\item{dgeObj}{A DGEobj}
 
 \item{itemType}{The name of the new type to create}
 
 \item{baseType}{The baseType of the new item. One of [row, col, assay, meta]}
 
-\item{uniqueItem}{If set to TRUE, only one instance of the new type is
-allowed in a DGEobj}
+\item{uniqueItem}{If set to TRUE, only one instance of the new type is allowed in a DGEobj}
 }
 \value{
-A DGEobj with a new type definition embedded
+A DGEobj
 }
 \description{
-Used to customize a DGEobj definition by adding new types.  A baseType
-is also declared and whether more than a single instance is allowed.
+Add a new type definition to a DGEobj
 }
 \examples{
-\dontrun{
-    MyDgeObj <- newType(MyDgeObj,
-                        itemType   = "AffyRMA",
-                        baseType   = "assay",
-                        uniqueItem = TRUE)
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    exObj <- newType(exObj,
+                     itemType   = "AffyRMA",
+                     baseType   = "assay",
+                     uniqueItem = TRUE)
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

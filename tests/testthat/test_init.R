@@ -1,13 +1,13 @@
-context("DGEobj - tests for init.R functions")
+context("init.R functions")
 
 
 test_that('init.R: initDGEobj()', {
 
     # collect data from test object to initialize new DGEobj
-    counts     <- getItem(DGEobj, "intensity_orig")
-    rowData    <- getItem(DGEobj, "peptideAnnotation_orig")
-    colData    <- getItem(DGEobj, "design_orig")
-    level      <- "gene" # peptide level is not available
+    counts     <- getItem(t_obj, "counts_orig")
+    rowData    <- getItem(t_obj, "geneData_orig")
+    colData    <- getItem(t_obj, "design_orig")
+    level      <- "gene"
     customAttr <- list(Genome    = "Mouse.B38",
                        GeneModel = "Ensembl.R84")
     # create data frame with different row names
@@ -22,18 +22,16 @@ test_that('init.R: initDGEobj()', {
                              colData    = colData,
                              level      = level,
                              customAttr = customAttr)},
-                 regexp = "The rownames for counts must match the rownames of rowData. Similarly, the colnames of counts must match the rownames of colData.",
-                 fixed  = TRUE)
+                 regexp = "The rownames for counts must match the rownames of rowData. Similarly, the colnames of counts must match the rownames of colData.")
 
     expect_error({initDGEobj(counts     = counts,
                              rowData    = rowData,
                              colData    = colData1,
                              level      = level,
                              customAttr = customAttr)},
-                 regexp = "The rownames for counts must match the rownames of rowData. Similarly, the colnames of counts must match the rownames of colData.",
-                 fixed  = TRUE)
+                 regexp = "The rownames for counts must match the rownames of rowData. Similarly, the colnames of counts must match the rownames of colData.")
 
-    # cheking for numeric sampleIds
+    # checking for numeric sampleIds
     counts1 <- counts
     rownames(colData1) <- as.character(1:nrow(colData1))
     colnames(counts1)  <- as.character(1:nrow(colData1))
@@ -48,37 +46,21 @@ test_that('init.R: initDGEobj()', {
                                  " \nUse allowShortSampleIDs = TRUE to explicitly override this restriction"),
                  fixed  = TRUE)
 
-    # checking warning as GRange object is not available.
-    expect_warning({test_DgeObj <- initDGEobj(counts     = counts,
-                                              rowData    = rowData,
-                                              colData    = colData,
-                                              level      = level,
-                                              customAttr = customAttr)},
-                   regexp = "Couldn't build a GRanges object!",
-                   fixed  = TRUE)
-
-    # create DGEobj with GRange objet
-    # --- code
-
     # verifying class
-    expect_s3_class(test_DgeObj, "DGEobj")
-    expect_type(attributes(test_DgeObj), "list")
+    expect_s3_class(t_obj, "DGEobj")
+    expect_type(attributes(t_obj), "list")
 
     # checking names and dimensions
-    expect_setequal(names(test_DgeObj), c("counts_orig", "counts", "design_orig", "design", "geneData_orig", "geneData" ))
-    expect_equal(dim(test_DgeObj), c(5900, 165))
+    expect_setequal(names(t_obj), c("counts_orig", "counts", "design_orig", "design", "geneData_orig", "geneData", "granges_orig", "granges"))
+    expect_equal(dim(t_obj), t_dim)
 
     # verifying missing value errors
     expect_error(initDGEobj(rowData =  rowData, colData =  colData, level =  level, customAttr = customAttr),
-                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.",
-                 fixed  = TRUE)
+                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.")
     expect_error(initDGEobj(counts = counts, colData =  colData, level =  level, customAttr = customAttr),
-                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.",
-                 fixed  = TRUE)
+                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.")
     expect_error(initDGEobj(counts = counts, rowData =  rowData, level =  level, customAttr = customAttr),
-                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.",
-                 fixed  = TRUE)
+                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.")
     expect_error(initDGEobj(counts = counts, rowData =  rowData, colData =  colData, customAttr = customAttr),
-                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.",
-                 fixed  = TRUE)
+                 regexp = "Specify the counts, colData, rowData, and level. All are required to initialize a DGEobj.")
 })

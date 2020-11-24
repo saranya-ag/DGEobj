@@ -2,29 +2,25 @@
 % Please edit documentation in R/rmItem.R
 \name{rmItem}
 \alias{rmItem}
-\title{Function rmItem}
+\title{Removes a named data item}
 \usage{
 rmItem(dgeObj, itemName)
 }
 \arguments{
-\item{dgeObj}{A class DGEobj created by initDGEobj()}
+\item{dgeObj}{A class DGEobj}
 
-\item{itemName}{Name of the item to remove from the DGEobj}
+\item{itemName}{Name of the item to remove}
 }
 \value{
-An updated DGEobj
+A DGEobj
 }
 \description{
-Removes a named data item from a DGEobj.
+Removes a named data item
 }
 \examples{
-\dontrun{
-   MyDgeObj <- rmItem(MyDgeObj, "design")
-}
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    exObj <- rmItem(exObj, "design")
 
 }
-\author{
-John Thompson
-}
-\keyword{DGEobj}
-\keyword{RNA-Seq,}

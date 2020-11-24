@@ -2,27 +2,24 @@
 % Please edit documentation in R/utils.R
 \name{print.DGEobj}
 \alias{print.DGEobj}
-\title{Function print.DGEobj}
+\title{Print the Inventory}
 \usage{
 \method{print}{DGEobj}(x, ..., verbose = FALSE)
 }
 \arguments{
-\item{x}{A DGEobj object}
+\item{x}{A DGEobj}
 
 \item{...}{Additional parameters}
 
-\item{verbose}{Add funArgs to the output (Default = FALSE)}
+\item{verbose}{Add funArgs to the output (default = FALSE)}
 }
 \description{
-Print a DGEobj object.
+Print the Inventory
 }
 \examples{
-\dontrun{
-    print(myDGEobj)
-    print(myDGEobj, verbose = TRUE)
+    # example DGEobj
+    exObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+
+    print(exObj)
+
 }
-}
-\author{
-John Thompson
-}
-\keyword{RNA-Seq}
