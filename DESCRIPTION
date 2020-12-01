@@ -1,12 +1,16 @@
 Package: DGEobj
 Type: Package
-Title: Differential Gene Expression (DGE) S3 data class for storing, managing and annotating analysis results
-Version: 1.0.0.9113
-Authors@R: c(
-    person("John", "Thompson", email = "jrt@thompsonclan.org", role = c("aut")),
-    person("Connie", "Brett", email = "connie@aggregate-genius.com", role = c("aut", "cre")),
-    person("Isaac", "Neuhaus", email = "isaac.neuhaus@bms.com", role = c("aut")),
-    person("Ryan", "Thompson", email = "rct@thompsonclan.org", role = c("aut")))
+Title: Differential Gene Expression (DGE) data class for storing, managing, annotating analysis results
+Version: 1.0.0
+Authors@R: 
+    c(person(given = "John", family = "Thompson",
+             role = "aut", email = "jrt@thompsonclan.org"),
+      person(given = "Connie", family = "Brett",
+             role = c("aut", "cre"), email = "connie@aggregate-genius.com"),
+      person(given = "Isaac", family = "Neuhaus",
+             role = "aut", email = "isaac.neuhaus@bms.com"),
+      person(given = "Ryan", family = "Thompson",
+             role = "aut", email = "rct@thompsonclan.org"))
 Description: Provides an S3 data class to manage and annotate differential gene 
     expression (DGE) analysis results.  Although originally authored with DGE in mind, 
     the datatype is customizable and extensible to accommodate nearly any data analysis 
