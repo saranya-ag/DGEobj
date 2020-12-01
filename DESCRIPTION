@@ -1,7 +1,7 @@
 Package: DGEobj
 Type: Package
 Title: Differential Gene Expression (DGE) data class for storing, managing, annotating analysis results
-Version: 1.0.0
+Version: 1.0.1.9000
 Authors@R: 
     c(person(given = "John", family = "Thompson",
              role = "aut", email = "jrt@thompsonclan.org"),
