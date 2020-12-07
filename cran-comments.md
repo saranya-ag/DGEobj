@@ -1,5 +1,12 @@
 ## Comments from Maintainer
 
+Resubmission Comments: 
+
+* Fixed title-case and shortened Title field to 64char
+* Updated the package Description and added the DGE reference DOI.  
+
+Initial Comments: 
+
 * This is a new package to be added to CRAN
 * As many examples as possible were enabled, ones that require external (user) data are marked with \dontrun
 * Code Coverage is 93%
@@ -10,7 +17,6 @@
 
 RStudio Server Pro (ubuntu 18.04.2)  
 
-* R 3.5.3  
 * R 3.6.3
 * R 4.0.2
 
@@ -48,10 +54,7 @@ devtools::check()
 **NONE**
 
 ```
-pdb <- available.packages()
-tools::package_dependencies(packages = c('DGEobj'),
-                            db = pdb, reverse = TRUE)
-                            
-$DGEobj  
-NULL 
+revdepcheck::cran_revdeps('DGEobj', bioc = T)
+
+character(0)
 ```
