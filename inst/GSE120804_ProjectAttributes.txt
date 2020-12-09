@@ -1,7 +1,8 @@
 
-# geco requirement matrix items
+# general project metadata
+
 level=gene
-source=Omicsoft
+source=https://github.com/cb4ds/DGEobj/blob/master/vignettes/DGEobj_Overview.Rmd
 ID=BDL_Rat_LiverSlice_03Dec2017
 BMS_PID=P-20170808-0001
 Title=Rat Liver Slices from Bile Duct Ligation animals
@@ -12,8 +13,9 @@ Description=Rat livers slices from sham or BDL +/- efficacious treatments incuba
 Keywords=Liver slices; Bile Duct Ligation
 Disease=Liver Fibrosis
 Tissue=Liver
+GEO=GSE120804
 
-# additional descriptive attributes and institutional attributes
+# additional technical data processing attributes 
 
 Technology=Illumina-HiSeq
 LibraryPrep=TruSeq Stranded Total RNA 
@@ -23,6 +25,7 @@ Pipeline=RNA-Seq_BMS_v2.4.pscript
 AlignmentAlgorithm=OSA
 ScriptID=RNA-Seq_BMS_v2.4.pscript
 
+# institutional attributes
 
 BusinessUnit=Discovery
 FunctionalArea=Fibrosis
