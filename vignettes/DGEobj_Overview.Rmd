@@ -24,6 +24,7 @@ library(tidyverse)
 library(magrittr)
 library(biomaRt)
 library(glue)
+library(edgeR)
 library(DGEobj)
 library(knitr)
 library(conflicted)
@@ -463,7 +464,7 @@ dim(BDLonly)
 
 The `inventory()` function prints a table of the data items present in a DGEobj.  The output includes the item name, type, baseType, parent, class, and date created.  If the `verbose = TRUE` argument is used, a `funArgs` column is also included.  
 
-```{r inventory}
+```{r inventory2}
 inventory(dgeObj)
 ```
 
