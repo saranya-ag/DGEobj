@@ -1,20 +1,22 @@
 ---
-title: "DGEobj: An S3 Object to Capture DGE Workflows"
-author: "John Thompson"
+title: 'DGEobj: An S3 Object to Capture DGE Workflows'
+author: "John R. Thompson"
 date: "`r Sys.Date()`"
-output: 
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '5'
   html_document:
     fig_caption: yes
     number_sections: yes
     toc: yes
     toc_depth: 5
-vignette: >
-  %\VignetteIndexEntry{DGEobj Overview}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+vignette: |
+  %\VignetteIndexEntry{DGEobj Overview} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
 ---
 
 ```{r global options, include = FALSE}
+
 knitr::opts_chunk$set(echo    = TRUE, 
                       include = TRUE, 
                       warning = FALSE, 
@@ -82,10 +84,10 @@ information, etc).  Other types of rowData include the edgeR DGElist object,
 design matrices, and Fit objects  
 * colData: a dataframe with m rows, that is, one row for each sample column in
 the assay slot  
-* metaData: anything that doesn't fit in one of the other slots  
+* metaData: anything that doesn't align with row or col data    
 
 Fundamentally, the base type defines how an item should be subsetted (see the
-section on subsetting below).
+section on subsetting below).  
 
 ## DGEobj Nomenclature: Items, Types and Base Types  
 
@@ -93,10 +95,10 @@ Multiple instances of a base type are accommodated by defining data "types" and
 "items".  Each data type is assigned a base type (e.g. geneData, GRanges, and
 Fit objects are all "types" of "baseType" = rowData).  
 
-You can generally have multiple instances of each type (exceptions described in
-Unique Items section).  Each instance of a "type" is described as an "item" and
-each item must have an user-defined item name.  The item name must be unique
-within a DGEobj.  
+Importantly, multiple instances of each type are allowed (exceptions described
+in Unique Items section) as long as each instance of a type is named uniquely.
+Each instance of a "type" is described as an "item" and each item must have a
+user-defined item name.  The item name must be unique within a DGEobj.   
 
 ## Unique Items  
 
@@ -141,6 +143,12 @@ stored in a metadata slot.  Metadata slots are carried along without subsetting
 so the original data may always be retrieved from these metadata items.  The
 item names of the original data in the metadata slot have a "_orig" suffix.  
 
+# Building a DGE data object  
+
+A DGEobj is initializes from a set of three data frames containing the counts,
+geneData, and design information (sample annotation).  For the example below, a
+GEO dataset will be downloaded and encapsulated as a DGEobj.  
+
 
 ## Demonstration Dataset: Rat Liver Slice Compound Treatments  
 
@@ -165,10 +173,6 @@ The GEO data includes Ensembl gene ids.  Additional gene information such as
 chromosome positions, type of transcript, etc, will be downloaded from Ensembl
 using the biomaRt package.  
 
-# Working with DGE objects  
-
-You can create a DGEobj from a set of data frames containing the counts,
-geneData, and design information (sample annotation).  
 
 ## Initializing a DGEobj from dataframes  
 
@@ -176,9 +180,7 @@ Three properly formatted data frames are required to initialize a new DGEobj.
 
 1. Counts matrix:  For RNA-Seq, this is typically a genes x samples matrix of
 numbers.  Rownames must be present and contain a unique identifier (e.g. Ensembl
-geneid).  Colnames should be a unique sample identifier. You will also need to
-specify the "level" of your data (allowedLevels = c("gene", "isoform", "exon",
-"proteingroup", "peptide", "ptm", "protein")).  
+geneid).  Colnames should be a unique sample identifier. 
 
 2. Row Data:  Additional annotations for the entities represented by each row.
 For the RNA-Seq case, this dataframe holds associated gene annotation.  The
@@ -190,7 +192,11 @@ table because it typically contains the experimental details of the treatment of
 each sample.  The rownames of ColData must match the colnames of the Counts
 Matrix.  
 
-### Retrieve GEO data for GSE120804
+In addition to these three items, the user must specify the "level" of the data
+(allowedLevels = c("gene", "isoform", "exon", "proteingroup", "peptide", "ptm",
+"protein")).  
+
+### Retrieve GEO data for GSE120804  
 
 This GEO project includes a counts table and design table in the supplemental
 section. The data is downloaded to temp files and imported into data frames to
@@ -223,7 +229,7 @@ unlink(temp)
 
 Often the design table will need some manipulation to construct the columns
 required to support a planned analysis.  Although the design data can be edited
-directly within a DGEobj,  it is recommended to restructure the design table as
+directly within a DGEobj, it is recommended to restructure the design table as
 needed at the onset of the analysis.  
 
 In this example, the design file as downloaded does NOT have a column that
@@ -241,9 +247,9 @@ rownames(design) <- str_sub(design$raw.file, start = 1, end = 21)
 Additional manipulations to the design data include:  
 * renaming a column   
 * create a design$DiseaseStatus column to indicate whether a liver is derived
-from a BDL or sham animal.  
+from a BDL or sham animal  
 * create an animal number column to capture which liver slice samples were
-derived from the same animal.  
+derived from the same animal  
 
 ```{r moreDesignEdits}
 
@@ -261,7 +267,7 @@ design$AnimalNum <- str_match(design$Sample.name, "r[0-9]{1,3}")
 
 ```
 
-## Retrieve Gene Annotation from Ensembl   
+### Retrieve Gene Annotation from Ensembl   
 
 The GEO data for this project only supplied Ensembl gene IDs.  Additional gene
 information will be collected by querying Ensembl directly.  
@@ -289,7 +295,7 @@ rownames(gene.data) <- gene.data$ensembl_gene_id
 
 ```
 
-## Validate Dataframe Relationships
+### Validate Dataframe Relationships  
 
 As mentioned earlier, rownames and column names provide links between the three
 starting data frames.  
@@ -307,7 +313,7 @@ all(colnames(counts) == rownames(design))
 
 ```
 
-## Instantiate the DGEobj  
+### Instantiate the DGEobj  
 
 With the above constraints met, the three data frames can be used to instantiate
 a DGEobj.  In addition the "level" of the data must be specified in the "level"
@@ -372,13 +378,18 @@ TA_Owner=John Huang
 
 
 ```{r annotateFromTextFile}
+
 annotationFile <- system.file("GSE120804_ProjectAttributes.txt", package = "DGEobj", mustWork = TRUE)
 
 dgeObj <- annotateDGEobj(dgeObj, annotationFile)
 
 ```
 
-The DGE object now contains the starting data  and metadata and is analysis-ready.  
+The DGE object now contains the starting data and metadata and is analysis-ready.  
+
+# Examining a DGE object  
+
+## Inventory function  
 
 To view a listing of the items in the DGEobj:  
 
@@ -388,16 +399,15 @@ kable(inventory(dgeObj))
 
 ```
 
+## Examine DGEobj Metadata  
+
 To list the meta data associated with a project:    
 
 ```{r showMetaData}
 
-kable(showMeta(dgeObj))
-
-
-# Test Solution to wrap the text in the second column???
+# print a table; wrap the text in the second column
 kable(showMeta(dgeObj), "latex") %>%
-  kableExtra::column_spec(2, width = "3in")
+  kableExtra::column_spec(2, width = "4in")
 
 ```
 
@@ -406,7 +416,9 @@ kable(showMeta(dgeObj), "latex") %>%
 The length of a DGEobj refers to the number of data items in the DGEobj.   
 
 ```{r length}
+
 length(dgeObj)
+
 ```
 
 The dimensions reported for a DGEobj are the dimensions of the assays contained
@@ -415,8 +427,10 @@ number of genes contained in the object and the column dimension is the number
 of samples contained in the object.  
 
 ```{r dimensions}
+
 dim(dgeObj)
 dim(dgeObj$counts)
+
 ```
 
 ## Rownames and Colnames  
@@ -424,9 +438,11 @@ dim(dgeObj$counts)
 The rownames and colnames of the DGEobj are defined by the first "assay" matrix
 in a DGEobj, typically the counts matrix for RNA-Seq data.  
 
-Note, there is no facility provided to re-assign rownames or colnames of a DGEobj.
-This is because it cannot be guaranteed that an object stored in the DGEobj has
-row/colname assignment support.  
+Note, there is no facility provided to re-assign rownames or colnames of a
+DGEobj. This is because it cannot be guaranteed that an object stored in the
+DGEobj has row/colname assignment support.  Thus, make any adjustments to
+row/colnames before instantiating a DGEobj.  
+
 
 ## Subsetting a DGEobj  
 
@@ -451,38 +467,49 @@ dim(AnotherSubset)
 
 ```
 
-You may also use boolean vectors to subset dimensions of a DGEobj.  
+Bboolean vectors may also be used to subset dimensions of a DGEobj.  
 
 ```{r booleanIndexing}
+
 # select a subset of samples
 idx <- dgeObj$design$DiseaseStatus == "BDL"
 BDLonly <- dgeObj[,idx]
 dim(BDLonly)
+
 ```
 
 ## Inventory of a DGEobj  
 
-The `inventory()` function prints a table of the data items present in a DGEobj.  The output includes the item name, type, baseType, parent, class, and date created.  If the `verbose = TRUE` argument is used, a `funArgs` column is also included.  
+The `inventory()` function prints a table of the data items present in a DGEobj.
+The output includes the item name, type, baseType, parent, class, and date
+created.  If the `verbose = TRUE` argument is used, a `funArgs` column is also
+included.  
 
 ```{r inventory2}
+
 inventory(dgeObj)
+
 ```
 
-If you just need the item names of data stored in the DGEobj, use the base `names()` function.  
+If just the item names of data stored in the DGEobj are needed, use the base R
+`names` function.  
 
 ```{r itemNames}
+
 names(dgeObj)
+
 ```
 
-## Adding Items to a DGEobj
+## Adding Items to a DGEobj  
 
 As an analysis progresses, the data analyst should capture intermediate data
 objects deemed important to properly documenting the workflow.  In the example
-here, a the counts will be normalized and the resulting DGElist data item added
+here, the counts will be normalized and the resulting DGElist data item added
 to the DGEobj.  
 
 
 ```{r addItem}
+
 # Perform TMM normalization on the raw counts
 dgelist <- dgeObj$counts %>%
   DGEList() %>%
@@ -498,30 +525,36 @@ newdgeObj <- addItem(dgeObj,
 )
 
 kable(inventory(newdgeObj))
+
 ```
 
-The item is the actual data object to add.   
+**item** is the actual data object to add.   
 
-The itemName is the user-defined name for that object.   
+**itemName** is the user-defined name for that object.   
 
-The itemType is the predefined type.  To see a list of pre-defined types use the
-function **showTypes(dgeObj)**.  
+**itemType** is the predefined type.  
 
-The value of parent argument is analyst-defined and is particularly important
+**parent** is the name of the item that this object is derived from.  
+
+**funArgs** is a text field intended to documents the processing parameters of a
+given step in the analysis.  
+
+The **parent** argument is analyst-defined and is particularly important
 for a multi-threaded analysis.  For example, if more than one fit is applied to
-the data, the parent argument maintains the thread and unambiguously identify
+the data, the parent argument maintains the thread and unambiguously identifies
 the child objects of each branch in the workflow.  The value assigned to parent
-should be the item name of the parent data object.  
+should be the item name of the parent data object.   
 
 By default `addItem()` will refuse to add an `itemname` that already exists.
 There is an overwrite argument to the `addItem()` function although its use is
-discouraged.   Use the `overwrite = TRUE` argument if it is neccesary to make a
-posthoc change to an item that already exists in the DGEobj.   
+discouraged.   Use the `overwrite = TRUE` argument if it is necessary to make a
+post-hoc change to an item that already exists in the DGEobj.   
 
-### Automating funArgs entries
+
+### Automating funArgs Entries  
 
 If a whole analysis step, together with the addItem call, is contained within a
-function, it becomes easy to automate capture of function arguments.  
+function, it becomes easy to automate capture of function arguments.   
 
 Within a function call,  `match.call()` returns the calling function name and
 arguments.   Modifying the normalization example above:  
@@ -549,151 +582,247 @@ newdgeObj <- runNorm(dgeObj, method="TMM")
 ```
 
 
-
 ### Batch addition of multiple items  
 
-The addItem function is useful to capture each item during the course of an
-analysis.  Another use case is constructing a DGEobj in a posthoc fashion.  In
-this senario, it may be more effcient to collect and add multiple items and the
-addItems option support this senario.
+The addItem function is typically used to capture each item during the course of an
+analysis.  Another use case is constructing a DGEobj in a post-hoc fashion.  In
+this scenario, it may be more efficient to collect and add multiple items.  The
+`addItems` function supports this scenario.  
 
 In this example, add a normalized dgelist and a design matrix to the DGEobj:  
 
+```{r addItems}
+
+# Perform TMM normalization on the raw counts
+dgelist <- dgeObj$counts %>%
+  DGEList() %>%
+  calcNormFactors(method = "TMM")
+  
+# Formula must be composed of column names from the design table.
+formula <- '~ 0 + ReplicateGroup'
+
+# User-defined name for the designMatrix
+designMatrixName <- "ReplicateGroupDesign"
+
+# build the designMatrix
+design <- getItem(dgeObj, "design")
+designMatrix <- model.matrix (as.formula(formula), design)
+#capture the formula as an attribute of the designMatrix
+attr(designMatrix, "formula") <- formula
+
+# Add both the dgelist and designMatrix to the DGEobj
+
+NewDgeObj <- addItems(dgeObj, 
+                     itemList  = list(dgelist=dgelist, ReplicateGroupDesign=designMatrix),
+                     itemTypes = list("DGEList", "designMatrix"),
+                     parents   = list("counts", "design"))
+
 ```
 
-MyDgeObj <- addItems(MyDgeObj, 
-                     itemList  = MyItems,
-                     itemTypes = MyTypes,
-                     parents   = MyParents,
-                     itemAttr  = MyAttributes)
+`itemList` is a named list of the data objects to add.  The names become the
+itemNames of the items in the DGEobj.  
+
+`itemTypes` is a list of the types for each item in `itemList`.  see `showTypes(DGEobj)`.   
+
+`parents` is a list of the parent item names associated with each item in `itemList`.  
+
+`itemAttr` is an optional named list of attributes that will be added to every
+item on the `itemList`.  Note that the DGEobj has attributes and each item
+within the DGEobj can have its own attributes.  Here the attributes are being
+added to the individual items.  
+
+
+## Pre-defined Item Types  
+
+A number of pre-defined item types have been implemented to support the
+limma/voom DGE workflow out of the box.  Additional types to support Affymetrix
+and proteomics analysis are also pre-defined.  
+
+To see a complete list of pre-defined item types use the **showTypes** function.  
+
+```{r showTypes}
+
+kable(arrange(showTypes(dgeObj), BaseType, Type))
+
 ```
 
-`itemList` is a list of the data objects to add.
 
-`itemTypes` is a list of the types for each item in `itemList`.  
+## Adding a New Data Type  
 
-`parents` is a list of the parent item names for each item in `itemList`. 
+The capability to define new data types is core to the extensibility of the
+DGEobj data structure.  
 
-`itemAttr` is an optional named list of attributes that will be added to every item on the `itemList`.  Note that the DGEobj has attributes and each item within the DGEobj can have its own attributes.  Here the attributes are being added to the individual items.
+A set of data types has already been defined based on data types encountered in
+a typical edgeR/Voom workflow.  The `newTypes` function is used to define data
+types to support a novel workflow.  
 
-
-
-## Adding a new data type
-
-A set of data types has already been defined based on data types I encounter in my typical edgeR/Voom workflow.  Certainly, I haven't thought of everything that someone might want to capture.  Therefore, new types can be defined on the fly.
-
-```
-# See predefined data types
-showTypes(MyDgeObj)
+```{r newType}
 
 # Add a new colData datatype called "sampleQC"
-MyDgeObj <- newType(MyDgeObj,
+newDgeObj <- newType(dgeObj,
                     itemType = "sampleQC",
                     baseType = "col",
                     uniqueItem = FALSE)
 
 ```
 
-## Accessing data in a DGEobj
+After executing this call, the newDgeObj now contains the newly defined type
+definition and is ready to accept data items of that type.  
 
-You'll likely need to access various components of the DGEobj as you progress through you work flow.  There are several ways to extract one or more components from the DGEobj for use in your analysis.
 
-### Retrieve a single item
+# Accessing data in a DGEobj  
 
-The `getItem()` function allows you to retrieve any item in a DGEobj by referencing its name. Use the inventory function (described above) to check the contents of the DGEobj.
+Typically an analyst will need to access items stored in the DGEobj as the
+analysis progresses.  Moreover, one of the main benefits of a well defined data
+object is that it facilitates data sharing.  As such, there are several ways to
+extract one or more components from the DGEobj.  
 
-```
-MyCounts <- getItem(MyDgeObj, "counts")
-```
+## Retrieve a single item  
 
-### Retrieve multiple items
+The `getItem()` function allows the user to retrieve any item in a DGEobj by
+referencing its item name. Use the inventory function (described above) to check
+the contents of the DGEobj including the list of item names that are available.  
 
-There are several ways to retrieve multiple items as a list or data objects.
+```{r getItem}
 
-You can supply a list of item names to retrieve specific items.  The items requested are returned in a list.  
-
-```
-MyItems <- getItems(MyDgeObj, list("counts", "geneData"))
-```
-
-If all the items you wish to retrieve are of the same type, you can use the `getType()` function to retrieve them as a list.  For example, you might want to retrieve a set of contrast results present as topTable output.  
-
-```
-MyContrasts <- getType(MyDgeObj, "topTable")
-```
-
-Similarly, you can retrieve all items of the same baseType as a list.
+counts <- getItem(dgeObj, "counts")
+#peek at the first 4 columns
+head(counts[,1:4])
 
 ```
-MyRowData <- getBaseType(MyDgeObj, "row")
-```
 
-Finally, should you need to retrieve all the items in a DGEobj as a simple list, you can recast the DGEobj as a simple list.
+## Retrieve multiple items  
 
-```
-MyList <- as.list(MyDgeObj)
-```
+There are several ways to retrieve multiple items as a list or data objects.  
 
-## Ancillary Functions  
+The user can supply a list of item names to retrieve specific items.  The items
+requested are returned in a list.  
 
-### Function showTypes()
+```{r getItems}
 
-Shows all the pre-defined types in a DGEobj.  This shows all types, whether or not the DGEobj contains data associated with a given type.
+MyItems <- getItems(dgeObj, list("counts", "geneData"))
 
 ```
-showTypes(MyDgeObj)
-```
 
-### Function baseType()
+If all the items the user wants to retrieve are of the same type, the `getType`
+function may be used to retrieve them as a named list.  For example, an analyst may want to
+retrieve a set of contrast results stored as topTable output.  
 
-Returns the baseType for a given Type
 
-```
-baseType(MyDgeObj, "DGEList")
-```
+```{r getType}
+# ***JRT: Replace with script to download and run the workflow to generate a fully populated DGEobj.
+#  How will this work?  Will the script run at package install?
 
-### Function getAttribute() and getAttributes()
-
-These are for retrieving attributes from an individual item.  So far, the only place where I've used attributes attached to an item (as opposed to the DGEobj itself) is the design matrix.  In my work flow I attach the formula as an attribute of the design matrix.
-
-```
-getAttribute(MyDgeObj$designMatrix, "formula")
-```
-
-If an item had multiple attributes, you could retrieve the list of attributes with `getAttributes()`.  `getAttributes()` by default excludes common attributes including dim and dimnames which already have base functions for accessing.
-
-### Function getItemAttributes()
-
-This function will retrieve a requested attribute from all items in a DGEobj, returned as a list.
+# Retrieve a DGEobj with a complete workflow
+fullWorkflow <- readRDS(system.file("fullWorkflow_dgeobj.RDS", package = "DGEobj", mustWork = TRUE))
+MyContrasts <- getType(fullWorkflow, "topTable")
+names(MyContrasts)
 
 ```
-getItemAttribute(MyDgeObj, "attributeName")
-```
 
-### Function rmItem()
+Similarly, all items of the same baseType may be retrieved as a named list with the
+getBaseType function.  
 
-For the most part, you'll be collecting and adding new objects to a DGEobj in the course of an analysis.  The `rmItem()` function is added for the case  where you might need to delete a particular item.  
+```{r getBaseType}
 
-To delete an item from a DGEobj:
-
-```
-MyDgeObj <- rmItem(MyDgeObj, "itemName")
-```
-
-### Function setAttributes()
-
-You can add attributes to an item with the `addItem()` function.  This function provides an alternate mechanism to add attributes to an item which would typically be done before adding the item to a DGEobj.
+MyColData <- getBaseType(fullWorkflow, "col")
+names(MyColData)
 
 ```
-MyItem <- setAttributes(MyItem, list(date=date(), analyst="JRT"))
+
+Finally, the DGEobj can be recast as a named list.  
+
+```{r as.list}
+
+MyList <- as.list(dgeObj)
+class(MyList)
+names(MyList)
+
 ```
 
-### Function showMeta()
+# Ancillary Functions   
 
-This function is intended to return any project oriented attributes assigned to the DGEobj using function `annotateDGEobj()`.  It returns the attributes as a two column dataframe of Attribute/Value pairs.
+## Function baseType  
+
+Returns the baseType for a given Type:  
+
+```{r baseType}
+
+baseType(dgeObj, "DGEList")
 
 ```
-MyAnnotation <- showMeta(MyDgeObj)
+
+
+## Querying Metadata Stored in Attributes   
+
+Certain metadata about a project can be stored in the attributes of the DGEobj.
+Similarly, each item deposited in a DGEobj can have it's own set of attributes.
+Both of these types of attributes can be easily accessed with the base R `attr`
+function.  
+
+The `showMeta` function will return a named list of all attributes of a DGEobj.  
+
+To retrieve a specific attribute:  
+
+```{r specificAttribute}
+
+keywords <- attr(dgeObj, "Keywords")
+
+```
+
+To retrieve an attribute from an item, use dollar sign syntax to reference the item:  
+
+```{r attributeFromItem}
+
+formula <- attr(fullWorkflow$ReplicateGroupDesign, "formula")
+
+```
+
+## Function rmItem  
+
+For common workflow usage, the DGEobj should be considered read-only.  Items are
+added during the workflow and should not be modified further.  Thus, under the
+normal intended usage, no items should be removed.  Although, its use is
+discouraged, for completeness, a  `rmItem` function exists.  
+
+To delete an item from a DGEobj:  
+
+```{r rmItem}
+
+MyDgeObj <- rmItem(dgeObj, "granges")
+
+```
+
+## Function setAttributes  
+
+To add or update a single attribute, use the base R`attr` function:  
+
+```{assignAttribute}
+
+attr(dgeObj, "Tissue")  <- "Liver"
+
+```
+
+The `setAttributes` function allows attaching a named list of attributes.
+Unlike the base R attributes function, setAttributes will add or update the
+named attributes without deleting any existing attributes.  
+
+```{r setAttributes}
+
+newDgeObj <- setAttributes(dgeObj, list(date=date(), analyst="JRT"))
+
+```
+
+## Function showMeta  
+
+This function is intended to return any project oriented attributes assigned to
+the DGEobj using function `annotateDGEobj()`.  It returns the attributes as a
+two column dataframe of Attribute/Value pairs.  
+
+```{r showMeta}
+
+MyAnnotation <- showMeta(dgeObj)
+
 ```
 
 

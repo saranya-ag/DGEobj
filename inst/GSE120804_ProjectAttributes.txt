@@ -4,7 +4,6 @@
 level=gene
 source=https://github.com/cb4ds/DGEobj/blob/master/vignettes/DGEobj_Overview.Rmd
 ID=BDL_Rat_LiverSlice_03Dec2017
-BMS_PID=P-20170808-0001
 Title=Rat Liver Slices from Bile Duct Ligation animals
 Organism=Rat
 GeneModel=Ensembl.R89

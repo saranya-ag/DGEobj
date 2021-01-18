@@ -155,11 +155,14 @@ addItem <- function(dgeObj,
 #' Add multiple data items
 #'
 #' @param dgeObj    A DGEobj
-#' @param itemList  A list of data items to add to DGEobj
+#' @param itemList  A named list of data items to add to DGEobj
 #' @param itemTypes A list of type values for each item on itemList
-#' @param parents   (optional) A list of parent values for each item on itemList (optional, but highly recommended)
-#' @param itemAttr  (optional) An named list of attributes to add to each item
-#' @param overwrite Whether to overwrite a matching data object stored in the itemName slot (default = FALSE)
+#' @param parents   (optional) A list of parent values for each item on itemList
+#'   (optional, but highly recommended)
+#' @param itemAttr  (optional) An named list of attributes to add to each item.
+#'   These attributes will be attached to all items in the call.
+#' @param overwrite Whether to overwrite a matching data object stored in the
+#'   itemName slot (default = FALSE)
 #'
 #' @return A DGEobj
 #'
@@ -189,6 +192,8 @@ addItems <- function(dgeObj,
                             msg = "The DGEobj must be of class DGEobj, while the itemList and itemTypes must both be lists.")
     assertthat::assert_that(length(itemList) == length(itemTypes),
                             msg = "The length of the itemList must match the length of the itemTypes.")
+    assertthat::assert_that(!is.null(names(itemList)),
+                            msg = "The itemList must be a named list.")
 
     if (!missing(parents))
         assertthat::assert_that(class(parents)[[1]] == "list",
