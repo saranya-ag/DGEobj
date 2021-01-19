@@ -1,5 +1,5 @@
 ---
-title: 'DGEobj: An S3 Object to Capture DGE Workflows'
+title: 'DGEobj: An S3 Object to Capture and Annotate DGE Workflows'
 author: "John R. Thompson"
 date: "`r Sys.Date()`"
 output:
@@ -225,12 +225,13 @@ unlink(temp)
 
 ```
 
-### Edit/Parse the Design Table  
+### Prepare the Design Table  
 
-Often the design table will need some manipulation to construct the columns
-required to support a planned analysis.  Although the design data can be edited
-directly within a DGEobj, it is recommended to restructure the design table as
-needed at the onset of the analysis.  
+Often the design table will need some manipulation or clean up to properly
+construct the columns required to support a planned analysis and also to meet the
+design constraints required for the DGEobj.  Although the design data can be
+edited directly within a DGEobj, it is recommended to restructure the design
+table as needed at the onset of the analysis.  
 
 In this example, the design file as downloaded does NOT have a column that
 matches the colnames column of the counts file. However, the colnames from
@@ -295,6 +296,8 @@ rownames(gene.data) <- gene.data$ensembl_gene_id
 
 ```
 
+\newpage  
+
 ### Validate Dataframe Relationships  
 
 As mentioned earlier, rownames and column names provide links between the three
@@ -341,41 +344,48 @@ to capture important experiment metadata.
 
 The annotation file for this project looks like this:  
 
+\hrulefill
+
+\footnotesize
+
 ```
-# Some basic metadata about the project
-level=gene
-source=https://github.com/cb4ds/DGEobj/blob/master/vignettes/DGEobj_Overview.Rmd
-ID=BDL_Rat_LiverSlice_03Dec2017
-BMS_PID=P-20170808-0001
-Title=Rat Liver Slices from Bile Duct Ligation animals
-Organism=Rat
-GeneModel=Ensembl.R89
-PlatformType=RNA-Seq
-Description=Rat livers slices from sham or BDL +/- efficacious treatments incubated in vitro
-Keywords=Liver slices; Bile Duct Ligation
-Disease=Liver Fibrosis
-Tissue=Liver
-GEO=GSE120804
-
-# additional descriptive attributes 
-
-Technology=Illumina-HiSeq
-LibraryPrep=TruSeq Stranded Total RNA 
-AlignmentReference=Rat.B6.0
-ReadType=PE
-Pipeline=RNA-Seq_BMS_v2.4.pscript
-AlignmentAlgorithm=OSA
-ScriptID=RNA-Seq_BMS_v2.4.pscript
-
-# Institutional attributes
-
-BusinessUnit=Discovery
-FunctionalArea=Fibrosis
-Vendor=BMS
-TBio_Owner=Ron Ammar
-TA_Owner=John Huang
+  # Some basic metadata about the project
+  level=gene
+  source=https://github.com/cb4ds/DGEobj/blob/master/vignettes/DGEobj_Overview.Rmd
+  ID=BDL_Rat_LiverSlice_03Dec2017
+  BMS_PID=P-20170808-0001
+  Title=Rat Liver Slices from Bile Duct Ligation animals
+  Organism=Rat
+  GeneModel=Ensembl.R89
+  PlatformType=RNA-Seq
+  Description=Rat livers slices from sham or BDL +/- efficacious treatments incubated in vitro
+  Keywords=Liver slices; Bile Duct Ligation
+  Disease=Liver Fibrosis
+  Tissue=Liver
+  GEO=GSE120804
+  
+  # additional descriptive attributes 
+  
+  Technology=Illumina-HiSeq
+  LibraryPrep=TruSeq Stranded Total RNA 
+  AlignmentReference=Rat.B6.0
+  ReadType=PE
+  Pipeline=RNA-Seq_BMS_v2.4.pscript
+  AlignmentAlgorithm=OSA
+  ScriptID=RNA-Seq_BMS_v2.4.pscript
+  
+  # Institutional attributes
+  
+  BusinessUnit=Discovery
+  FunctionalArea=Fibrosis
+  Vendor=BMS
+  TBio_Owner=Ron Ammar
+  TA_Owner=John Huang
 ```
 
+\hrulefill
+
+\normalsize
 
 ```{r annotateFromTextFile}
 
@@ -398,10 +408,11 @@ To view a listing of the items in the DGEobj:
 kable(inventory(dgeObj))
 
 ```
+\newpage 
 
 ## Examine DGEobj Metadata  
 
-To list the meta data associated with a project:    
+Use the `showMeta` function to list the meta data associated with a project.    
 
 ```{r showMetaData}
 
@@ -410,6 +421,8 @@ kable(showMeta(dgeObj), "latex") %>%
   kableExtra::column_spec(2, width = "4in")
 
 ```
+
+\newpage
 
 ## DGEobj Length and Dimensions  
 
@@ -480,14 +493,14 @@ dim(BDLonly)
 
 ## Inventory of a DGEobj  
 
-The `inventory()` function prints a table of the data items present in a DGEobj.
+The `inventory` function prints a table of the data items present in a DGEobj.
 The output includes the item name, type, baseType, parent, class, and date
 created.  If the `verbose = TRUE` argument is used, a `funArgs` column is also
 included.  
 
 ```{r inventory2}
 
-inventory(dgeObj)
+kable(inventory(dgeObj))
 
 ```
 
@@ -545,8 +558,8 @@ the data, the parent argument maintains the thread and unambiguously identifies
 the child objects of each branch in the workflow.  The value assigned to parent
 should be the item name of the parent data object.   
 
-By default `addItem()` will refuse to add an `itemname` that already exists.
-There is an overwrite argument to the `addItem()` function although its use is
+By default `addItem` will refuse to add an `itemname` that already exists.
+There is an overwrite argument to the `addItem` function although its use is
 discouraged.   Use the `overwrite = TRUE` argument if it is necessary to make a
 post-hoc change to an item that already exists in the DGEobj.   
 
@@ -556,7 +569,7 @@ post-hoc change to an item that already exists in the DGEobj.
 If a whole analysis step, together with the addItem call, is contained within a
 function, it becomes easy to automate capture of function arguments.   
 
-Within a function call,  `match.call()` returns the calling function name and
+Within a function call,  `match.call` returns the calling function name and
 arguments.   Modifying the normalization example above:  
 
 ```{r addItemFunctionalized}
@@ -679,7 +692,7 @@ extract one or more components from the DGEobj.
 
 ## Retrieve a single item  
 
-The `getItem()` function allows the user to retrieve any item in a DGEobj by
+The `getItem` function allows the user to retrieve any item in a DGEobj by
 referencing its item name. Use the inventory function (described above) to check
 the contents of the DGEobj including the list of item names that are available.  
 
@@ -710,12 +723,11 @@ retrieve a set of contrast results stored as topTable output.
 
 
 ```{r getType}
-# ***JRT: Replace with script to download and run the workflow to generate a fully populated DGEobj.
-#  How will this work?  Will the script run at package install?
 
-# Retrieve a DGEobj with a complete workflow
-fullWorkflow <- readRDS(system.file("fullWorkflow_dgeobj.RDS", package = "DGEobj", mustWork = TRUE))
-MyContrasts <- getType(fullWorkflow, "topTable")
+# complete limma/voom workflow to obtain multiple contrasts for this example.
+source ("FinishExampleWorkflow.R")
+
+MyContrasts <- getType(FullWorkflowDGEobj, "topTable")
 names(MyContrasts)
 
 ```
@@ -725,7 +737,7 @@ getBaseType function.
 
 ```{r getBaseType}
 
-MyColData <- getBaseType(fullWorkflow, "col")
+MyColData <- getBaseType(FullWorkflowDGEobj, "col")
 names(MyColData)
 
 ```
@@ -774,7 +786,7 @@ To retrieve an attribute from an item, use dollar sign syntax to reference the i
 
 ```{r attributeFromItem}
 
-formula <- attr(fullWorkflow$ReplicateGroupDesign, "formula")
+formula <- attr(FullWorkflowDGEobj$ReplicateGroupDesign, "formula")
 
 ```
 
@@ -816,13 +828,21 @@ newDgeObj <- setAttributes(dgeObj, list(date=date(), analyst="JRT"))
 ## Function showMeta  
 
 This function is intended to return any project oriented attributes assigned to
-the DGEobj using function `annotateDGEobj()`.  It returns the attributes as a
+the DGEobj using function `annotateDGEobj`.  It returns the attributes as a
 two column dataframe of Attribute/Value pairs.  
 
 ```{r showMeta}
 
-MyAnnotation <- showMeta(dgeObj)
+MyMetadata <- kable(showMeta(dgeObj), "latex") %>%
+  kableExtra::column_spec(2, width = "4in")
 
 ```
 
+# Session Info
+
+```{r sessionIfno}
+
+sessionInfo()
+
+```
 
