@@ -57,7 +57,6 @@ baseTypes <- function(dgeObj){
 #' Returns and prints the list of all defined types
 #'
 #' @param dgeObj  A DGEobj
-#' @param printed Whether to print the list (default = TRUE)
 #'
 #' @return data.frame
 #'
@@ -71,7 +70,7 @@ baseTypes <- function(dgeObj){
 #' @importFrom assertthat assert_that
 #'
 #' @export
-showTypes <- function(dgeObj, printed = TRUE){
+showTypes <- function(dgeObj){
 
     assertthat::assert_that(class(dgeObj) == "DGEobj",
                             msg = "The DGEobj must be of class 'DGEobj'.")
@@ -80,10 +79,8 @@ showTypes <- function(dgeObj, printed = TRUE){
     df$type <- rownames(df)
     colnames(df) <- c("BaseType", "Type")
     df <- df[, c("Type", "BaseType")]
-    if (printed) {
-        print(df)
-    }
-    df
+
+    return(df)
 }
 
 
