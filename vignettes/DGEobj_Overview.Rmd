@@ -133,7 +133,7 @@ item carries a parent attribute that holds the item name of the parent data item
 this way, for example, a topTable item can be linked to the contrast fit that
 produced it.  
 
-## Original Data  
+## Preserving the Original Data  
 
 In the course of a workflow an analyst will often need to subset the DGEobj
 based on low signal or other characteristics.   However, a downstream analyst

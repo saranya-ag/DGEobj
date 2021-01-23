@@ -5,7 +5,9 @@
 #' *Note* Use showMeta() to only retrieve attributes that are key/value pairs.
 #'
 #' @param dgeObj    A DGEobj
-#' @param skipList  A character vector of attributes to skip. Use this to avoid printing certain lengthy attributes like rownames.  Defaults to c("dim", "dimnames", "rownames", "colnames", "listData", "objDef")
+#' @param skipList  A character vector of attributes to skip. Use this to avoid
+#'   printing certain lengthy attributes like rownames.  Defaults to c("dim",
+#'   "dimnames", "rownames", "colnames", "listData", "objDef")
 #'
 #' @examples
 #'     # example DGEobj

@@ -1,13 +1,12 @@
 #' Add annotations
 #'
-#' Reads an annotation file of key/value pairs or a named list and attaches them
+#' Reads an annotation file containg key/value pairs or a named list and attaches them
 #' attributes to a DGEobj. If a file is used, it should be a text file
-#' containing key/value pairs separated by an equals sign. The keys parameter
-#' specifies which key we want to capture as attributes on the DGEobj. The value
-#' will then be the value of that attribute.
+#' containing key/value pairs separated by an equals sign. The keys argument
+#' specifies which keys we want to capture as attributes on the DGEobj.
 #'
 #' @param dgeObj  A object of class DGEobj created by function initDGEobj()
-#' @param annotations Either A character string path to a file with annotations
+#' @param annotations Either a character string path to a file with annotations
 #'   given as key/value pairs separated by an equal sign, or a named list of
 #'   key/value pairs
 #' @param keys By default (value = NULL), all keys are read in and applied as
@@ -20,6 +19,7 @@
 #'
 #'    MyDgeObj <- system.file("exampleObj.RDS", package = "DGEobj", mustWork = TRUE)
 #'    annotationFile <- system.file("GSE120804_ProjectAttributes.txt", package = "DGEobj", mustWork = TRUE)
+#'
 #'    MyDgeObj <- annotateDGEobj(MyDgeObj, annotationFile)
 #'
 #' @import magrittr
