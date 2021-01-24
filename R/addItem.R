@@ -168,10 +168,9 @@ addItem <- function(dgeObj,
 #'
 #' @examples
 #'
-#'    # Add normalize counts (DGEList) and log2CPM as additional
-#'    "assay" items in the DGEobj
-#'    dgeObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj", mustWork = TRUE))
-#'    dgeList <- edgeR::calcNormFactors(DGEList(dgeObj$counts), method="TMM")
+#'    # Add normalize counts (DGEList) and log2CPM as additional "assay" items in the DGEobj
+#'    dgeObj  <- readRDS(system.file("exampleObj.RDS", package = "DGEobj", mustWork = TRUE))
+#'    dgeList <- edgeR::calcNormFactors(edgeR::DGEList(dgeObj$counts), method="TMM")
 #'    log2cpm <- edgeR::cpm(dgeList, log = TRUE)
 #'
 #'    dgeObj <- addItems(dgeObj,
