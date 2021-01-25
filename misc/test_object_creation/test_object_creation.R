@@ -12,14 +12,24 @@ suppressPackageStartupMessages({
 
 
 # utility to run the workflow to create the example objects
-dge_creation_workflow <- function(counts, gene.data, design, contrast_list, annotation_file) {
+dge_creation_workflow <- function(counts, gene.data, design, contrast_list, annotation_file, limit_genes = NULL) {
     result <- initDGEobj(counts, gene.data, design, level = "gene")
-    result <- annotateDGEobj(result, annotation_file)
 
     # Low intensity Filtering
     result <- lowIntFilter(result,
                            countThreshold = 10,
                            sampleFraction = 0.5)
+
+    # Gene Limitation
+    if (!is.null(limit_genes)) {
+        keep.genes <- sample(rownames(result$counts), size = limit_genes)
+        result <- initDGEobj(counts[rownames(counts) %in% keep.genes, ],
+                             gene.data[gene.data$ensembl_gene_id %in% keep.genes,],
+                             design, level = "gene")
+    }
+
+    # Annotations
+    result <- annotateDGEobj(result, annotation_file)
 
     # Protein Coding Filtering
     result <- result[result$geneData$gene_biotype == "protein_coding", ]
@@ -110,10 +120,5 @@ contrast_list  <- list(BDL_vs_Sham = "ReplicateGroupBDL - ReplicateGroupSham",
 full.dge <- dge_creation_workflow(counts, gene.data, design, contrast_list, annotatFile)
 saveRDS(full.dge, "fullObj.RDS")
 
-# subset for package example
-keep_genes   <- 1500
-sm.counts    <- counts[sample(1:NROW(counts), size = keep_genes), ]
-sm.gene.data <- gene.data[rownames(sm.counts), ]
-
-sm.dge <- dge_creation_workflow(sm.counts, sm.gene.data, design, contrast_list, annotatFile)
+sm.dge <- dge_creation_workflow(counts, gene.data, design, contrast_list, annotatFile, limit_genes = 1000)
 saveRDS(sm.dge, 'exampleObj.RDS')

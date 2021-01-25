@@ -18,7 +18,7 @@ test_that('types.R: baseTypes()', {
 })
 
 test_that('types.R: showTypes()', {
-    showTypes_t_obj <- showTypes(t_obj, printed = FALSE)
+    showTypes_t_obj <- showTypes(t_obj)
     expect_s3_class(showTypes_t_obj, "data.frame")
     expect_equal(dim(showTypes_t_obj), c(49, 2))
 })
