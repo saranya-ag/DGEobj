@@ -21,7 +21,7 @@
 #'
 #' @examples
 #'
-#'    dgeObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj", mustWork = TRUE))
+#'    dgeObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
 #'    MyCounts <- dgeObj$counts
 #'    geneinfo <- dgeObj$geneData
 #'    sampinfo <- dgeObj$design

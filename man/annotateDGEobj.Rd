@@ -28,8 +28,8 @@ specifies which keys we want to capture as attributes on the DGEobj.
 }
 \examples{
 
-   MyDgeObj <- system.file("exampleObj.RDS", package = "DGEobj", mustWork = TRUE)
-   annotationFile <- system.file("GSE120804_ProjectAttributes.txt", package = "DGEobj", mustWork = TRUE)
+   MyDgeObj <- system.file("exampleObj.RDS", package = "DGEobj")
+   annotationFile <- system.file("GSE120804_ProjectAttributes.txt", package = "DGEobj")
 
    MyDgeObj <- annotateDGEobj(MyDgeObj, annotationFile)
 

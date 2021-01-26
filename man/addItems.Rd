@@ -31,12 +31,12 @@ Add multiple data items
 \examples{
 
    # Add normalize counts (DGEList) and log2CPM as additional "assay" items in the DGEobj
-   dgeObj  <- readRDS(system.file("exampleObj.RDS", package = "DGEobj", mustWork = TRUE))
+   dgeObj  <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
    dgeList <- edgeR::calcNormFactors(edgeR::DGEList(dgeObj$counts), method="TMM")
    log2cpm <- edgeR::cpm(dgeList, log = TRUE)
 
    dgeObj <- addItems(dgeObj,
-                      itemlist = list(newDgelist = dgeList, LogeCPM = log2cpm),
+                      itemList = list(newDgelist = dgeList, LogeCPM = log2cpm),
                       itemTypes = list("assay", "assay"),
                       parents = list("counts", "newDgelist")
    )
