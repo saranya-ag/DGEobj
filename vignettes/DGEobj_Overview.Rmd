@@ -158,7 +158,7 @@ This GEO project includes a counts table and design table in the supplemental se
 
 # Get the raw counts and sample annotation ("design") from GEO
 # Source: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120804
-getLocation <- "ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE120nnn/GSE120804/suppl"
+getLocation <- "http://ftp.ncbi.nlm.nih.gov/geo/series/GSE120nnn/GSE120804/suppl"
 countsFile  <- "GSE120804_counts.txt.gz"
 designFile  <- "GSE120804_geo_sample_annotation_edit.csv.gz"
 
