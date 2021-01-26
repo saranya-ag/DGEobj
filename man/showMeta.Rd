@@ -4,12 +4,10 @@
 \alias{showMeta}
 \title{Retrieve the Key/Value metadata attributes}
 \usage{
-showMeta(dgeObj, printed = TRUE)
+showMeta(dgeObj)
 }
 \arguments{
 \item{dgeObj}{A DGEobj with attributes}
-
-\item{printed}{Whether to print the list (default = TRUE)}
 }
 \value{
 A data.frame with "Attribute" and "Value" columns

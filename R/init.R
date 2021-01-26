@@ -1,25 +1,37 @@
 #' Initialize with base data (counts, gene annotations, sample annotations)
 #'
-#' @param counts               A count matrix or dataframe with row and colnames
-#' @param rowData              Gene, isoform or exon level annotation. Rownames must match the rownames in count matrix
-#' @param colData              A dataframe describing the experiment design. Rownames much match the colnames(counts)
+#' @param counts               A count matrix or dataframe with row and
+#'   colnames. Each column represents a sample.  Each row represents and asssy
+#'   (gene).
+#' @param rowData              Gene, isoform or exon level annotation. Rownames
+#'   must match the rownames in count matrix
+#' @param colData              A dataframe describing the experiment design.
+#'   Rownames much match the colnames(counts)
 #' @param level                One of "gene", "isoform", or "exon"
 #' @param customAttr           (optional) Named list of attributes
-#' @param allowShortSampleIDs  Using sequential integer rownames (even if typed as character) is discouraged and by default will abort the DGEobj creation. If you have a legitimate need to have short sample names composed of numeric characters, you can set this argument to TRUE (default = FALSE)
-#' @param DGEobjDef            An object definition. Defaults to the global DGEobj definition (.DGEobjDef) and you usually shouldn't change this unless you're customizing the object for new data types.
+#' @param allowShortSampleIDs  Using sequential integer rownames (even if typed
+#'   as character) is discouraged and by default will abort the DGEobj creation.
+#'   If you have a legitimate need to have short sample names composed of
+#'   numeric characters, you can set this argument to TRUE (default = FALSE)
+#' @param DGEobjDef            An object definition. Defaults to the global
+#'   DGEobj definition (.DGEobjDef) and you usually shouldn't change this unless
+#'   you're customizing the object for new data types.
 #'
 #' @return A DGEobj
 #'
 #' @examples
-#' \dontrun{
-#'    # Initialize a DGEobj
-#'    myDgeObj <- initDGEobj(counts = MyCounts,
-#'                           rowData = MyGeneAnnotation,
-#'                           colData = MyDesign,
-#'                           level = "gene",
-#'                           customAttr = list (Genome = "Mouse.B38",
-#'                                              GeneModel = "Ensembl.R84"))
-#' }
+#'
+#'    dgeObj <- readRDS(system.file("exampleObj.RDS", package = "DGEobj"))
+#'    MyCounts <- dgeObj$counts
+#'    geneinfo <- dgeObj$geneData
+#'    sampinfo <- dgeObj$design
+#'
+#'   myDgeObj <- initDGEobj(counts = MyCounts,
+#'                          rowData = geneinfo,
+#'                          colData = sampinfo,
+#'                          level = "gene",
+#'                          customAttr = list (Genome = "Rat.B6.0",
+#'                                             GeneModel = "Ensembl.R89"))
 #'
 #' @import magrittr
 #' @importFrom GenomicRanges GRanges

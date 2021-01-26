@@ -1,19 +1,81 @@
-setwd("misc/test_object_creation")
+try({setwd("misc/test_object_creation")})
 
-library(assertthat)
-library(biomaRt)
-library(dplyr)
-library(glue)
-library(stringr)
+suppressPackageStartupMessages({
+    library(assertthat)
+    library(biomaRt)
+    library(dplyr)
+    library(glue)
+    library(stringr)
+    library(DGEobj)
+    library(DGEobj.utils) #utilized to run workflow
+})
 
-library(DGEobj)
-library(DGE.Tools2)
 
-# Source: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120804
+# utility to run the workflow to create the example objects
+dge_creation_workflow <- function(counts, gene.data, design, contrast_list, annotation_file, limit_genes = NULL) {
+    result <- initDGEobj(counts, gene.data, design, level = "gene")
+
+    # Low intensity Filtering
+    result <- lowIntFilter(result,
+                           countThreshold = 10,
+                           sampleFraction = 0.5)
+
+    # Gene Limitation
+    if (!is.null(limit_genes)) {
+        keep.genes <- sample(rownames(result$counts), size = limit_genes)
+        result <- initDGEobj(counts[rownames(counts) %in% keep.genes, ],
+                             gene.data[gene.data$ensembl_gene_id %in% keep.genes,],
+                             design, level = "gene")
+    }
+
+    # Annotations
+    result <- annotateDGEobj(result, annotation_file)
+
+    # Protein Coding Filtering
+    result <- result[result$geneData$gene_biotype == "protein_coding", ]
+
+    # Normalize
+    result <- runEdgeRNorm(result, plotFile = FALSE)
+
+    # Define Model
+    formula          <- '~ 0 + ReplicateGroup'
+    designMatrixName <- "ReplicateGroupDesign"
+
+    designMatrix <- model.matrix(as.formula(formula),
+                                 getItem(result, "design"))
+    attr(designMatrix, "formula") <- formula
+    colnames(designMatrix) <- make.names(colnames(designMatrix))
+
+    result <- addItem(result,
+                      item      = designMatrix,
+                      itemName  = designMatrixName,
+                      itemType  = "designMatrix",
+                      parent    = "design",
+                      overwrite = TRUE)
+
+    # runVoom
+    result <- runVoom(result,
+                      designMatrixName = designMatrixName,
+                      mvPlot = FALSE)
+
+    # runContrasts
+    result <- runContrasts(result,
+                           designMatrixName = designMatrixName,
+                           contrastList     = contrast_list,
+                           qValue = TRUE,
+                           IHW    = TRUE)
+
+    result
+}
+
+
+## Get the source data
+## Source: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120804
 getLocation <- "ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE120nnn/GSE120804/suppl"
 
 countsFile <- "GSE120804_counts.txt.gz"
 designFile <- "GSE120804_geo_sample_annotation_edit.csv.gz"
+annotatFile <- "data/GSE120804_metadata.txt"
 
 # acquire raw data
 download.file(glue("{getLocation}/{countsFile}"),
@@ -22,7 +84,7 @@ download.file(glue("{getLocation}/{countsFile}"),
 counts <- read.delim(glue("data/{countsFile}"), stringsAsFactors = FALSE, row.names = 1)
 
 download.file(glue("{getLocation}/{designFile}"),
-              destfile = designFile,
+              destfile = glue("data/{designFile}"),
               mode = 'wb')
 design <- read.csv(glue("data/{designFile}"), stringsAsFactors = FALSE)  %>%
     rename(ReplicateGroup = Replicate.group)
@@ -47,24 +109,16 @@ gene.data <- left_join(data.frame(ensembl_gene_id = rownames(counts), stringsAsF
                               TRUE         ~ "*"))
 rownames(gene.data) <- gene.data$ensembl_gene_id
 
-# Create Full DGEobj
-my.dge <- initDGEobj(counts, gene.data, design, level = "gene")
-my.dge <- annotateDGEobj(my.dge, annotations = "data/GSE120804_metadata.txt")
-saveRDS(my.dge, 'testObj1.RDS')
+contrast_list  <- list(BDL_vs_Sham = "ReplicateGroupBDL - ReplicateGroupSham",
+                       EXT1024_vs_BDL = "ReplicateGroupBDL_EXT.1024  - ReplicateGroupBDL",
+                       Nint_vs_BDL = "ReplicateGroupBDL_Nint - ReplicateGroupBDL",
+                       Sora_vs_BDL = "ReplicateGroupBDL_Sora - ReplicateGroupBDL"
+)
 
-# Create a small DGEobj for package inclusion
-sm.counts <- counts[sample(1:NROW(counts), size = 1000), ]
-sm.genes  <- gene.data[rownames(sm.counts), ]
-sm.dge    <- initDGEobj(sm.counts, sm.genes, design, level = "gene")
-sm.dge    <- annotateDGEobj(sm.dge, annotations = "data/GSE120804_metadata.txt")
+
+# full size
+full.dge <- dge_creation_workflow(counts, gene.data, design, contrast_list, annotatFile)
+saveRDS(full.dge, "fullObj.RDS")
+
+sm.dge <- dge_creation_workflow(counts, gene.data, design, contrast_list, annotatFile, limit_genes = 1000)
 saveRDS(sm.dge, 'exampleObj.RDS')
-
-# # Low intensity Filtering
-#
-# fracThreshold <- 0.5
-#
-# # Low expression filter
-# dgeObj <- lowIntFilter(dgeObj,
-#                        fpkThreshold = 5,
-#                        countThreshold = 10,
-#                        sampleFraction = fracThreshold)

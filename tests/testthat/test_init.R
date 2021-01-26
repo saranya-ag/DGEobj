@@ -51,7 +51,9 @@ test_that('init.R: initDGEobj()', {
     expect_type(attributes(t_obj), "list")
 
     # checking names and dimensions
-    expect_setequal(names(t_obj), c("counts_orig", "counts", "design_orig", "design", "geneData_orig", "geneData", "granges_orig", "granges"))
+    expect_setequal(names(t_obj), c("counts_orig", "counts", "design_orig", "design", "geneData_orig", "geneData", "granges_orig", "granges", "DGEList",
+                                    "ReplicateGroupDesign", "ReplicateGroupDesign_Elist", "ReplicateGroupDesign_fit", "ReplicateGroupDesign_fit_cm", "ReplicateGroupDesign_fit_cf",
+                                    "BDL_vs_Sham", "EXT1024_vs_BDL", "Nint_vs_BDL", "Sora_vs_BDL"))
     expect_equal(dim(t_obj), t_dim)
 
     # verifying missing value errors
