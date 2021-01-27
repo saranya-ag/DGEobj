@@ -140,6 +140,8 @@ getAttributes <- function(dgeObj,
 #' @export
 showMeta <- function(dgeObj) {
 
+    alist <- attributes(obj)
+
     idx <- lengths(alist) == 1 & vapply(alist, is.character, logical(1))
 
     if (sum(idx) > 0) {
