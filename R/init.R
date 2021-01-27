@@ -14,7 +14,7 @@
 #'   If you have a legitimate need to have short sample names composed of
 #'   numeric characters, you can set this argument to TRUE (default = FALSE)
 #' @param DGEobjDef            An object definition. Defaults to the global
-#'   DGEobj definition (.DGEobjDef) and you usually shouldn't change this unless
+#'   DGEobj definition (initDGEobjDef()) and you usually shouldn't change this unless
 #'   you're customizing the object for new data types.
 #'
 #' @return A DGEobj
@@ -44,7 +44,7 @@ initDGEobj <- function(counts,
                        level,
                        customAttr,
                        allowShortSampleIDs = FALSE,
-                       DGEobjDef = .DGEobjDef
+                       DGEobjDef = initDGEobjDef()
 ) {
 
     assertthat::assert_that(!missing(counts),
@@ -205,3 +205,70 @@ initDGEobj <- function(counts,
 
     return(dgeObj)
 }
+
+
+#' Instantiate a class DGEobjDef object.
+#'
+#' @param types                A named character vector of new types where the values indicate the basetype (optional)
+#' @param levels               A name or vector of names for new levels (optional)
+#' @param uniqueTypes          A name or vector of names to add to the uniqueType list (optional)
+#'
+#' @return A class DGEobjDef object suitable for use with initDGEobj
+#'
+#' @examples
+#'     # return the default DGEobj definition
+#'     myDGEobjDef <- initDGEobjDef()
+#'
+#'     # Optionally add some new types and levels for metabolomics data
+#'     myDGEobjDef <- initDGEobjDef(
+#'                         types <- c(MSQuant = "assay"),
+#'                         levels <- "metabolites",
+#'                         uniqueTypes <- "MSQuant"
+#'                         )
+#'
+#'
+#' @importFrom assertthat assert_that
+#'
+#' @export
+initDGEobjDef <- function(types, levels, uniqueTypes){
+
+    newDef <- DGEobj:::.DGEobjDef
+
+    if(!missing(types)){
+        assertthat::assert_that("character" %in% class(types),
+                                msg = "types argument must be a named character vector.")
+        assertthat::assert_that(!is.null(names(types)),
+                                msg = "The types vector must have names.")
+        #only new types allowed, reject if type name already exists
+        assertthat::assert_that(!any(names(types) %in% names (newDef$type)),
+            msg = "At least one of the new types already exists.")
+
+        #all type values must be a basetype
+        assertthat::assert_that(all(types %in% newDef$basetype),
+            msg = paste("The type values must be one of:", paste(newDef$basetype, collapse = " ")))
+
+        #add the new type(s)
+        newDef$type <- c(newDef$type, types)
+    }
+
+    if (!missing(levels)){
+        assertthat::assert_that("character" %in% class(levels),
+                                msg = "levels must be a character string or vector")
+        assertthat::assert_that(!any(levels %in% newDef$allowedLevels),
+                                msg = "Abort. Level already exists.")
+        #add the new level(s)
+        newDef$allowedLevels <- c(newDef$allowedLevels, levels)
+    }
+
+    if (!missing(uniqueTypes)){
+        assertthat::assert_that("character" %in% class(uniqueTypes),
+                                msg = "uniqueTypes must be a character string or vector")
+        assertthat::assert_that(all(uniqueTypes %in% names(newDef$type)),
+                                msg =  "Not a valid type.")
+        #add them and remove dups
+        newDef$uniqueType <- unique(c(newDef$uniqueType, uniqueTypes))
+    }
+
+    return(newDef)
+}
+

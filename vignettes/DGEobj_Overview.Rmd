@@ -827,9 +827,10 @@ newDgeObj <- setAttributes(dgeObj, list(date=date(), analyst="JRT"))
 
 ## Function showMeta  
 
-This function is intended to return any project oriented attributes assigned to
-the DGEobj using function `annotateDGEobj`.  It returns the attributes as a
-two column dataframe of Attribute/Value pairs.  
+This function returns any project annotation attached as attributes to
+the DGEobj using function `annotateDGEobj`.  It returns the attributes as a two
+column dataframe of Attribute/Value pairs.  It only returns attributes with
+character values.  
 
 ```{r showMeta}
 
@@ -837,6 +838,78 @@ MyMetadata <- kable(showMeta(dgeObj), "latex") %>%
   kableExtra::column_spec(2, width = "4in")
 
 ```
+
+# Technical Information
+
+Fundamentally, a DGEobj is a named list of data items.  R attributes are used to
+store information about the whole project as well as individual data items.
+Attributes are used to store project metadata supplied by the analyst.
+Attributes are also used to store data types and relationships in order to
+properly document the workflow.  
+ 
+## Project Meta Data
+
+User supplied meta data in the form of key/value pairs are attached to the
+DGEobj as attributes where the attribute name is the key and the attribute value
+is a character string.  These metaData attributes can be loaded from a text file
+using function `annotateDGEobj` or can be manipulated individually with the base
+R `attr` function.  The `showMeta` function displays these user supplied
+attributes.  
+
+## Workflow attributes
+
+Several attributes are used to capture information about each data item ("type",
+"basetype", "dateCreated" and "funArgs."), as well as relationships between them
+("parent").   The `inventory` function provides a convenient table view of these
+attributes.  Operationally, the value of each of these attributes is a named
+list where the names are the item names and the value is the value for that
+item.  For example, to query just the basetype of the "design" itemName:  
+
+```{r
+
+# generically: attr(DGEobj, "attributeName")[["itemName"]]
+attr(exObj, "basetype")[["design"]]
+
+```
+
+## Object Definition Attribute
+
+The last piece of information stored as an attribute is the object definition (objDef).
+This attribute holds all the pre-defined data type definitions and is updated by the
+`newType` function.  
+
+The objDef value is named list of vectors:  
+
+```{r objDef}
+
+names(attr(exObj, "objDef"))
+
+```
+
+1. basetype: a named character vector; defines the 4 basetypes: row, col, assay, meta.    
+2. type: a named character vector; the name is a data type (e.g. Log2CPM) and
+the value defines the basetype for that data type (e.g. "assay").  Us the
+`showTypes` function to inspect the list of pre-defined types.  
+3. uniqueType: a character vector; A list of types that can only exist once in a DGEobj.       
+4. allowedLevels: a character vector;  The value of Levels defines a domain for this data.
+For example, RNA-Seq data could be analyzed at the whole gene level, the isoform
+level or the exon level.  
+
+The `newType` function allows the user to define new types.  uniqueType and
+allowedLevels have been pre-defined for RNA-Seq and proteomics applications.
+Additional unique types or allowed levels can be added by manipulating the
+objDef attribute directly.  
+
+```{r addlevels}
+
+
+```
+
+
+##
+
+
+
 
 # Session Info
 

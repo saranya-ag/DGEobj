@@ -106,3 +106,5 @@
 
     allowedLevels = c("gene", "isoform", "exon", "proteingroup", "peptide", "ptm", "protein")
 )
+
+class(.DGEobjDef) <- "DGEobjDef"
