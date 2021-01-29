@@ -122,7 +122,8 @@ getAttributes <- function(dgeObj,
 }
 
 
-#' Retrieve the Key/Value metadata attributes
+#' Retrieve the Key/Value metadata attributes. Retrieves attributes with a
+#' character value and length = 1.
 #'
 #' @param dgeObj   A DGEobj with attributes
 #'
@@ -138,9 +139,10 @@ getAttributes <- function(dgeObj,
 #'
 #' @export
 showMeta <- function(dgeObj) {
+
     alist <- attributes(dgeObj)
 
-    idx <- lapply(alist, length) == 1
+    idx <- lengths(alist) == 1 & vapply(alist, is.character, logical(1))
 
     if (sum(idx) > 0) {
         suppressWarnings(

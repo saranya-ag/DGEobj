@@ -1,0 +1,34 @@
+
+# general project metadata
+
+level=gene
+source=https://github.com/cb4ds/DGEobj/blob/master/vignettes/DGEobj_Overview.Rmd
+ID=BDL_Rat_LiverSlice_03Dec2017
+Title=Rat Liver Slices from Bile Duct Ligation animals
+Organism=Rat
+GeneModel=Ensembl.R89
+PlatformType=RNA-Seq
+Description=Rat livers slices from sham or BDL +/- efficacious treatments incubated in vitro
+Keywords=Liver slices; Bile Duct Ligation
+Disease=Liver Fibrosis
+Tissue=Liver
+GEO=GSE120804
+
+# additional technical data processing attributes 
+
+Technology=Illumina-HiSeq
+LibraryPrep=TruSeq Stranded Total RNA 
+AlignmentReference=Rat.B6.0
+ReadType=PE
+Pipeline=RNA-Seq_BMS_v2.4.pscript
+AlignmentAlgorithm=OSA
+ScriptID=RNA-Seq_BMS_v2.4.pscript
+
+# institutional attributes
+
+BusinessUnit=Discovery
+FunctionalArea=Fibrosis
+Vendor=BMS
+TBio_Owner=Ron Ammar
+TA_Owner=John Huang
+
