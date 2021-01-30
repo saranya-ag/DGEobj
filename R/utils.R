@@ -104,7 +104,8 @@ inventory <- function(dgeObj, verbose = FALSE)  {
                            DateCreated = creationDates),
                      row.names = NULL)
     if (verbose == TRUE)
-        df$FunArgs <- unlist(FunArgs)
+        #sometimes FunARgs returns a character vector we'll collapse into one column.
+        df$FunArgs <- unlist(lapply(FunArgs, paste0, collapse="; "))
 
     return(df)
 }
